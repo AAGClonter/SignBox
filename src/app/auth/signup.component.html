@@ -1,0 +1,11 @@
+<form (ngSubmit)="onSubmit(f)" #f="ngForm">
+    <label for="email">Email Address:</label>
+    <input type="text" id="email" name="email" [ngModel]="user?.email">
+
+    <label for="pin">Password:</label>
+    <input type="password" id="pin" name="pin" [ngModel]="user?.pin">
+
+    <label for="confirmPin">Re-enter Password:</label>
+    <input type="password" id="confirmPin" name="confirmPin" [ngModel]="user?.confirmPin">
+    <button type="submit">Submit</button>
+</form>

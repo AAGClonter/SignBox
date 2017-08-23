@@ -1,0 +1,14 @@
+<h1>Boxes to Sign Out</h1>
+<ul>
+    <li *ngFor="let box of boxes" class="row">
+        <input type="checkbox">
+        <h4>For: {{box.addressedTo}}</h4>
+        <p>Tracking Number: {{box.tracking}}</p>
+        <button type="button" [routerLink]="['/boxtonotify', box.id]">Notify</button>
+        <button type="button">Edit</button>
+        <button type="button" [routerLink]="['/boxtosignout', box.id]">Sign Out</button>
+        <hr>
+    </li>
+</ul>
+
+

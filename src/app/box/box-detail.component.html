@@ -1,0 +1,13 @@
+<div class="row" *ngIf="box">
+    <h3>Tracking Number:</h3>
+    <p>{{box.tracking}}</p>
+
+    <h3>Addressed To:</h3>
+    <p>{{box.addressedTo}}</p>
+    <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+        <label for="signedBy">Signed by:</label>
+        <input type="text" id="signedBy" name="signedBy" [ngModel]="box?.signedBy">
+        <button type="button" (click)="goBack()">Back</button>
+        <button type="submit">Sign Out</button>
+    </form>
+</div>
