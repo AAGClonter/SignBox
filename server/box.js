@@ -1,46 +1,64 @@
 var express = require('express');
 var nodemailer = require('nodemailer');
+var jwt = require('jsonwebtoken');
 var router = express.Router();
 
 var Box = require('../models/box');
 var Employee = require('../models/employee');
 var Email = require('../models/email');
 var ErasedBox = require('../models/erasedBoxes');
+var User = require('../models/users');
 
 //GET all the boxes
 router.get('/boxes', function(req, res, next){
-    Box.find({}).exec(function(err, boxes){
+    Box.find()
+        .populate('boxtosignout/:id', '_id')
+        .exec(function(err, boxes){
         if (err) {
             return res.status(500).json({
                 message: 'An error occurred',
                 error: err
             });
         }
-        res.json(boxes);
+        res.status(200).json({
+            message: 'Messages found',
+            obj: boxes
+        });
     });
 });
 //POST a box
 router.post('/boxsignin', function(req, res, next){
-    if (req.body.tracking && req.body.addressedTo) {
-        var box = new Box({
-            tracking: req.body.tracking,
-            addressedTo: req.body.addressedTo,
-            signedBy: req.body.signedBy
-        });
-        box.save(function(err, result){
+    var decoded = jwt.decode(req.query.token);
+        User.findById(decoded.user._id, function(err, user){
             if (err) {
                 return res.status(500).json({
-                    message: 'An error occurred',
+                    message: 'An error has occurred',
                     error: err
-                })
+                });
             }
-            res.status(201).json({
-                message: 'Box saved',
-                obj: result
+
+            var box = new Box({
+                tracking: req.body.tracking,
+                addressedTo: req.body.addressedTo,
+                signedBy: req.body.signedBy,
+                user: user
             });
-        });
-    }
-        
+
+            box.save(function(err, box){
+                if (err) {
+                    return res.status(500).json({
+                        message: 'An error occurred',
+                        error: err
+                    });
+                }
+                user.boxesSignedIn.push(box);
+                user.save();
+                res.status(201).json({
+                    message: 'Box created',
+                    obj: box
+                });
+            });
+        });   
 });
 //GET one box
 router.get('/boxtonotify/:id', function(req, res, next){
@@ -66,10 +84,10 @@ router.get('/boxtosignout/:id', function(req, res, next){
                 error: err
             });
         }
-        res.status(200).json({
-            message: 'Box found',
-            obj: box
-        });
+       res.status(200).json({
+           message: 'Box found',
+           obj: box
+       })
     });
 });
 //DELETE request for sign out
@@ -91,26 +109,12 @@ router.post('/boxtosignout/:id', function(req, res, next){
                 error: err
             });
         }
-        var erasedBox = new ErasedBox({
-            tracking: box.tracking,
-            addressedTo: box.addressedTo,
-            signedBy: req.body.signedBy
-        });
-
-        erasedBox.save(function(err, result){
-            if (err) {
-                return res.status(500).json({
-                    message: 'An error occurred',
-                    error: err
-                });
-            } 
             res.status(200).json({
                 message: 'Box erased',
-                obj: result
+                obj: box
             });  
         });
     });
-});
 //PUT a box
 router.patch('/boxtosignout/:id', function(req, res, next){
     Box.findById(req.params.id, function(err, box){

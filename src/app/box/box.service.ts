@@ -18,14 +18,18 @@ export class BoxService {
     signinBox(box: Box) {
         const body = JSON.stringify(box);
         const headers = new Headers({'Content-type': 'application/json'});
-        return this.http.post('http://localhost:3000/boxsignin', body, {headers: headers})
+        const token = localStorage.getItem('token') 
+        ? '?token=' + localStorage.getItem('token')
+        : '';
+        return this.http.post('http://localhost:3000/boxsignin' + token, body, {headers: headers})
                     .map((response: Response) => {
                         const result = response.json();
                         const box = new Box(
                             result.obj.tracking,
                             result.obj.addressedTo,
                             result.obj.signedBy,
-                            result.obj._id
+                            result.obj._id,
+                            result.obj.user._id
                         );
                         this.boxes.push(box);
                         return box;
@@ -34,12 +38,30 @@ export class BoxService {
     }
     getBoxes() {
         return this.http.get('http://localhost:3000/boxes')
-                .map((response: Response) => response.json())
+                .map((response: Response) => response.json().obj)
                 .catch((error: Response) => Observable.throw(error.json()));
     }
-
+    /*
     getBox(id: string) {
         return this.http.get('http://localhost:3000/boxtosignout/' + id)
+                        .map( boxes => this.boxes.find(box => box.id === id))
+                        .catch((error: Response) => Observable.throw(error.json()));
+    }
+    */
+         getBox(id: number | string) {
+                return this.getBoxes()
+      // (+) before `id` turns the string into a number
+                            .map(heroes => heroes.find(hero => hero.id === id));
+  
+        /*
+        return this.http.get('http://localhost:3000/boxtosignout/' + id)
+                        .map(boxes => this.boxes.find(box => box.id === id))
+                        .catch((error: Response) => Observable.throw(error.json()));
+                        */
+    }
+
+    getBoxNotify(id: string) {
+        return this.http.get('http://localhost:3000/boxtonotify/' + id)
                         .map((response: Response) => response.json())
                         .catch((error: Response) => Observable.throw(error.json()));
     }

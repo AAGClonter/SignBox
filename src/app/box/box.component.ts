@@ -11,8 +11,7 @@ import { Box } from './box.model';
     styleUrls: ['./box.component.css'],
 })
 export class BoxComponent implements OnInit{
-        boxes: Box[];
-    selectedBox: Box;
+    boxes: Box[];
 
     constructor(private boxService: BoxService, 
                 private router: Router,
@@ -27,7 +26,6 @@ export class BoxComponent implements OnInit{
             data => this.boxes = data
         );
     }
-
 }
 
 

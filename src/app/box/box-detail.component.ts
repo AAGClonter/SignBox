@@ -18,7 +18,8 @@ import { BoxService } from './box.service';
     templateUrl: 'box-detail.component.html'
 })
 export class BoxDetailComponent implements OnInit {
-    @Input() box: Box;
+     box$: Observable<Box>;
+     id: string;
 
     constructor(private boxService: BoxService,
                 private route: ActivatedRoute,
@@ -26,9 +27,19 @@ export class BoxDetailComponent implements OnInit {
                 private router: Router) {}
 
     ngOnInit(): void {
-       this.route.paramMap.switchMap((params: Params) => 
-            this.boxService.getBox(params.get('id')))
-                    .subscribe(box => this.box = box); 
+        
+       this.box$ = this.route.paramMap
+      .switchMap((params: ParamMap) =>
+        this.boxService.getBox(params.get('id')));
+      
+      /*
+      this.route.params
+                .subscribe(
+                    (params: Params) => {
+                       this.box = this.boxService.getBox(params['id']);
+                    }
+                );
+                */
     }
    
     goBack(): void {
@@ -42,7 +53,7 @@ export class BoxDetailComponent implements OnInit {
                 });
             this.router.navigateByUrl('/boxes');
    }
-
+   /*
    onSubmit(form: NgForm){
        const erasedBox = new ErasedBox(this.box.tracking, this.box.addressedTo, form.value.signedBy);
        this.boxService.eraseBox(this.box, erasedBox)
@@ -55,5 +66,6 @@ export class BoxDetailComponent implements OnInit {
                             result => console.log(result);
                         })
    }
+   */
 }
    

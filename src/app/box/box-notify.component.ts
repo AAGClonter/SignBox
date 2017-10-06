@@ -17,8 +17,8 @@ export class BoxNotifyComponent implements OnInit {
                 private location: Location) {}
     ngOnInit(): void {
        this.route.paramMap.switchMap((params: ParamMap) => 
-            this.boxService.getBox(params.get('id')))
-                    .subscribe(box => this.box = box); 
+            this.boxService.getBoxNotify(params.get('id')))
+                    .subscribe((box: Box) => this.box = box); 
     }
 
     sendEmail(box: Box){
