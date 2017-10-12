@@ -14,7 +14,7 @@ import 'rxjs/add/operator/switchMap';
     templateUrl: './box-notify.component.html'
 })
 export class BoxNotifyComponent implements OnInit {
-     @Input() box: Observable<Box>;
+     @Input() box: Box;
 
     constructor(private boxService: BoxService,
                 private route: ActivatedRoute,
@@ -22,9 +22,10 @@ export class BoxNotifyComponent implements OnInit {
     
     
     ngOnInit(): void {
-    this.box = this.route.paramMap
+        this.route.paramMap
                 .switchMap((params: ParamMap) =>
-                    this.boxService.getBox(params.get('id')));
+                    this.boxService.getBox(params.get('id')))
+                                .subscribe( box => this.box = box);
     }
 
     sendEmail(box: Box){

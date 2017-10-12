@@ -41,19 +41,20 @@ export class BoxService {
                 .map((response: Response) => response.json().obj)
                 .catch((error: Response) => Observable.throw(error.json()));
     }
-    /*
+    
     getBox(id: string) {
-        return this.http.get('http://localhost:3000/boxes/' + id)
-                        .map( boxes => this.boxes.find(box => box.id === id))
+        return this.http.get('http://localhost:3000/boxtosignout/' + id)
+                        .map((response: Response) => response.json().obj)
                         .catch((error: Response) => Observable.throw(error.json()));
     }
-    */
+        /*
          getBox(id: string): Observable<Box> {
                 return this.getBoxes()
                             .map(boxes => this.boxes.filter(box => box.id === id))
                             .catch((error: Response) => Observable.throw(error.json()));
           
          }
+         */
         /*
         return this.http.get('http://localhost:3000/boxtosignout/' + id)
                         .map(boxes => this.boxes.find(box => box.id === id))

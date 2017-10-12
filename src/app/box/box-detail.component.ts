@@ -24,12 +24,12 @@ export class BoxDetailComponent implements OnInit {
                 private location: Location,
                 private router: Router) {}
 
-    @Input() box: Observable<Box>;
+    @Input() box: Box;
 
     ngOnInit() {
-         this.box = this.route.paramMap
-                             .switchMap((params: ParamMap) =>
-                                 this.boxService.getBox(params.get('_id')));
+         this.route.params
+            .switchMap((params: Params) => this.boxService.getBox(params['id']))
+            .subscribe(box => this.box = box);
     }
     
     goBack(): void {
