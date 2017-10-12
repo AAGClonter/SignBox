@@ -12,7 +12,7 @@ var User = require('../models/users');
 //GET all the boxes
 router.get('/boxes', function(req, res, next){
     Box.find()
-        .populate('boxtosignout/:id', '_id')
+        .populate('/user', 'boxSignedIn')
         .exec(function(err, boxes){
         if (err) {
             return res.status(500).json({

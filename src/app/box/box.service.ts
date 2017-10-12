@@ -11,7 +11,7 @@ import { Email } from './email.model';
 @Injectable()
 export class BoxService {
     
-    private boxes: Box[] = [];
+     private boxes: Box[] = [];
 
     constructor(private httpClient: HttpClient, private http: Http) {}
 
@@ -36,33 +36,34 @@ export class BoxService {
                     })
                     .catch((error: Response) => Observable.throw(error.json()));
     }
-    getBoxes() {
+    getBoxes(){
         return this.http.get('http://localhost:3000/boxes')
                 .map((response: Response) => response.json().obj)
                 .catch((error: Response) => Observable.throw(error.json()));
     }
     /*
     getBox(id: string) {
-        return this.http.get('http://localhost:3000/boxtosignout/' + id)
+        return this.http.get('http://localhost:3000/boxes/' + id)
                         .map( boxes => this.boxes.find(box => box.id === id))
                         .catch((error: Response) => Observable.throw(error.json()));
     }
     */
-         getBox(id: number | string) {
+         getBox(id: string): Observable<Box> {
                 return this.getBoxes()
-      // (+) before `id` turns the string into a number
-                            .map(heroes => heroes.find(hero => hero.id === id));
-  
+                            .map(boxes => this.boxes.filter(box => box.id === id))
+                            .catch((error: Response) => Observable.throw(error.json()));
+          
+         }
         /*
         return this.http.get('http://localhost:3000/boxtosignout/' + id)
                         .map(boxes => this.boxes.find(box => box.id === id))
                         .catch((error: Response) => Observable.throw(error.json()));
-                        */
+                        
     }
-
+    */
     getBoxNotify(id: string) {
         return this.http.get('http://localhost:3000/boxtonotify/' + id)
-                        .map((response: Response) => response.json())
+                        .map(boxes => this.boxes.map(box => box.id = id))
                         .catch((error: Response) => Observable.throw(error.json()));
     }
 
