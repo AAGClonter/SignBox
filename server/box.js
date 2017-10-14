@@ -92,6 +92,7 @@ router.get('/boxtosignout/:id', function(req, res, next){
 });
 //DELETE request for sign out
 router.delete('/boxtosignout/:id', function(req, res, next){
+    //var decoded = jwt.decode(req.query.token);
 	Box.findByIdAndRemove(req.params.id, function(err, box){
 		if (err) return next(err);
 		res.status(200).json({

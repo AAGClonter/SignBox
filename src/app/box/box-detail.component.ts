@@ -36,19 +36,23 @@ export class BoxDetailComponent implements OnInit {
         this.location.back();
     }
    
+   
    deleteBox(box: Box){
         this.boxService.deleteBox(box)
-                .subscribe((response: Response) => {
-                    result => console.log(result);
-                });
+                .subscribe(
+                    result => console.log(result),
+                    error => console.error(error)
+                );
             this.router.navigateByUrl('/boxes');
    }
+   
    /*
    onSubmit(form: NgForm){
-        this.boxService.deleteBox(box)
-                        .subscribe((response: Response) => {
-                            result => console.log(result);
-                        })
+        this.boxService.deleteBox(this.box)
+                        .subscribe(
+                            result => console.log(result)
+                        );
+        this.router.navigateByUrl('/boxes');
    }
    */
 }

@@ -15,8 +15,9 @@ import 'rxjs/add/operator/switchMap';
     styleUrls: ['./box.component.css'],
 })
 export class BoxComponent implements OnInit{
+     
      boxes: Box[];
-     selectedBox: Box;
+
     constructor(private boxService: BoxService,
                 private route: Router){}
    
@@ -30,10 +31,6 @@ export class BoxComponent implements OnInit{
 
     ngOnInit(){
         this.getBoxes();
-    }
-    
-    onSelect(box: Box){
-        this.route.navigate(['/boxtosignout', box.id]);
     }
     
 }

@@ -47,47 +47,29 @@ export class BoxService {
                         .map((response: Response) => response.json().obj)
                         .catch((error: Response) => Observable.throw(error.json()));
     }
-        /*
-         getBox(id: string): Observable<Box> {
-                return this.getBoxes()
-                            .map(boxes => this.boxes.filter(box => box.id === id))
-                            .catch((error: Response) => Observable.throw(error.json()));
-          
-         }
-         */
-        /*
-        return this.http.get('http://localhost:3000/boxtosignout/' + id)
-                        .map(boxes => this.boxes.find(box => box.id === id))
-                        .catch((error: Response) => Observable.throw(error.json()));
-                        
-    }
-    */
-    getBoxNotify(id: string) {
-        return this.http.get('http://localhost:3000/boxtonotify/' + id)
-                        .map(boxes => this.boxes.map(box => box.id = id))
-                        .catch((error: Response) => Observable.throw(error.json()));
-    }
 
     patchBox(box: Box) {
         const body = JSON.stringify(box);
         const headers = new Headers({'Content-type': 'application/json'});
-        return this.http.patch('http://localhost:3000/boxes/' + box.id, body, {headers: headers})
+        return this.http.patch('http://localhost:3000/boxes/' + box._id, body, {headers: headers})
                     .map((response: Response) => response.json())
                     .catch((error: Response) => Observable.throw(error.json()));
     }
 
     deleteBox(box: Box){
         this.boxes.splice(this.boxes.indexOf(box), 1);
-        const headers = new Headers({'Content-type': 'application/json'});
-        return this.http.delete('http://localhost:3000/boxtosignout/' + box.id, {headers: headers})
-            .map((response: Response) => response.json())
+        //const token = localStorage.getItem('token') 
+        //? '?token=' + localStorage.getItem('token')
+        //: '';
+        return this.http.delete('http://localhost:3000/boxtosignout/' + box._id /*+ token*/)
+            .map((response: Response) => response.json().obj)
             .catch((error: Response) => Observable.throw(error.json()));
     }
 
     eraseBox(box: Box, erasedBox: ErasedBox){
         const body = JSON.stringify(box);
         const headers = new Headers({'Content-type': 'application/json'});
-        return this.http.post('http://localhost:3000/boxtosignout/' + box.id, {headers: headers})
+        return this.http.post('http://localhost:3000/boxtosignout/' + box._id, {headers: headers})
                         .map((response: Response) => {
                             const result = response.json();
                             const erasedBox = new ErasedBox(
@@ -104,7 +86,7 @@ export class BoxService {
     emailBox(box: Box){
         const body = JSON.stringify(box);
         const headers = new Headers({'Content-type': 'application/json'});
-        return this.http.post('http://localhost:3000/boxtonotify/' + box.id, body, {headers: headers})
+        return this.http.post('http://localhost:3000/boxtonotify/' + box._id, body, {headers: headers})
                         .map((response: Response) => {
                             const result = response.json();
                             const email = new Email(
