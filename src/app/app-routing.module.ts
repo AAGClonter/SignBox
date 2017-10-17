@@ -12,8 +12,8 @@ import { LogoutComponent } from './auth/logout.component';
 const routes: Routes = [
     { path: '', redirectTo: 'signup', pathMatch: 'full' },
     { path: 'boxsignin', component: BoxInputComponent },
-    { path: 'boxtosignout/:id', component: BoxDetailComponent },
-    { path: 'boxtonotify/:id', component: BoxNotifyComponent },
+    { path: 'boxtosignout/:id/boxsignout', component: BoxDetailComponent },
+    { path: 'boxtonotify/:id/boxnotify', component: BoxNotifyComponent },
     { path: 'boxes', component: BoxComponent },
     { path: 'signup', component: SignupComponent },
     { path: 'signin', component: SigninComponent },

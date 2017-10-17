@@ -61,7 +61,7 @@ export class BoxService {
         //const token = localStorage.getItem('token') 
         //? '?token=' + localStorage.getItem('token')
         //: '';
-        return this.http.delete('http://localhost:3000/boxtosignout/' + box._id /*+ token*/)
+        return this.http.delete('http://localhost:3000/boxtosignout/' + box._id + '/boxsignout'/*+ token*/)
             .map((response: Response) => response.json().obj)
             .catch((error: Response) => Observable.throw(error.json()));
     }
@@ -86,7 +86,7 @@ export class BoxService {
     emailBox(box: Box){
         const body = JSON.stringify(box);
         const headers = new Headers({'Content-type': 'application/json'});
-        return this.http.post('http://localhost:3000/boxtonotify/' + box._id, body, {headers: headers})
+        return this.http.post('http://localhost:3000/boxtonotify/' + box._id + '/boxnotify', body, {headers: headers})
                         .map((response: Response) => {
                             const result = response.json();
                             const email = new Email(

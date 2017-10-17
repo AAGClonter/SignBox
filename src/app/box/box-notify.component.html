@@ -3,7 +3,7 @@
     <h1>{{box.addressedTo}}</h1>
     <h3>{{box.tracking}}</h3>
     <label for="content">Add specifications if needed</label>
-    <textarea id="content" name="content"></textarea>
+    <textarea id="content" name="content" [ngModel]="box?.content"></textarea>
     <button type="button" (click)="goBack()">Back</button>
     <button type="submit" (click)="sendEmail(box)">Send Notification</button>
 </div>

@@ -91,7 +91,7 @@ router.get('/boxtosignout/:id', function(req, res, next){
     });
 });
 //DELETE request for sign out
-router.delete('/boxtosignout/:id', function(req, res, next){
+router.delete('/boxtosignout/:id/boxsignout', function(req, res, next){
     //var decoded = jwt.decode(req.query.token);
 	Box.findByIdAndRemove(req.params.id, function(err, box){
 		if (err) return next(err);
@@ -148,7 +148,7 @@ router.patch('/boxtosignout/:id', function(req, res, next){
 });
 
 //Notifying a box
-router.post('/boxtonotify/:id', function(req, res, next){
+router.post('/boxtonotify/:id/boxnotify', function(req, res, next){
     Box.findById(req.params.id, function(err, box){
         if (err) {
             return res.status(500).json({
@@ -175,7 +175,7 @@ router.post('/boxtonotify/:id', function(req, res, next){
 
                 var email = new Email({
                     boxTracking: box.tracking,
-                    boxEmployee: box.addressedTo[0]
+                    boxEmployee: box.addressedTo
                 });
                 //Creating mail optinos
                 var mailOptions = {
