@@ -14,6 +14,6 @@ export class LogoutComponent {
 
     onLogOut(){
         this.userService.logout();
-        this.router.navigateByUrl('/signin');
+        this.router.navigateByUrl('/boxes');
     }
 }

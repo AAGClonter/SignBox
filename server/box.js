@@ -162,6 +162,12 @@ router.post('/boxtonotify/:id/boxnotify', function(req, res, next){
                 error: err
             });
         }
+                
+                var email = new Email({
+                    boxTracking: box.tracking,
+                    boxEmployee: box.addressedTo
+                });
+
          var smtpTransport = nodemailer.createTransport({
                     service: "gmail",
                     host: "smtp.gmail.com",
@@ -173,17 +179,13 @@ router.post('/boxtonotify/:id/boxnotify', function(req, res, next){
                     }
                 });
 
-                var email = new Email({
-                    boxTracking: box.tracking,
-                    boxEmployee: box.addressedTo
-                });
                 //Creating mail optinos
                 var mailOptions = {
                     from: 'pandy_2013@hotmail.com', // sender address
                     to: 'andyalcantara745@yahoo.com', // list of receivers
                     subject: 'You have a box waiting for you', // Subject line
-                    text: 'There is a box with the tracking:' + box.tracking + 'waiting for you',
-                    html: '<p>This is a test</p>' // plain text body
+                    text: 'There is a box with the tracking:' + box.tracking + ' waiting for you'
+                    //html: '<p>This is a test</p>' // plain text body
                 };
 
         // send mail with defined transport object

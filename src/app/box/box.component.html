@@ -3,7 +3,6 @@
     <li class="row" *ngFor="let box of boxes">
         <h4>For: {{box.addressedTo}}</h4>
         <p>Tracking Number: {{box.tracking}}</p>
-        <p>Id: {{box._id}}</p>
         <button type="button" [routerLink]="['/boxtonotify', box._id, 'boxnotify']">Notify</button>
         <button type="button">Edit</button>
         <button type="button" [routerLink]="['/boxtosignout', box._id, 'boxsignout']">Sign Out</button>
