@@ -14,13 +14,14 @@ export class BoxInputComponent {
     constructor(private boxService: BoxService) {}
 
     onSubmit(form: NgForm) {
-        const box = new Box(form.value.tracking, form.value.addressedTo);
-        this.boxService.signinBox(box).subscribe(
+            const box = new Box(form.value.tracking, form.value.addressedTo);
+            this.boxService.signinBox(box).subscribe(
             data => {
                 console.log(data)
             },
             error => console.error(error)
         );
+        
         form.resetForm();
     }
 }

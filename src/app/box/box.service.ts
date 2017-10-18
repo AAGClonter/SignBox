@@ -65,7 +65,7 @@ export class BoxService {
             .map((response: Response) => response.json().obj)
             .catch((error: Response) => Observable.throw(error.json()));
     }
-
+    /*
     eraseBox(box: Box, erasedBox: ErasedBox){
         const body = JSON.stringify(box);
         const headers = new Headers({'Content-type': 'application/json'});
@@ -82,7 +82,7 @@ export class BoxService {
                         })
                         .catch((error: Response) => Observable.throw(error.json()));
     }
-
+    */
     emailBox(box: Box){
         const body = JSON.stringify(box);
         const headers = new Headers({'Content-type': 'application/json'});
