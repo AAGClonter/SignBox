@@ -7,11 +7,13 @@ import { Observable } from "rxjs";
 import { Box } from './box.model';
 import { ErasedBox } from './erasedBox.model';
 import { Email } from './email.model';
+import { Employee } from './employee.model';
 
 @Injectable()
 export class BoxService {
     
      private boxes: Box[] = [];
+     private employees: Employee[] = [];
 
     constructor(private httpClient: HttpClient, private http: Http) {}
 
@@ -41,7 +43,12 @@ export class BoxService {
                 .map((response: Response) => response.json().obj)
                 .catch((error: Response) => Observable.throw(error.json()));
     }
-    
+    //Getting employees
+    getEmployees(){
+        return this.http.get('http://localhost:3000/employee')
+                .map((response: Response) => response.json().obj)
+                .catch((error: Response) => Observable.throw(error.json()));
+    }
     getBox(id: string) {
         return this.http.get('http://localhost:3000/boxtosignout/' + id)
                         .map((response: Response) => response.json().obj)

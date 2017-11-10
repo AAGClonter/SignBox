@@ -6,7 +6,12 @@ import { User } from './user.model';
 
 @Component({
     selector: 'app-signup',
-    templateUrl: 'signup.component.html'
+    templateUrl: 'signup.component.html',
+    styles: [`
+        button {
+            margin-top: 15px;
+        }
+    `]
 })
 export class SignupComponent implements OnInit{
     signUpForm: FormGroup;

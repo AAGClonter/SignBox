@@ -12,7 +12,7 @@ var User = require('../models/users');
 //GET all the boxes
 router.get('/boxes', function(req, res, next){
     Box.find()
-        .populate('/user', 'boxSignedIn')
+        .populate('boxes', 'addressedTo')
         .exec(function(err, boxes){
         if (err) {
             return res.status(500).json({
@@ -21,7 +21,7 @@ router.get('/boxes', function(req, res, next){
             });
         }
         res.status(200).json({
-            message: 'Messages found',
+            message: 'Boxes found',
             obj: boxes
         });
     });
@@ -201,6 +201,43 @@ router.post('/boxtonotify/:id/boxnotify', function(req, res, next){
                     obj: email
                 });
             });
+        });
+    });
+});
+
+////////////////////////////////Employee related routes///////////////////////////
+//Getting every employee
+router.get('/employee', function(req, res, next){
+    Employee.find({}, function(err, employees){
+        if (err) {
+            return res.status(500).json({
+                message: 'An error has occurred',
+                error: err
+            });
+        }
+        res.status(200).json({
+            message: 'Employees found',
+            obj: employees
+        })
+    });
+});
+
+router.post('/employees', function(req, res, next){
+    var employee = new Employee({
+        name: 'Pandy Alcantara',
+        email: 'pandy_2013@hotmail.com'
+    });
+
+    employee.save(function(err, employee){
+        if (err) {
+            return res.status(500).json({
+                message: 'An error occurred',
+                error: err
+            })
+        }
+        res.status(200).json({
+            message: 'Employee saved',
+            obj: employee
         });
     });
 });

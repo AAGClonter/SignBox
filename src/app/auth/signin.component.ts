@@ -7,7 +7,12 @@ import { UserService } from './user.service';
 
 @Component({
     selector: 'app-signin',
-    templateUrl: './signin.component.html'
+    templateUrl: './signin.component.html',
+    styles: [`
+        button {
+            margin-top: 25px;
+        }
+    `]
 })
 export class SigninComponent {
 

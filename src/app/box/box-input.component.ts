@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 import { BoxService } from './box.service';
 import { Box } from './box.model';
+import { Employee } from './employee.model';
 
 @Component({
     selector: 'app-box-input',
@@ -11,10 +12,24 @@ import { Box } from './box.model';
 })
 export class BoxInputComponent {
 
+    employees: Employee[];
+
     constructor(private boxService: BoxService) {}
 
+    getEmployees(){
+        this.boxService.getEmployees().subscribe(
+            (employees: Employee[]) => {
+                this.employees = employees;
+            }
+        );
+    }
+
+    ngOnInit(){
+        this.getEmployees();
+    }
+
     onSubmit(form: NgForm) {
-            const box = new Box(form.value.tracking, form.value.addressedTo);
+            const box = new Box(form.value.tracking, form.value.employee);
             this.boxService.signinBox(box).subscribe(
             data => {
                 console.log(data)
@@ -24,4 +39,6 @@ export class BoxInputComponent {
         
         form.resetForm();
     }
+
+
 }
