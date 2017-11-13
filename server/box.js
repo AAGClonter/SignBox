@@ -162,13 +162,26 @@ router.post('/boxtonotify/:id/boxnotify', function(req, res, next){
                 error: err
             });
         }
-                
-                var email = new Email({
+        Employee.find({name: box.addressedTo}, function(err, employee){
+            if (err) {
+                return res.status(500).json({
+                    message: 'An error occurred',
+                    error: err
+                });
+            }
+            if (!employee) {
+                return res.status(500).json({
+                    message: 'Employee not found',
+                    error: err
+                });
+            }
+
+            var email = new Email({
                     boxTracking: box.tracking,
-                    boxEmployee: box.addressedTo
+                    boxEmployee: employee.name
                 });
 
-         var smtpTransport = nodemailer.createTransport({
+            var smtpTransport = nodemailer.createTransport({
                     service: "gmail",
                     host: "smtp.gmail.com",
                     port: 465,
@@ -182,7 +195,7 @@ router.post('/boxtonotify/:id/boxnotify', function(req, res, next){
                 //Creating mail optinos
                 var mailOptions = {
                     from: 'pandy_2013@hotmail.com', // sender address
-                    to: 'andyalcantara745@yahoo.com', // list of receivers
+                    to: employee.email, // list of receivers
                     subject: 'You have a box waiting for you', // Subject line
                     text: 'There is a box with the tracking:' + box.tracking + ' waiting for you'
                     //html: '<p>This is a test</p>' // plain text body
@@ -201,6 +214,7 @@ router.post('/boxtonotify/:id/boxnotify', function(req, res, next){
                     obj: email
                 });
             });
+        });
         });
     });
 });

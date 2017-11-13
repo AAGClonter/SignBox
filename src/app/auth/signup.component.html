@@ -1,10 +1,10 @@
 <div class="container">
-    <div class="row">
+    <div class="row offset-md-3 down">
         <h1>Sign Up Here</h1>
     </div>
     <div class="row">
         <div class="offset-md-4">
-            <form (ngSubmit)="onSubmit(f)" #f="ngForm" class="form-group col-md-4">
+            <form (ngSubmit)="onSubmit(f)" #f="ngForm" class="form-group down">
                 <div class="row">
                     <label for="email">Email Address:</label>
                     <input type="text" id="email" name="email" [ngModel]="user?.email" class="form-control">

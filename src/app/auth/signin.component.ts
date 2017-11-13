@@ -9,7 +9,11 @@ import { UserService } from './user.service';
     selector: 'app-signin',
     templateUrl: './signin.component.html',
     styles: [`
-        button {
+        .down {
+            margin-top: 40px;
+        }
+        
+        .another {
             margin-top: 25px;
         }
     `]

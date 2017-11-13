@@ -15,7 +15,12 @@ import { BoxService } from './box.service';
 
 @Component({
     selector: 'app-box-detail',
-    templateUrl: 'box-detail.component.html'
+    templateUrl: 'box-detail.component.html',
+    styles: [`
+        .down {
+            margin-top: 40px;
+        }
+    `]
 })
 export class BoxDetailComponent implements OnInit {
    

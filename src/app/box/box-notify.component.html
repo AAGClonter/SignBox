@@ -1,9 +1,19 @@
-<h1>Email View for Notification</h1>
-<div class="row" *ngIf="box">
-    <h1>{{box.addressedTo}}</h1>
-    <h3>{{box.tracking}}</h3>
-    <label for="content">Add specifications if needed</label>
-    <textarea id="content" name="content" [ngModel]="box?.content"></textarea>
-    <button type="button" (click)="goBack()">Back</button>
-    <button type="submit" (click)="sendEmail(box)">Send Notification</button>
+<div class="container">
+        <div class="row">
+            <h1>Email Notification</h1>
+        </div>
+        <div *ngIf="box">
+            <div class="row">
+                <h1>{{box.addressedTo}}</h1>
+            </div>
+            <div class="row">
+                <h3>{{box.tracking}}</h3>
+            </div>
+        </div>
+            <form class="form-group">
+                <label for="content">Add specifications if needed</label>
+                <textarea id="content" name="content" [ngModel]="box?.content" class="form-control" rows="3"></textarea>
+            </form>
+            <button type="button" (click)="goBack()" class="btn btn-secondary">Back</button>
+            <button type="submit" (click)="sendEmail(box)" class="btn btn-primary">Send Notification</button>
 </div>

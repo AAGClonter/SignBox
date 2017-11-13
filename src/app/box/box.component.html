@@ -1,13 +1,38 @@
-<h1>Boxes to Sign Out</h1>
+<div class="col down">
+    <h1>Boxes to Sign Out</h1>
+</div>
+<div class="row down">
+   <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Tracking Number</th>
+      <th scope="col">Addressed To</th>
+      <th scope="col">Signed By</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let box of boxes">
+      <th scope="row">{{box.tracking}}</th>
+      <td>{{box.addressedTo}}</td>
+      <td>{{box.signedBy}}</td>
+      <button type="button" [routerLink]="['/boxtonotify', box._id, 'boxnotify']" class="btn btn-info">Notify</button>
+        <button type="button" class="btn btn-warning">Edit</button>
+        <button type="button" [routerLink]="['/boxtosignout', box._id, 'boxsignout']" class="btn btn-danger">Sign Out</button>
+    </tr>
+  </tbody>
+</table>
+</div>
+<!--
 <ul>
     <li class="row" *ngFor="let box of boxes">
         <h4>For: {{box.addressedTo}}</h4>
         <p>Tracking Number: {{box.tracking}}</p>
-        <button type="button" [routerLink]="['/boxtonotify', box._id, 'boxnotify']">Notify</button>
-        <button type="button">Edit</button>
-        <button type="button" [routerLink]="['/boxtosignout', box._id, 'boxsignout']">Sign Out</button>
+        <button type="button" [routerLink]="['/boxtonotify', box._id, 'boxnotify']" class="btn btn-info">Notify</button>
+        <button type="button" class="btn btn-warning">Edit</button>
+        <button type="button" [routerLink]="['/boxtosignout', box._id, 'boxsignout']" class="btn btn-danger">Sign Out</button>
         <hr>
     </li>
 </ul>
+-->
 
 

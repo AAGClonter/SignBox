@@ -11,6 +11,9 @@ import { User } from './user.model';
         button {
             margin-top: 15px;
         }
+        .down {
+            margin-top: 40px;
+        }
     `]
 })
 export class SignupComponent implements OnInit{
