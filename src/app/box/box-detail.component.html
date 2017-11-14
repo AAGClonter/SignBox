@@ -12,13 +12,13 @@
         <div class="row">
             <p>{{box.addressedTo}}</p>
         </div>
-    <form class="form-group">
+    <form (ngSubmit)="onSubmit(f)" class="form-group" #f="ngForm">
         <div>
             <label for="signedBy">Signed by:</label>
-            <input type="text" id="signedBy" name="signedBy" [ngModel]="box?.signedBy" class="form-control col-md-4">
+            <input type="text" id="signedBy" name="signedBy" [ngModel]="erasedBox?.signedBy" class="form-control col-md-4">
         </div>
             <button type="button" (click)="goBack()" class="btn btn-secondary down">Back</button>
-            <button type="submit" (click)="deleteBox(box)" class="btn btn-danger down">Sign Out</button>
+            <button type="submit" class="btn btn-danger down">Sign Out</button>
          </form>
     </div>
 </div>

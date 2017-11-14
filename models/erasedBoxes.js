@@ -1,10 +1,12 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
+var Box = require('./box');
+var Employee = require('./employee');
+
 var schema = new Schema({
-    tracking: { type: String },
-    addressedTo: { type: String },
-    signedBy: { type: String, required: true}
+    box: { type: Schema.Types.ObjectId, ref: 'Box' },
+    signedBy: { type: String, ref: 'Employee'}
 });
 
 module.exports = mongoose.model('ErasedBox', schema);

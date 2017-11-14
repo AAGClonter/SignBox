@@ -101,6 +101,7 @@ router.delete('/boxtosignout/:id/boxsignout', function(req, res, next){
         });
 	});
 });
+/*
 //POST request (erased box)
 router.post('/boxtosignout/:id', function(req, res, next){
     Box.findById(req.params.id, function(err, box){
@@ -116,8 +117,9 @@ router.post('/boxtosignout/:id', function(req, res, next){
             });  
         });
     });
-//PUT a box
-router.patch('/boxtosignout/:id', function(req, res, next){
+    */
+//Erase box and keep it in the databases
+router.post('/boxtosignout/:id/boxsignout', function(req, res, next){
     Box.findById(req.params.id, function(err, box){
         if (err) {
             return res.status(500).json({
@@ -131,8 +133,13 @@ router.patch('/boxtosignout/:id', function(req, res, next){
                 error: {box: 'box not found'}
             });
         }
-        box.signedBy = req.body.signedBy;
-        box.save(function(err, result){
+
+        var erasedBox = new ErasedBox({
+            box: box,
+            signedBy: req.body.signedBy
+        });
+
+        erasedBox.save(function(err, result){
             if (err) {
                 return res.status(500).json({
                     title: 'An error occurred',
@@ -178,7 +185,7 @@ router.post('/boxtonotify/:id/boxnotify', function(req, res, next){
 
             var email = new Email({
                     boxTracking: box.tracking,
-                    boxEmployee: employee.name
+                    boxEmployee: box.addressedTo
                 });
 
             var smtpTransport = nodemailer.createTransport({

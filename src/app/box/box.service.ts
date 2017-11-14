@@ -62,7 +62,8 @@ export class BoxService {
                     .map((response: Response) => response.json())
                     .catch((error: Response) => Observable.throw(error.json()));
     }
-
+// NOTE FOR LATER
+// CREATE HEADERS OBJECT, CREATE NEW ERASED BOX WITH THE BOX INFORMATION
     deleteBox(box: Box){
         this.boxes.splice(this.boxes.indexOf(box), 1);
         //const token = localStorage.getItem('token') 
@@ -72,16 +73,15 @@ export class BoxService {
             .map((response: Response) => response.json().obj)
             .catch((error: Response) => Observable.throw(error.json()));
     }
-    /*
+    
     eraseBox(box: Box, erasedBox: ErasedBox){
-        const body = JSON.stringify(box);
+        const body = JSON.stringify(erasedBox);
         const headers = new Headers({'Content-type': 'application/json'});
-        return this.http.post('http://localhost:3000/boxtosignout/' + box._id, {headers: headers})
+        return this.http.post('http://localhost:3000/boxtosignout/' + box._id + '/boxsignout', body, {headers: headers})
                         .map((response: Response) => {
                             const result = response.json();
                             const erasedBox = new ErasedBox(
-                                box.tracking,
-                                box.addressedTo,
+                                box,
                                 result.obj.signedBy,
                                 result.obj._id
                             );
@@ -89,7 +89,6 @@ export class BoxService {
                         })
                         .catch((error: Response) => Observable.throw(error.json()));
     }
-    */
     emailBox(box: Box){
         const body = JSON.stringify(box);
         const headers = new Headers({'Content-type': 'application/json'});

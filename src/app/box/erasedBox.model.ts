@@ -1,11 +1,11 @@
+import { Box } from './box.model';
+
 export class ErasedBox {
-    tracking: string;
-    addressedTo: string;
+    box: Box;
     signedBy: string;
     id?: string;
-    constructor(tracking: string, addressedTo: string, signedBy: string, id?: string){
-        this.tracking = tracking;
-        this.addressedTo = addressedTo;
+    constructor(box: Box, signedBy: string, id?: string){
+        this.box = box;
         this.signedBy = signedBy;
         this.id = id;
     }
