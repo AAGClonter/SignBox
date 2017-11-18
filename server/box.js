@@ -12,7 +12,6 @@ var User = require('../models/users');
 //GET all the boxes
 router.get('/boxes', function(req, res, next){
     Box.find()
-        .populate('boxes', 'addressedTo')
         .exec(function(err, boxes){
         if (err) {
             return res.status(500).json({
@@ -39,7 +38,7 @@ router.post('/boxsignin', function(req, res, next){
 
             var box = new Box({
                 tracking: req.body.tracking,
-                addressedTo: req.body.addressedTo,
+                addressedTo: req.body.employee,
                 signedBy: req.body.signedBy,
                 user: user
             });
@@ -51,6 +50,9 @@ router.post('/boxsignin', function(req, res, next){
                         error: err
                     });
                 }
+                var employee = new Employee({
+                    name: req.body.addressedTo
+                })
                 user.boxesSignedIn.push(box);
                 user.save();
                 res.status(201).json({
@@ -101,23 +103,7 @@ router.delete('/boxtosignout/:id/boxsignout', function(req, res, next){
         });
 	});
 });
-/*
-//POST request (erased box)
-router.post('/boxtosignout/:id', function(req, res, next){
-    Box.findById(req.params.id, function(err, box){
-        if (err) {
-            return res.status(500).json({
-                message: 'An error occurred',
-                error: err
-            });
-        }
-            res.status(200).json({
-                message: 'Box erased',
-                obj: box
-            });  
-        });
-    });
-    */
+
 //Erase box and keep it in the databases
 router.post('/boxtosignout/:id/boxsignout', function(req, res, next){
     Box.findById(req.params.id, function(err, box){
@@ -169,20 +155,6 @@ router.post('/boxtonotify/:id/boxnotify', function(req, res, next){
                 error: err
             });
         }
-        Employee.find({name: box.addressedTo}, function(err, employee){
-            if (err) {
-                return res.status(500).json({
-                    message: 'An error occurred',
-                    error: err
-                });
-            }
-            if (!employee) {
-                return res.status(500).json({
-                    message: 'Employee not found',
-                    error: err
-                });
-            }
-
             var email = new Email({
                     boxTracking: box.tracking,
                     boxEmployee: box.addressedTo
@@ -221,7 +193,6 @@ router.post('/boxtonotify/:id/boxnotify', function(req, res, next){
                     obj: email
                 });
             });
-        });
         });
     });
 });

@@ -29,7 +29,6 @@ export class BoxService {
                         const box = new Box(
                             result.obj.tracking,
                             result.obj.addressedTo,
-                            result.obj.signedBy,
                             result.obj._id,
                             result.obj.user._id
                         );
