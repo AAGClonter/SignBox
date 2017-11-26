@@ -4,8 +4,8 @@ var Schema = mongoose.Schema;
 var Box = require('./box');
 
 var schema = new Schema({
-    name: { type: String },
-    email: { type: String, required: true },
+    name: { type: String, required: true },
+    email: { type: String, required: false },
     box: { type: Schema.Types.ObjectId, ref: 'Box'}
 })
 

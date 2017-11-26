@@ -6,6 +6,8 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 
+const Employee = require('./models/employee');
+
 // Get our API routes
 const api = require('./server/routes/api');
 const signinBox = require('./server/box');
@@ -29,6 +31,21 @@ app.use(morgan('dev'));
 // Point static path to dist
 app.use(express.static(path.join(__dirname, 'dist')));
 
+// Getting every single employee
+/*
+app.use(function(req, res, next){
+    Employee.find({}, function(err, employees){
+      if (err) {
+        return res.status(500).json({
+          message: 'An error occurred',
+          error: err
+        });
+      }
+      res.json(employees);
+      next();
+    });
+});
+*/
 // Set our api routes
 app.use('/', api);
 app.use('/', signinBox);

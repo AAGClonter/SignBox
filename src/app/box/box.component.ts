@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 
 import { BoxService } from './box.service';
 import { Box } from './box.model';
+import { Employee } from './employee.model';
 
 import 'rxjs/Rx';
 import { Observable } from "rxjs";
@@ -16,6 +17,7 @@ import 'rxjs/add/operator/switchMap';
 })
 export class BoxComponent implements OnInit{
      
+     //employees: Employee[];
      boxes: Box[];
 
     constructor(private boxService: BoxService,

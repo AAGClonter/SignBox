@@ -29,6 +29,7 @@ export class BoxService {
                         const box = new Box(
                             result.obj.tracking,
                             result.obj.addressedTo,
+                            result.obj.employee,
                             result.obj._id,
                             result.obj.user._id
                         );
@@ -42,12 +43,7 @@ export class BoxService {
                 .map((response: Response) => response.json().obj)
                 .catch((error: Response) => Observable.throw(error.json()));
     }
-    //Getting employees
-    getEmployees(){
-        return this.http.get('http://localhost:3000/employee')
-                .map((response: Response) => response.json().obj)
-                .catch((error: Response) => Observable.throw(error.json()));
-    }
+    
     getBox(id: string) {
         return this.http.get('http://localhost:3000/boxtosignout/' + id)
                         .map((response: Response) => response.json().obj)
@@ -102,5 +98,13 @@ export class BoxService {
                         })
                         .catch((error: Response) => Observable.throw(error.json()));
     }
-  
+  //EMPLOYEES SECTION
+   getEmployees(){
+        return this.http.get('http://localhost:3000/employee')
+                .map((response: Response) => response.json().obj)
+                .catch((error: Response) => Observable.throw(error.json()));
+    }
 }
+
+
+   

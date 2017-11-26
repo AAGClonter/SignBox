@@ -6,7 +6,8 @@ var User = require('./users');
 
 var schema = new Schema({
     tracking: { type: String, required: true },
-    addressedTo: { type: String, ref: 'Employee' },
+    addressedTo: { type: String, require: true },
+    employee: { type: Schema.Types.ObjectId, ref: 'Employee' },
     user: { type: Schema.Types.ObjectId, ref: 'User'}
 });
 

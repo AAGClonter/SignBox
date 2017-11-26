@@ -2,11 +2,11 @@ import { Box } from './box.model';
 
 export class Employee {
     name: string;
-    email: string;
+    email?: string;
     employeeId?: string;
-    box: Box;
+    box?: Box;
 
-    constructor(name: string, email: string, box: Box, employeeId?: string){
+    constructor(name: string, box?: Box, email?: string, employeeId?: string){
         this.name = name;
         this.email = email;
         this.employeeId = employeeId;
