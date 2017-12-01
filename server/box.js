@@ -13,7 +13,7 @@ var User = require('../models/users');
 router.get('/boxes', function(req, res, next){
     Employee.find()
         .populate('box')
-        .exec(function(err, boxes){
+        .exec(function(err, employees){
         if (err) {
             return res.status(500).json({
                 message: 'An error occurred',
@@ -22,7 +22,7 @@ router.get('/boxes', function(req, res, next){
         }
         res.status(200).json({
             message: 'Boxes found',
-            obj: boxes
+            obj: employees
         });
     });
 });
@@ -95,6 +95,23 @@ router.get('/boxtosignout/:id', function(req, res, next){
        })
     });
 });
+//Getting the Employee through a box
+router.get('/boxtosignout/:id/boxsignout', function(req, res, next){
+    Employee.findOne({box: req.params.id}, function(err, employee){
+        if (err) {
+            return res.status(500).json({
+                message: 'An error occurred',
+                error: err
+            });
+        }
+        employee.remove(function(err, employee){
+            res.status(200).json({
+                message: 'Employee found',
+                obj: employee
+            });
+        });
+    });
+})
 //DELETE request for sign out
 router.delete('/boxtosignout/:id/boxsignout', function(req, res, next){
     //var decoded = jwt.decode(req.query.token);
@@ -145,7 +162,7 @@ router.post('/boxtosignout/:id/boxsignout', function(req, res, next){
 
 //Notifying a box
 router.post('/boxtonotify/:id/boxnotify', function(req, res, next){
-    Box.findById(req.params.id, function(err, box){
+    Box.find(req.params.id, function(err, box){
         if (err) {
             return res.status(500).json({
                 message: 'An error occurred',
@@ -158,11 +175,11 @@ router.post('/boxtonotify/:id/boxnotify', function(req, res, next){
                 error: err
             });
         }
-            var email = new Email({
+        var email = new Email({
                     boxTracking: box.tracking,
                     boxEmployee: box.addressedTo
                 });
-
+        Employee.find({name: box.addressedTo}, function(err, employee){
             var smtpTransport = nodemailer.createTransport({
                     service: "gmail",
                     host: "smtp.gmail.com",
@@ -196,6 +213,7 @@ router.post('/boxtonotify/:id/boxnotify', function(req, res, next){
                     obj: email
                 });
             });
+        });
         });
     });
 });

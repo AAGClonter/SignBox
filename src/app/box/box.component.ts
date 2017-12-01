@@ -17,16 +17,15 @@ import 'rxjs/add/operator/switchMap';
 })
 export class BoxComponent implements OnInit{
      
-     //employees: Employee[];
-     boxes: Box[];
+     employees: Employee[];
 
     constructor(private boxService: BoxService,
                 private route: Router){}
    
     getBoxes() {
         this.boxService.getBoxes().subscribe(
-            (boxes: Box[]) => {
-                this.boxes = boxes;
+            (employees: Employee[]) => {
+                this.employees = employees;
             }
         );
     }

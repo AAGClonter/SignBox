@@ -40,33 +40,17 @@ export class BoxDetailComponent implements OnInit {
     goBack(): void {
         this.location.back();
     }
-   
-   /*
-   deleteBox(box: Box){
-        this.boxService.deleteBox(box)
-                .subscribe(
-                    result => console.log(result),
-                    error => console.error(error)
-                );
-            this.router.navigateByUrl('/boxes');
-   }
-   */
-   /*
-   saveErasedBox(box: Box) {
-       this.boxService.eraseBox(box)
-                      .subscribe(
-                          result => console.log(result),
-                          error => console.error(error)
-                      );
-   }
-   */
+
    onSubmit(form: NgForm){
        const erasedBox = new ErasedBox(this.box, form.value.signedBy);
        this.boxService.eraseBox(this.box, erasedBox)
                         .subscribe(
                             result => console.log(result)
-                        )
-
+                        );
+        this.boxService.deleteEmployee(this.box)
+                        .subscribe(
+                            result => console.log(result)
+                        );
         this.boxService.deleteBox(this.box)
                         .subscribe(
                             result => console.log(result)

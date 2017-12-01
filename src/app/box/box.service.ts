@@ -29,12 +29,16 @@ export class BoxService {
                         const box = new Box(
                             result.obj.tracking,
                             result.obj.addressedTo,
-                            result.obj.employee,
                             result.obj._id,
                             result.obj.user._id
                         );
+                        const employee = new Employee(
+                            result.obj.addresssedTo,
+                            box
+                        )
                         this.boxes.push(box);
-                        return box;
+                        this.employees.push(employee);
+                        return box && employee;
                     })
                     .catch((error: Response) => Observable.throw(error.json()));
     }
@@ -103,6 +107,12 @@ export class BoxService {
         return this.http.get('http://localhost:3000/employee')
                 .map((response: Response) => response.json().obj)
                 .catch((error: Response) => Observable.throw(error.json()));
+    }
+
+    deleteEmployee(box: Box){
+        return this.http.get('http://localhost:3000/boxtosignout/' + box._id + '/boxsignout')
+                        .map((response: Response) => response.json().obj)
+                        .catch((error: Response) => Observable.throw(error.json()));
     }
 }
 
