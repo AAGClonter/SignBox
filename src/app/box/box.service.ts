@@ -17,7 +17,7 @@ export class BoxService {
 
     constructor(private httpClient: HttpClient, private http: Http) {}
 
-    signinBox(box: Box) {
+    signinBox(box: Box, employee: Employee) {
         const body = JSON.stringify(box);
         const headers = new Headers({'Content-type': 'application/json'});
         const token = localStorage.getItem('token') 
@@ -34,7 +34,8 @@ export class BoxService {
                         );
                         const employee = new Employee(
                             result.obj.addresssedTo,
-                            box
+                            box,
+                            result.obj._id
                         )
                         this.boxes.push(box);
                         this.employees.push(employee);
@@ -47,9 +48,15 @@ export class BoxService {
                 .map((response: Response) => response.json().obj)
                 .catch((error: Response) => Observable.throw(error.json()));
     }
-    
+    // Getting a box
     getBox(id: string) {
         return this.http.get('http://localhost:3000/boxtosignout/' + id)
+                        .map((response: Response) => response.json().obj)
+                        .catch((error: Response) => Observable.throw(error.json()));
+    }
+
+    getEmployee(id: string) {
+        return this.http.get('http://localhost:3000/boxtonotify/' + id + '/boxnotify')
                         .map((response: Response) => response.json().obj)
                         .catch((error: Response) => Observable.throw(error.json()));
     }
@@ -88,15 +95,15 @@ export class BoxService {
                         })
                         .catch((error: Response) => Observable.throw(error.json()));
     }
-    emailBox(box: Box){
-        const body = JSON.stringify(box);
+    emailBox(employee: Employee){
+        const body = JSON.stringify(employee);
         const headers = new Headers({'Content-type': 'application/json'});
-        return this.http.post('http://localhost:3000/boxtonotify/' + box._id + '/boxnotify', body, {headers: headers})
+        return this.http.post('http://localhost:3000/boxtonotify/' + employee._id + '/boxnotify', body, {headers: headers})
                         .map((response: Response) => {
                             const result = response.json();
                             const email = new Email(
-                                result.obj.boxTracking,
-                                result.obj.boxEmployee
+                                result.obj.box.tracking,
+                                result.obj.name
                             )
                             return email;
                         })

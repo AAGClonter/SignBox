@@ -66,8 +66,10 @@ router.post('/boxsignin', function(req, res, next){
         });   
 });
 //GET one box
-router.get('/boxtonotify/:id', function(req, res, next){
-    Box.findById(req.params.id, function(err, box){
+router.get('/boxtonotify/:id/boxnotify', function(req, res, next){
+    Employee.findById(req.params.id)
+            .populate('box')
+            .exec(function(err, employee){
         if (err) {
             return res.status(500).json({
                 message: 'An error occurred',
@@ -76,7 +78,7 @@ router.get('/boxtonotify/:id', function(req, res, next){
         }
         res.status(200).json({
             message: 'Box found',
-            obj: box
+            obj: employee
         });
     });
 });
@@ -162,24 +164,26 @@ router.post('/boxtosignout/:id/boxsignout', function(req, res, next){
 
 //Notifying a box
 router.post('/boxtonotify/:id/boxnotify', function(req, res, next){
-    Box.find(req.params.id, function(err, box){
+    Employee
+        .findById(req.params.id)
+        .populate('box')
+        .exec(function(err, employee){
         if (err) {
             return res.status(500).json({
                 message: 'An error occurred',
                 error: err
             });
         }
-        if (!box) {
+        if (!employee) {
             return res.status(500).json({
-                message: 'Box not found',
+                message: 'Employee not found',
                 error: err
             });
         }
         var email = new Email({
-                    boxTracking: box.tracking,
-                    boxEmployee: box.addressedTo
+                    boxTracking: employee.box.tracking,
+                    boxEmployee: employee.name
                 });
-        Employee.find({name: box.addressedTo}, function(err, employee){
             var smtpTransport = nodemailer.createTransport({
                     service: "gmail",
                     host: "smtp.gmail.com",
@@ -196,7 +200,7 @@ router.post('/boxtonotify/:id/boxnotify', function(req, res, next){
                     from: 'pandy_2013@hotmail.com', // sender address
                     to: employee.email, // list of receivers
                     subject: 'You have a box waiting for you', // Subject line
-                    text: 'There is a box with the tracking:' + box.tracking + ' waiting for you'
+                    text: 'There is a box with the tracking:' + employee.box.tracking + ' waiting for you'
                     //html: '<p>This is a test</p>' // plain text body
                 };
 
@@ -213,7 +217,6 @@ router.post('/boxtonotify/:id/boxnotify', function(req, res, next){
                     obj: email
                 });
             });
-        });
         });
     });
 });

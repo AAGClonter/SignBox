@@ -10,6 +10,8 @@ import { Observable } from "rxjs";
 import 'rxjs/add/operator/switchMap';
 
 import { Box } from './box.model';
+import { Employee } from './employee.model';
+
 import { ErasedBox } from './erasedBox.model';
 import { BoxService } from './box.service';
 
@@ -29,12 +31,12 @@ export class BoxDetailComponent implements OnInit {
                 private location: Location,
                 private router: Router) {}
 
-    @Input() box: Box;
+    @Input() employee: Employee;
 
     ngOnInit() {
          this.route.params
             .switchMap((params: Params) => this.boxService.getBox(params['id']))
-            .subscribe(box => this.box = box);
+            .subscribe(employee => this.employee = employee);
     }
     
     goBack(): void {
@@ -42,16 +44,16 @@ export class BoxDetailComponent implements OnInit {
     }
 
    onSubmit(form: NgForm){
-       const erasedBox = new ErasedBox(this.box, form.value.signedBy);
-       this.boxService.eraseBox(this.box, erasedBox)
+       const erasedBox = new ErasedBox(this.employee.box, form.value.signedBy);
+       this.boxService.eraseBox(this.employee.box, erasedBox)
                         .subscribe(
                             result => console.log(result)
                         );
-        this.boxService.deleteEmployee(this.box)
+        this.boxService.deleteEmployee(this.employee.box)
                         .subscribe(
                             result => console.log(result)
                         );
-        this.boxService.deleteBox(this.box)
+        this.boxService.deleteBox(this.employee.box)
                         .subscribe(
                             result => console.log(result)
                         );

@@ -1,24 +1,24 @@
 <div class="container">
-    <div *ngIf="box">
+    <div *ngIf="employee">
         <div class="row">
             <h3>Tracking Number:</h3>
         </div>
         <div class="row">
-            <p>{{box.tracking}}</p>
+            <p>{{employee.box.tracking}}</p>
         </div>
         <div class="row">
             <h3>Addressed To:</h3>
         </div>
         <div class="row">
-            <p>{{box.addressedTo}}</p>
+            <p>{{employee.box.addressedTo}}</p>
         </div>
-    <form (ngSubmit)="onSubmit(f)" class="form-group" #f="ngForm">
-        <div>
-            <label for="signedBy">Signed by:</label>
-            <input type="text" id="signedBy" name="signedBy" [ngModel]="erasedBox?.signedBy" class="form-control col-md-4">
-        </div>
-            <button type="button" (click)="goBack()" class="btn btn-secondary down">Back</button>
-            <button type="submit" class="btn btn-danger down">Sign Out</button>
-         </form>
+        <form (ngSubmit)="onSubmit(f)" class="form-group" #f="ngForm">
+            <div>
+                <label for="signedBy">Signed by:</label>
+                <input type="text" id="signedBy" name="signedBy" [ngModel]="erasedBox?.signedBy" class="form-control col-md-4">
+            </div>
+                <button type="button" (click)="goBack()" class="btn btn-secondary down">Back</button>
+                <button type="submit" class="btn btn-danger down">Sign Out</button>
+        </form>
     </div>
 </div>

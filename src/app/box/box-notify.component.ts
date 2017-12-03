@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 
 import { BoxService } from './box.service';
 import { Box } from './box.model';
+import { Employee } from './employee.model';
 
 import 'rxjs/Rx';
 import { Observable } from "rxjs";
@@ -14,7 +15,7 @@ import 'rxjs/add/operator/switchMap';
     templateUrl: './box-notify.component.html'
 })
 export class BoxNotifyComponent implements OnInit {
-     @Input() box: Box;
+     @Input() employee: Employee;
 
     constructor(private boxService: BoxService,
                 private route: ActivatedRoute,
@@ -24,12 +25,12 @@ export class BoxNotifyComponent implements OnInit {
     ngOnInit(): void {
         this.route.paramMap
                 .switchMap((params: ParamMap) =>
-                    this.boxService.getBox(params.get('id')))
-                                .subscribe( box => this.box = box);
+                    this.boxService.getEmployee(params.get('id')))
+                                .subscribe( employee => this.employee = employee);
     }
 
-    sendEmail(box: Box){
-        this.boxService.emailBox(box).subscribe(
+    sendEmail(employee: Employee){
+        this.boxService.emailBox(employee).subscribe(
             data => console.log(data),
             error => console.error(error)
         )

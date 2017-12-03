@@ -13,9 +13,9 @@
     <tr *ngFor="let employee of employees">
       <th scope="row">{{employee.box.tracking}}</th>
       <td>{{employee.box.addressedTo}}</td>
-      <button type="button" [routerLink]="['/boxtonotify', employee.box._id, 'boxnotify']" class="btn btn-info right">Notify</button>
+      <button type="button" [routerLink]="['/boxtonotify', employee._id, 'boxnotify']" class="btn btn-info right">Notify</button>
       <button type="button" class="btn btn-warning right" [routerLink]="['/boxsignin']">Edit</button>
-      <button type="button" [routerLink]="['/boxtosignout', employee.box._id, 'boxsignout']" class="btn btn-danger right">Sign Out</button>
+      <button type="button" [routerLink]="['/boxtosignout', employee._id, 'boxsignout']" class="btn btn-danger right">Sign Out</button>
     </tr>
   </tbody>
 </table>
