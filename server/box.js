@@ -83,23 +83,11 @@ router.get('/boxtonotify/:id/boxnotify', function(req, res, next){
     });
 });
 
-router.get('/boxtosignout/:id', function(req, res, next){
-    Box.findById(req.params.id, function(err, box){
-        if (err) {
-            return res.status(500).json({
-                message: 'An error occurred',
-                error: err
-            });
-        }
-       res.status(200).json({
-           message: 'Box found',
-           obj: box
-       })
-    });
-});
 //Getting the Employee through a box
 router.get('/boxtosignout/:id/boxsignout', function(req, res, next){
-    Employee.findOne({box: req.params.id}, function(err, employee){
+    Employee.findById(req.params.id)
+            .populate('box')
+            .exec(function(err, employee){
         if (err) {
             return res.status(500).json({
                 message: 'An error occurred',
@@ -113,29 +101,31 @@ router.get('/boxtosignout/:id/boxsignout', function(req, res, next){
             });
         });
     });
-})
+});
 //DELETE request for sign out
 router.delete('/boxtosignout/:id/boxsignout', function(req, res, next){
     //var decoded = jwt.decode(req.query.token);
-	Box.findByIdAndRemove(req.params.id, function(err, box){
+	Employee.findByIdAndRemove(req.params.id, function(err, employee){
 		if (err) return next(err);
 		res.status(200).json({
             message: 'Box deleted',
-            obj: box
+            obj: employee
         });
 	});
 });
 
 //Erase box and keep it in the databases
 router.post('/boxtosignout/:id/boxsignout', function(req, res, next){
-    Box.findById(req.params.id, function(err, box){
+    Employee.findById(req.params.id)
+        .populate('box')
+        .exec(function(err, employee){
         if (err) {
             return res.status(500).json({
                 title: 'An error occurred',
                 error: err
             });
         }
-        if (!box) {
+        if (!employee) {
             return res.status(500).json({
                 title: 'No box found',
                 error: {box: 'box not found'}
@@ -143,7 +133,7 @@ router.post('/boxtosignout/:id/boxsignout', function(req, res, next){
         }
 
         var erasedBox = new ErasedBox({
-            box: box,
+            box: employee.box,
             signedBy: req.body.signedBy
         });
 

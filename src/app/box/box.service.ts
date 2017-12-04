@@ -70,24 +70,24 @@ export class BoxService {
     }
 // NOTE FOR LATER
 // CREATE HEADERS OBJECT, CREATE NEW ERASED BOX WITH THE BOX INFORMATION
-    deleteBox(box: Box){
+    deleteBox(box: Box, employee: Employee){
         this.boxes.splice(this.boxes.indexOf(box), 1);
         //const token = localStorage.getItem('token') 
         //? '?token=' + localStorage.getItem('token')
         //: '';
-        return this.http.delete('http://localhost:3000/boxtosignout/' + box._id + '/boxsignout'/*+ token*/)
+        return this.http.delete('http://localhost:3000/boxtosignout/' + employee._id + '/boxsignout'/*+ token*/)
             .map((response: Response) => response.json().obj)
             .catch((error: Response) => Observable.throw(error.json()));
     }
     
-    eraseBox(box: Box, erasedBox: ErasedBox){
+    eraseBox(employee: Employee, erasedBox: ErasedBox){
         const body = JSON.stringify(erasedBox);
         const headers = new Headers({'Content-type': 'application/json'});
-        return this.http.post('http://localhost:3000/boxtosignout/' + box._id + '/boxsignout', body, {headers: headers})
+        return this.http.post('http://localhost:3000/boxtosignout/' + employee._id + '/boxsignout', body, {headers: headers})
                         .map((response: Response) => {
                             const result = response.json();
                             const erasedBox = new ErasedBox(
-                                box,
+                                employee.box,
                                 result.obj.signedBy,
                                 result.obj._id
                             );
@@ -102,8 +102,8 @@ export class BoxService {
                         .map((response: Response) => {
                             const result = response.json();
                             const email = new Email(
-                                result.obj.box.tracking,
-                                result.obj.name
+                                employee.box.tracking,
+                                employee.name
                             )
                             return email;
                         })

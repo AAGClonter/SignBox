@@ -35,7 +35,7 @@ export class BoxDetailComponent implements OnInit {
 
     ngOnInit() {
          this.route.params
-            .switchMap((params: Params) => this.boxService.getBox(params['id']))
+            .switchMap((params: Params) => this.boxService.getEmployee(params['id']))
             .subscribe(employee => this.employee = employee);
     }
     
@@ -45,15 +45,11 @@ export class BoxDetailComponent implements OnInit {
 
    onSubmit(form: NgForm){
        const erasedBox = new ErasedBox(this.employee.box, form.value.signedBy);
-       this.boxService.eraseBox(this.employee.box, erasedBox)
+       this.boxService.eraseBox(this.employee, erasedBox)
                         .subscribe(
                             result => console.log(result)
                         );
-        this.boxService.deleteEmployee(this.employee.box)
-                        .subscribe(
-                            result => console.log(result)
-                        );
-        this.boxService.deleteBox(this.employee.box)
+        this.boxService.deleteBox(this.employee.box, this.employee)
                         .subscribe(
                             result => console.log(result)
                         );
