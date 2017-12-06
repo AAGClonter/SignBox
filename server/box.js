@@ -11,7 +11,7 @@ var User = require('../models/users');
 
 //GET all the boxes
 router.get('/boxes', function(req, res, next){
-    Employee.find()
+    Employee.find({})
         .populate('box')
         .exec(function(err, employees){
         if (err) {
