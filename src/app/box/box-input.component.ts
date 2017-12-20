@@ -30,8 +30,7 @@ export class BoxInputComponent {
 
     onSubmit(form: NgForm) {
             const box = new Box(form.value.tracking, form.value.addressedTo);
-            const employee = new Employee(form.value.addressedTo, box);
-            this.boxService.signinBox(box, employee).subscribe(
+            this.boxService.signinBox(box).subscribe(
             data => {
                 console.log(data)
             },

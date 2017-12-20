@@ -31,12 +31,12 @@ export class BoxDetailComponent implements OnInit {
                 private location: Location,
                 private router: Router) {}
 
-    @Input() employee: Employee;
+    @Input() box: Box;
 
     ngOnInit() {
          this.route.params
-            .switchMap((params: Params) => this.boxService.getEmployee(params['id']))
-            .subscribe(employee => this.employee = employee);
+            .switchMap((params: Params) => this.boxService.getBoxSignOut(params['id']))
+            .subscribe(box => this.box = box);
     }
     
     goBack(): void {
@@ -44,12 +44,12 @@ export class BoxDetailComponent implements OnInit {
     }
 
    onSubmit(form: NgForm){
-       const erasedBox = new ErasedBox(this.employee.box, form.value.signedBy);
-       this.boxService.eraseBox(this.employee, erasedBox)
+       const erasedBox = new ErasedBox(this.box, form.value.signedBy);
+        this.boxService.eraseBox(this.box, erasedBox)
                         .subscribe(
                             result => console.log(result)
                         );
-        this.boxService.deleteBox(this.employee.box, this.employee)
+        this.boxService.deleteBox(this.box)
                         .subscribe(
                             result => console.log(result)
                         );

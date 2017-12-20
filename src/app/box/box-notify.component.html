@@ -2,12 +2,12 @@
     <div class="row">
         <h1>Email Notification</h1>
     </div>
-    <div *ngIf="employee">
+    <div *ngIf="box">
         <div class="row">
-            <h3>{{employee.name}}</h3>
+            <h3>{{box.addressedTo}}</h3>
         </div>
         <div class="row">
-            <h5>{{employee.box.tracking}}</h5>
+            <h5>{{box.tracking}}</h5>
         </div>
     </div>
         <form class="form-group">
@@ -15,5 +15,5 @@
             <textarea id="content" name="content" [ngModel]="box?.content" class="form-control" rows="3"></textarea>
         </form>
         <button type="button" (click)="goBack()" class="btn btn-secondary">Back</button>
-        <button type="submit" (click)="sendEmail(employee)" class="btn btn-primary">Send Notification</button>
+        <button type="submit" (click)="sendEmail(box)" class="btn btn-primary">Send Notification</button>
 </div>

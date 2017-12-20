@@ -1,5 +1,6 @@
 var express = require('express');
 var nodemailer = require('nodemailer');
+var async = require('async');
 var jwt = require('jsonwebtoken');
 var router = express.Router();
 
@@ -11,65 +12,55 @@ var User = require('../models/users');
 
 //GET all the boxes
 router.get('/boxes', function(req, res, next){
-    Employee.find({})
-        .populate('box')
-        .exec(function(err, employees){
+    Box.find({}, function(err, boxes){
         if (err) {
-            return res.status(500).json({
+           return res.status(500).json({
                 message: 'An error occurred',
                 error: err
             });
         }
         res.status(200).json({
             message: 'Boxes found',
-            obj: employees
+            obj: boxes
         });
     });
 });
 //POST a box
 router.post('/boxsignin', function(req, res, next){
     var decoded = jwt.decode(req.query.token);
-        User.findById(decoded.user._id, function(err, user){
-            if (err) {
-                return res.status(500).json({
-                    message: 'An error has occurred',
-                    error: err
-                });
-            }
-                var box = new Box({
-                    tracking: req.body.tracking,
-                    addressedTo: req.body.addressedTo,
-                    user: user
-                });
+    User.findById(decoded.user._id, function(err, user){
+        if (err) {
+            return res.status(500).json({
+                message: 'An error has occurred',
+                error: err
+            });
+        }
+            var box = new Box({
+                tracking: req.body.tracking,
+                addressedTo: req.body.addressedTo,
+                user: user
+            });
 
-                box.save(function(err, box){
-                    if (err) {
-                        return res.status(500).json({
-                            message: 'An error has occurred',
-                            error: err
-                        });
-                    }
-                    var employee = new Employee({
-                        name: req.body.addressedTo,
-                        box: box._id
+            box.save(function(err, box){
+                if (err) {
+                    return res.status(500).json({
+                        message: 'An error has occurred',
+                        error: err
                     });
-                    user.boxesSignedIn.push(box);
-                    user.save();
-                    employee.save(function(err, employee){
-                        if (err) return next(err);
-                        res.status(200).json({
-                            message: 'Everything ok',
-                            obj: employee
-                        });
-                    });
+                }
+                user.boxesSignedIn.push(box);
+                user.save();
+                res.status(200).json({
+                    message: 'Box created',
+                    obj: box
                 });
-        });   
+            });
+    });
 });
+
 //GET one box
 router.get('/boxtonotify/:id/boxnotify', function(req, res, next){
-    Employee.findById(req.params.id)
-            .populate('box')
-            .exec(function(err, employee){
+    Box.findById(req.params.id, function(err, box){
         if (err) {
             return res.status(500).json({
                 message: 'An error occurred',
@@ -78,54 +69,48 @@ router.get('/boxtonotify/:id/boxnotify', function(req, res, next){
         }
         res.status(200).json({
             message: 'Box found',
-            obj: employee
+            obj: box
         });
     });
 });
 
 //Getting the Employee through a box
 router.get('/boxtosignout/:id/boxsignout', function(req, res, next){
-    Employee.findById(req.params.id)
-            .populate('box')
-            .exec(function(err, employee){
+    Box.findById(req.params.id, function(err, box){
         if (err) {
             return res.status(500).json({
                 message: 'An error occurred',
                 error: err
             });
         }
-        employee.remove(function(err, employee){
-            res.status(200).json({
-                message: 'Employee found',
-                obj: employee
-            });
+        res.status(200).json({
+            message: 'Employee found',
+            obj: box
         });
     });
 });
 //DELETE request for sign out
 router.delete('/boxtosignout/:id/boxsignout', function(req, res, next){
     //var decoded = jwt.decode(req.query.token);
-	Employee.findByIdAndRemove(req.params.id, function(err, employee){
+	Box.findByIdAndRemove(req.params.id, function(err, box){
 		if (err) return next(err);
 		res.status(200).json({
             message: 'Box deleted',
-            obj: employee
+            obj: box
         });
 	});
 });
 
 //Erase box and keep it in the databases
 router.post('/boxtosignout/:id/boxsignout', function(req, res, next){
-    Employee.findById(req.params.id)
-        .populate('box')
-        .exec(function(err, employee){
+    Box.findById(req.params.id, function(err, box){
         if (err) {
             return res.status(500).json({
                 title: 'An error occurred',
                 error: err
             });
         }
-        if (!employee) {
+        if (!box) {
             return res.status(500).json({
                 title: 'No box found',
                 error: {box: 'box not found'}
@@ -133,7 +118,7 @@ router.post('/boxtosignout/:id/boxsignout', function(req, res, next){
         }
 
         var erasedBox = new ErasedBox({
-            box: employee.box,
+            box: box,
             signedBy: req.body.signedBy
         });
 
@@ -154,27 +139,39 @@ router.post('/boxtosignout/:id/boxsignout', function(req, res, next){
 
 //Notifying a box
 router.post('/boxtonotify/:id/boxnotify', function(req, res, next){
-    Employee
-        .findById(req.params.id)
-        .populate('box')
-        .exec(function(err, employee){
-        if (err) {
-            return res.status(500).json({
-                message: 'An error occurred',
-                error: err
+    async.waterfall([
+        function(callback){
+            Box.findById(req.params.id, function(err, box){
+                if (err) {
+                    return res.status(500).json({
+                        message: 'An error occurred',
+                        error: err
+                    });
+                }
+                if (!box) {
+                    return res.status(500).json({
+                        message: 'Box not found',
+                        error: err
+                    });
+                }
+                callback(null, box);
             });
-        }
-        if (!employee) {
-            return res.status(500).json({
-                message: 'Employee not found',
-                error: err
-            });
-        }
-        var email = new Email({
-                    boxTracking: employee.box.tracking,
-                    boxEmployee: employee.name
+        },
+        function(box, callback){
+            Employee.findOne({name: box.addressedTo}, function(err, employee){
+                if (err) return next(err);
+                if (!employee) {
+                    return res.status(500).json({
+                        message: 'Employee not found',
+                        error: {employee: 'Employee not found'}
+                    });
+                }
+                var email = new Email({
+                    boxTracking: box.tracking,
+                    boxEmployee: box.addressedTo
                 });
-            var smtpTransport = nodemailer.createTransport({
+
+                var smtpTransport = nodemailer.createTransport({
                     service: "gmail",
                     host: "smtp.gmail.com",
                     port: 465,
@@ -190,27 +187,27 @@ router.post('/boxtonotify/:id/boxnotify', function(req, res, next){
                     from: 'pandy_2013@hotmail.com', // sender address
                     to: employee.email, // list of receivers
                     subject: 'You have a box waiting for you', // Subject line
-                    text: 'There is a box with the tracking:' + employee.box.tracking + ' waiting for you'
+                    text: 'There is a box with the tracking:' + box.tracking + ' waiting for you'
                     //html: '<p>This is a test</p>' // plain text body
                 };
-
-        // send mail with defined transport object
-        smtpTransport.sendMail(mailOptions, function(err, result){
-            if (err) {
-               console.log(err);
-            }
-            console.log(result.messageId + 'and' + result.response);
-            email.save(function(err, email){
-                if (err) return next(err);
-                res.status(200).json({
-                    message: 'Email saved',
-                    obj: email
+                // send mail with defined transport object
+                smtpTransport.sendMail(mailOptions, function(err, result){
+                    if (err) {
+                    console.log(err);
+                    }
+                    console.log(result.messageId + 'and' + result.response);
+                    email.save(function(err, email){
+                        if (err) return next(err);
+                        res.status(200).json({
+                            message: 'Email saved',
+                            obj: email
+                        });
+                    });
                 });
             });
-        });
-    });
+        }
+    ]);
 });
-
 ////////////////////////////////Employee related routes///////////////////////////
 //Getting every employee
 router.get('/employee', function(req, res, next){
@@ -248,6 +245,18 @@ router.post('/employees', function(req, res, next){
             obj: employee
         });
     });
+});
+
+router.get('/boxemployees', function(req, res, next){
+    Box.find({})
+        .populate('employee')
+        .exec(function(err, boxes){
+            if (err) return next(err);
+            res.status(200).json({
+                message: 'Boxes with employees found',
+                obj: boxes
+            })
+        })
 });
 
 module.exports = router;
