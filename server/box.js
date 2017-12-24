@@ -26,7 +26,7 @@ router.get('/boxes', function(req, res, next){
     });
 });
 //POST a box
-router.post('/boxsignin', function(req, res, next){
+router.post('/boxes', function(req, res, next){
     var decoded = jwt.decode(req.query.token);
     User.findById(decoded.user._id, function(err, user){
         if (err) {

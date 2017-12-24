@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
+import { NgForm } from '@angular/forms';
 
 import { BoxService } from './box.service';
 import { Box } from './box.model';
@@ -18,11 +19,17 @@ import 'rxjs/add/operator/switchMap';
 export class BoxComponent implements OnInit{
      
      boxes: Box[];
+     employees: Employee[];
 
     constructor(private boxService: BoxService,
                 private route: Router){}
-   
-    getBoxes() {
+
+    ngOnInit(){
+        this.getBoxes();
+        this.getEmployees();
+    }
+
+     getBoxes() {
         this.boxService.getBoxes().subscribe(
             (boxes: Box[]) => {
                 this.boxes = boxes;
@@ -30,8 +37,24 @@ export class BoxComponent implements OnInit{
         );
     }
 
-    ngOnInit(){
-        this.getBoxes();
+    getEmployees(){
+        this.boxService.getEmployees().subscribe(
+            (employees: Employee[]) => {
+                this.employees = employees;
+            }
+        );
+    }
+
+    onSubmit(form: NgForm) {
+            const box = new Box(form.value.tracking, form.value.addressedTo);
+            this.boxService.signinBox(box).subscribe(
+            box => {
+                this.boxes.push(box);
+            },
+            error => console.error(error)
+        );
+        
+        form.resetForm();
     }
     
 }

@@ -13,6 +13,7 @@ import { Employee } from './employee.model';
 export class BoxInputComponent {
 
     employees: Employee[];
+    boxes: Box[];
 
     constructor(private boxService: BoxService) {}
 
@@ -31,8 +32,8 @@ export class BoxInputComponent {
     onSubmit(form: NgForm) {
             const box = new Box(form.value.tracking, form.value.addressedTo);
             this.boxService.signinBox(box).subscribe(
-            data => {
-                console.log(data)
+            box => {
+                this.boxes.push(box);
             },
             error => console.error(error)
         );

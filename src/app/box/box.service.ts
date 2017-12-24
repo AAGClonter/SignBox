@@ -23,7 +23,7 @@ export class BoxService {
         const token = localStorage.getItem('token') 
         ? '?token=' + localStorage.getItem('token')
         : '';
-        return this.http.post('http://localhost:3000/boxsignin' + token, body, {headers: headers})
+        return this.http.post('http://localhost:3000/boxes' + token, body, {headers: headers})
                     .map((response: Response) => {
                         const result = response.json();
                         const box = new Box(

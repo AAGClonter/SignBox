@@ -11,7 +11,6 @@ import { UserService } from './auth/user.service';
         <div class="row">
             <nav class="down">
                 <ul class="nav nav-tabs">
-                    <li class="nav-item"><a class="nav-link" routerLink="/boxsignin">Sign In Boxes</a></li>
                     <li class="nav-item"><a class="nav-link" routerLink="/boxes">Boxes to Sign Out</a></li>
                     <li class="nav-item"><a class="nav-link" routerLink="/signup">Sign Up</a></li>
                     <li class="nav-item" *ngIf="!isLoggedIn()"><a class="nav-link" routerLink="/signin">Login</a></li>

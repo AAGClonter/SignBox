@@ -1,24 +1,44 @@
-<div class="col down">
-    <h1>Boxes to Sign Out</h1>
-</div>
-<div class="row down">
-   <table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Tracking Number</th>
-      <th scope="col">Addressed To</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let box of boxes">
-      <th scope="row">{{box.tracking}}</th>
-      <td>{{box.addressedTo}}</td>
-      <button type="button" [routerLink]="['/boxtonotify', box._id, 'boxnotify']" class="btn btn-info right">Notify</button>
-      <button type="button" class="btn btn-warning right" [routerLink]="['/boxsignin']">Edit</button>
-      <button type="button" [routerLink]="['/boxtosignout', box._id, 'boxsignout']" class="btn btn-danger right">Sign Out</button>
-    </tr>
-  </tbody>
-</table>
+<div class="container">
+    <div class="row">
+        <h1 class="down">Sign In your Box</h1>
+    </div>
+
+    <div class="row">
+        <form (ngSubmit)="onSubmit(f)" #f="ngForm" class="form-group down form-inline">
+            <label for="tracking" class="left">Tracking Number:</label>
+            <input type="text" name="tracking" id="tracking" [ngModel]="box?.tracking" class="form-control left">
+
+            <label for="addressedTo" class="left">Addressed To:</label>
+            <select class="form-control left" id="addressedTo" name="addressedTo" [ngModel]="box?.addressedTo">
+                <option *ngFor="let employee of employees" [value]="employee.name">{{employee.name}}</option>
+            </select>
+    
+            <button type="submit" class="btn btn-primary left">Add Box</button>
+            
+        </form>
+    </div>
+  <div class="col down">
+      <h1>Boxes to Sign Out</h1>
+  </div>
+  <div class="row down">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Tracking Number</th>
+          <th scope="col">Addressed To</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let box of boxes">
+          <th scope="row">{{box.tracking}}</th>
+          <td>{{box.addressedTo}}</td>
+          <button type="button" [routerLink]="['/boxtonotify', box._id, 'boxnotify']" class="btn btn-info right">Notify</button>
+          <button type="button" class="btn btn-warning right" [routerLink]="['/boxsignin']">Edit</button>
+          <button type="button" [routerLink]="['/boxtosignout', box._id, 'boxsignout']" class="btn btn-danger right">Sign Out</button>
+        </tr>
+      </tbody>
+  </table>
+  </div>
 </div>
 
 
