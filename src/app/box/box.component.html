@@ -29,7 +29,9 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let box of boxes">
+        <tr *ngFor="let box of boxes"
+            [@boxEnter]
+        >
           <th scope="row">{{box.tracking}}</th>
           <td>{{box.addressedTo}}</td>
           <button type="button" [routerLink]="['/boxtonotify', box._id, 'boxnotify']" class="btn btn-info right">Notify</button>

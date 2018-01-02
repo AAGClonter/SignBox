@@ -12,7 +12,12 @@ import 'rxjs/add/operator/switchMap';
 
 @Component({
     selector: 'app-box-notify',
-    templateUrl: './box-notify.component.html'
+    templateUrl: './box-notify.component.html',
+    styles: [`
+        .down {
+            margin-top: 40px;
+        }
+    `]
 })
 export class BoxNotifyComponent implements OnInit {
      @Input() box: Box;

@@ -11,10 +11,27 @@ import 'rxjs/Rx';
 import { Observable } from "rxjs";
 import 'rxjs/add/operator/switchMap';
 
+import { trigger, state, style, animate, transition } from '@angular/animations';
+
 @Component({
     selector: 'app-box',
     templateUrl: './box.component.html',
     styleUrls: ['./box.component.css'],
+    animations: [
+        trigger('boxEnter', [
+            state('in', style({
+                opacity: 1,
+                transform: 'translateX(0)'
+            })),
+            transition('void => *', [
+                style({
+                    opacity: 0,
+                    transform: 'translateX(-100px)'
+                }),
+                animate(500)
+            ])
+        ])
+    ]
 })
 export class BoxComponent implements OnInit{
      
