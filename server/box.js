@@ -187,8 +187,11 @@ router.post('/boxtonotify/:id/boxnotify', function(req, res, next){
                     from: 'pandy_2013@hotmail.com', // sender address
                     to: employee.email, // list of receivers
                     subject: 'You have a box waiting for you', // Subject line
-                    text: 'There is a box with the tracking:' + box.tracking + ' waiting for you'
-                    //html: '<p>This is a test</p>' // plain text body
+                    text: 'There is a box with the tracking:' + box.tracking + ' waiting for you',
+                    html: '<h2>Hello ' + employee.name + '</h2>' +
+                          '<h4>A box addressed to you just arrived!!!</h4>' +
+                          '<p>You can find it easily, its tracking number is ' + box.tracking + '</p>' +
+                          '<p>Come and get it!! and do not forget to sign!! Thanks a lot!!</p>'
                 };
                 // send mail with defined transport object
                 smtpTransport.sendMail(mailOptions, function(err, result){
