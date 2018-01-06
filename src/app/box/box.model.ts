@@ -1,5 +1,3 @@
-import { Employee } from './employee.model';
-
 export class Box {
     tracking: string;
     addressedTo: string;

@@ -12,6 +12,7 @@ const Employee = require('./models/employee');
 const api = require('./server/routes/api');
 const signinBox = require('./server/box');
 const userRouter = require('./server/user');
+const invRouter = require('./server/inventory');
 
 const app = express();
 
@@ -50,6 +51,7 @@ app.use(function(req, res, next){
 app.use('/', api);
 app.use('/', signinBox);
 app.use('/', userRouter);
+app.use('/inventory', invRouter);
 
 // Catch all other routes and return the index file
 app.get('*', (req, res) => {

@@ -23,6 +23,8 @@ import { SigninComponent } from './auth/signin.component';
 import { SignupComponent } from './auth/signup.component';
 import { LogoutComponent } from './auth/logout.component';
 
+import { InventoryComponent } from './inventory/inventory.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +37,8 @@ import { LogoutComponent } from './auth/logout.component';
     BoxDetailComponent,
     SigninComponent,
     SignupComponent,
-    LogoutComponent
+    LogoutComponent,
+    InventoryComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,21 @@
+<div class="container">
+    <div class="row">
+        <h1>Jazwares Inventory</h1>
+    </div>
+    
+    <div class="row">
+        <div class="form-group">
+            <form>
+                <input type="text" name="search" id="search">
+                <button type="submit" class="btn btn-success">Search</button>
+            </form>
+        </div>
+    </div>
+    
+    <div class="row">
+        <h2>{{item.assortment}}</h2>
+        <h3>Item Number: {{item.itemNumber}} "{{item.description}}"</h3>
+        <p>On Inventory: {{item.quantity}}</p>
+        <button class="btn btn-primary">Sign Out Items</button>
+    </div>
+</div>
