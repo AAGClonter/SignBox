@@ -14,7 +14,7 @@ const routes: Routes = [
     { path: 'boxtosignout/:id/boxsignout', component: BoxDetailComponent },
     { path: 'boxtonotify/:id/boxnotify', component: BoxNotifyComponent },
     { path: 'boxes', component: BoxComponent },
-    { path: 'inventory', component: InventoryComponent },
+    { path: 'inventory/assortments', component: InventoryComponent },
     { path: 'signup', component: SignupComponent },
     { path: 'signin', component: SigninComponent },
     { path: 'logout', component: LogoutComponent }

@@ -6,6 +6,7 @@
     <div class="row">
         <div class="form-group">
             <form>
+                <label>Search by brand name:</label>
                 <input type="text" name="search" id="search">
                 <button type="submit" class="btn btn-success">Search</button>
             </form>
@@ -13,9 +14,19 @@
     </div>
     
     <div class="row">
-        <h2>{{item.assortment}}</h2>
-        <h3>Item Number: {{item.itemNumber}} "{{item.description}}"</h3>
-        <p>On Inventory: {{item.quantity}}</p>
-        <button class="btn btn-primary">Sign Out Items</button>
+        <ul class="list-group">
+            <li *ngFor="let assortment of assortments" class="list-group-item">
+                <h4>{{assortment.assortmentNumber}}: {{assortment.description}}</h4>
+                <!--
+                <div class="dropdown-menu">
+                    <div class="row dropdown-item" *ngFor="let item of items">
+                        <div class="row">
+                            <h2>{{item.itemNumber}}: {{item.description}} quantity: {{item.quantity}}</h2>
+                        </div>
+                    </div>
+                </div>
+                -->
+            </li>
+        </ul>
     </div>
 </div>

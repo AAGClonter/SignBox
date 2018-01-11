@@ -1,14 +1,12 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
+var Item = require('./invItem');
+
 var schema = new Schema({
-    assortmentNumber: { type: Number },
-    itemNumber: { type: Number, required: true },
+    assortmentNumber: { type: Number, required: true },
     description: { type: String, required: true },
-    showsDesignated: { type: Boolean, required: true },
-    donationDesignated: { type: Boolean, required: true },
-    sampleDesignated: { type: Boolean, required: true },
-    quantity: { type: Number, required: true }
+    items: [{type: Schema.Types.ObjectId, ref: 'Item'}]
 });
 
-module.exports = mongoose.model('Item', schema);
+module.exports = mongoose.model('Assortment', schema);

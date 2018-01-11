@@ -24,6 +24,7 @@ import { SignupComponent } from './auth/signup.component';
 import { LogoutComponent } from './auth/logout.component';
 
 import { InventoryComponent } from './inventory/inventory.component';
+import { InventoryService } from './inventory/inventory.service';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,7 @@ import { InventoryComponent } from './inventory/inventory.component';
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [BoxService, UserService],
+  providers: [BoxService, UserService, InventoryService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
