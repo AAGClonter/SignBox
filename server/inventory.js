@@ -71,12 +71,6 @@ router.post('/newItem', function(req, res, next){
                     error: err
                 });
             }
-            Assortment.find({assortmentNumber: item.assortmentNumber}, function(err, prodAssortment){
-                if (err) return next(err);
-                prodAssortment.assortment.push(item);
-                prodAssortment.save();
-                next();
-            })
             //user.invItemSignedIn.push(item);
             //user.save();
             res.status(200).json({

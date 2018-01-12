@@ -24,6 +24,10 @@ import { SignupComponent } from './auth/signup.component';
 import { LogoutComponent } from './auth/logout.component';
 
 import { InventoryComponent } from './inventory/inventory.component';
+import { InventoryChildComponent } from './inventory/inventory.child.component';
+import { AssortmentsComponent } from './inventory/components/assortment/assortments.component';
+import { ItemComponent } from './inventory/components/item/item.component';
+import { PrepareItemComponent } from './inventory/components/prepare-item/prepare-item.component';
 import { InventoryService } from './inventory/inventory.service';
 
 @NgModule({
@@ -39,7 +43,11 @@ import { InventoryService } from './inventory/inventory.service';
     SigninComponent,
     SignupComponent,
     LogoutComponent,
-    InventoryComponent
+    InventoryComponent,
+    InventoryChildComponent,
+    AssortmentsComponent,
+    ItemComponent,
+    PrepareItemComponent
   ],
   imports: [
     BrowserModule,

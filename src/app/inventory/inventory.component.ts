@@ -13,7 +13,6 @@ import { Item } from './item.model';
 export class InventoryComponent implements OnInit {
 
     assortments: Assortment[];
-    items: Item[];
 
     constructor(private inventoryService: InventoryService) {}
 

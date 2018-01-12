@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { INV_ROUTES } from './inventory/inventory.routes';
+
 import { BoxComponent } from './box/box.component';
 import { SignupComponent } from './auth/signup.component';
 import { SigninComponent } from './auth/signin.component';
@@ -14,7 +16,7 @@ const routes: Routes = [
     { path: 'boxtosignout/:id/boxsignout', component: BoxDetailComponent },
     { path: 'boxtonotify/:id/boxnotify', component: BoxNotifyComponent },
     { path: 'boxes', component: BoxComponent },
-    { path: 'inventory/assortments', component: InventoryComponent },
+    { path: 'inventory', component: InventoryComponent, children: INV_ROUTES },
     { path: 'signup', component: SignupComponent },
     { path: 'signin', component: SigninComponent },
     { path: 'logout', component: LogoutComponent }
