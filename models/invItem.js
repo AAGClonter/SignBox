@@ -7,8 +7,7 @@ var schema = new Schema({
     assortmentNumber: { type: Number, required: true },
     itemNumber: { type: Number, required: true },
     description: { type: String, required: true },
-    date: { type: Date, default: Date.now() },
-    image: { type: String, required: false }
+    date: { type: Date, default: Date.now() }
 });
 
 module.exports = mongoose.model('Item', schema);

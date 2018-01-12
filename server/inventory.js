@@ -39,12 +39,20 @@ router.get('/:id/items', function(req, res, next){
                 error: err
             });
         }
-        res.status(200).json({
-            message: 'Assortment found',
-            obj: assortment
-        })
-    })
-})
+        Item.find({assortmentNumber: assortment.assortmentNumber}, function(err, items){
+            if (err) {
+                return res.status(500).json({
+                    message: 'An error occurred',
+                    error: err
+                });
+            }
+            res.status(200).json({
+                message: 'Items found',
+                obj: items
+            });
+        });
+    });
+});
 // Adding items to inventory
 router.post('/newItem', function(req, res, next){
     //var decoded = jwt.decode(req.query.token);
