@@ -1,17 +1,16 @@
 <div class="container">
-    <div class="row">
+    <div class="row down">
         <h1>Jazwares Inventory</h1>
     </div>
-    <header class="row spacing">
-            <nav class="col-md-8 col-md-offset-2">
-                <ul class="nav nav-tabs">
-                    <li class="nav-item"><a [routerLink]="['assortments']">Add Assortment</a></li>
-                    <li class="nav-item"><a [routerLink]="['newItem']">Add Item</a></li>
-                    <li class="nav-item"><a [routerLink]="['prepareItem']">Prepare Items</a></li>
+    <div class="row spacing down">
+            <nav>
+                <ul class="nav nav-tabs col-md-12 offset-md-2">
+                    <li class="nav-item right"><a [routerLink]="['assortments']">Assortments and Items</a></li>
+                    <li class="nav-item right"><a [routerLink]="['prepareItem']">Prepare Items</a></li>
                 </ul>
             </nav>
-        </header>
-        <div class="row spacing">
+        </div>
+        <div class="row spacing down">
             <router-outlet></router-outlet>
         </div>
     <!--

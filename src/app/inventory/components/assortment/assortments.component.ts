@@ -1,9 +1,33 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+
+import { InventoryService } from '../../inventory.service';
+
+import { Assortment } from '../../assortment.model';
+import { Item } from '../../item.model';
 
 @Component({
     selector: 'inventory-assortments',
-    template: `
-        <h1>Assortments</h1>
-    `
+    templateUrl: './assortments.component.html'
 })
-export class AssortmentsComponent {}
+export class AssortmentsComponent implements OnInit{
+    
+    assortments: Assortment[];
+    items: Item[];
+
+    constructor(private inventoryService: InventoryService) {}
+
+    ngOnInit() {
+        this.gettingAssortments();
+    }
+
+    gettingAssortments() {
+        this.inventoryService.getAssortments().subscribe(
+           assortments => this.assortments = assortments);
+    }
+
+    itemsFromAssortment(assortment: Assortment) {
+        this.inventoryService.getItems(assortment).subscribe(
+            items => this.items = items
+        );
+    }
+}

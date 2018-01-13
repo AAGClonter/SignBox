@@ -1,0 +1,20 @@
+<div class="container">
+    <div class="row">
+        <ul class="list-group">
+            <li *ngFor="let assortment of assortments" 
+                class="list-group-item" 
+                (click)="itemsFromAssortment(assortment)"
+                [routerLink]="[assortment._id, 'items']"
+                >
+                <button class="btn btn-secondary dropdown-toggle">{{assortment.assortmentNumber}} - {{assortment.description}}</button>
+                <div class="dropdown-menu">
+                    <ul class="list-group">
+                        <li *ngFor="let item of items" class="list-group-item">
+                            {{item.itemNumber}} - {{item.description}} - {{item.quantity}}
+                        </li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

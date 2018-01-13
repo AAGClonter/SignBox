@@ -6,6 +6,7 @@ import { PrepareItemComponent } from './components/prepare-item/prepare-item.com
 
 export const INV_ROUTES: Routes = [
     { path: '', redirectTo: 'assortments', pathMatch: 'full' },
+    { path: 'assortments/:id/items', component: AssortmentsComponent },
     { path: 'assortments', component: AssortmentsComponent },
     { path: 'newItem', component: ItemComponent },
     { path: 'prepareItem', component: PrepareItemComponent }

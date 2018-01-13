@@ -7,6 +7,7 @@ var schema = new Schema({
     assortmentNumber: { type: Number, required: true },
     itemNumber: { type: Number, required: true },
     description: { type: String, required: true },
+    quantity: { type: Number, required: true },
     date: { type: Date, default: Date.now() }
 });
 

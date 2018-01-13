@@ -10,7 +10,7 @@ import { UserService } from './auth/user.service';
     <div class="container">
         <div class="row">
             <nav class="down">
-                <ul class="nav nav-tabs">
+                <ul class="navbar navbar-expand-lg navbar-light bg-light">
                     <li class="nav-item"><a class="nav-link" routerLink="/boxes">Boxes to Sign Out</a></li>
                     <li class="nav-item"><a class="nav-link" routerLink="/inventory/assortments">Inventory</a></li>
                     <li class="nav-item"><a class="nav-link" routerLink="/signup">Sign Up</a></li>
@@ -34,6 +34,10 @@ import { UserService } from './auth/user.service';
 
         .right {
             margin-left: 320px;
+        }
+
+        ul {
+            list-style: none;
         }
     `]
 })

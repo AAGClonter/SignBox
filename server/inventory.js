@@ -61,6 +61,7 @@ router.post('/newItem', function(req, res, next){
             assortmentNumber: req.body.assortment,
             itemNumber: req.body.itemNumber,
             description: req.body.description,
+            quantity: req.body.quantity,
             date: Date.now()
         });
 
