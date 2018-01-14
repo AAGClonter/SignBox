@@ -8,6 +8,7 @@ var schema = new Schema({
     itemNumber: { type: Number, required: true },
     description: { type: String, required: true },
     quantity: { type: Number, required: true },
+    prepared: { type: Boolean },
     date: { type: Date, default: Date.now() }
 });
 

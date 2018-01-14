@@ -25,14 +25,4 @@ export class InventoryService {
                                 }
                             )
     }
-
-    //Getting all items from a specific assortment
-    getItems(assortment: Assortment): Observable<Item[]> {
-        return this.httpClient.get<Item[]>('http://localhost:3000/inventory/' + assortment._id + '/items')
-                            .map(
-                                (items) => {
-                                    return items['obj']
-                                }
-                            )
-    }
 }

@@ -24,10 +24,4 @@ export class AssortmentsComponent implements OnInit{
         this.inventoryService.getAssortments().subscribe(
            assortments => this.assortments = assortments);
     }
-
-    itemsFromAssortment(assortment: Assortment) {
-        this.inventoryService.getItems(assortment).subscribe(
-            items => this.items = items
-        );
-    }
 }
