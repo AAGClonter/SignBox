@@ -4,39 +4,31 @@
     </div>
     <div class="row spacing down">
             <nav>
-                <ul class="nav nav-tabs col-md-12 offset-md-2">
-                    <li class="nav-item right"><a [routerLink]="['assortments']">Assortments and Items</a></li>
-                    <li class="nav-item right"><a [routerLink]="['prepareItem']">Prepare Items</a></li>
+                <ul class="nav nav-tabs col-md-12 offset-md-2" id="myTab" role="tablist" >
+                    <li class="nav-item right">
+                        <a class="nav-link" 
+                            id="assortments-tab" 
+                            data-toggle="tab" 
+                            role="tab" 
+                            aria-controls="assortment" 
+                            aria-selected="true" 
+                            routerLinkActive="active" 
+                            [routerLink]="['assortments']">Assortments and Items</a>
+                    </li>
+                    <li class="nav-item right">
+                        <a class="nav-link" 
+                            id="prepare-tab" 
+                            data-toggle="tab" 
+                            role="tab" 
+                            aria-controls="prepare" 
+                            aria-selected="false" 
+                            routerLinkActive="active" 
+                            [routerLink]="['prepareItem']">Prepare Items</a>
+                    </li>
                 </ul>
             </nav>
         </div>
         <div class="row spacing down">
             <router-outlet></router-outlet>
         </div>
-    <!--
-    <div class="row">
-        <div class="form-group">
-            <form>
-                <label>Search by brand name:</label>
-                <input type="text" name="search" id="search">
-                <button type="submit" class="btn btn-success">Search</button>
-            </form>
-        </div>
-    </div>
-    
-    <div class="row">
-        <ul class="list-group">
-            <li *ngFor="let assortment of assortments" class="list-group-item">
-                <h4>{{assortment.assortmentNumber}}: {{assortment.description}}</h4>
-                <div class="dropdown-menu">
-                    <div class="row dropdown-item" *ngFor="let item of items">
-                        <div class="row">
-                            <h2>{{item.itemNumber}}: {{item.description}} quantity: {{item.quantity}}</h2>
-                        </div>
-                    </div>
-                </div>
-            </li>
-        </ul>
-    </div>
-    -->
 </div>

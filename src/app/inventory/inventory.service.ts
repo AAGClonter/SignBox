@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import 'rxjs/Rx';
 import { Observable } from "rxjs";
@@ -24,5 +24,13 @@ export class InventoryService {
                                     return assortments['assortments'];
                                 }
                             )
+    }
+
+    //Adding more items
+    addingItems(item: Item): Observable<Item> {
+        const httpOptions = {
+            headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+        };
+        return this.httpClient.post<Item>('http://localhost:3000/inventory/newItem', item, httpOptions)
     }
 }

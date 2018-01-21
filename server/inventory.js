@@ -8,7 +8,7 @@ var Assortment = require('../models/invItems');
 var Item = require('../models/invItem');
 
 //Adding assortments
-router.post('/assortments', function(req, res, next){
+router.post('/assortment', function(req, res, next){
     var assortment = new Assortment({
         assortmentNumber: req.body.assortmentNumber,
         description: req.body.description
@@ -32,6 +32,34 @@ router.get('/assortments', function(req, res, next){
                   res.status(200).json({assortments});
               });
 });
+
+//Adding certain quantity to an Item
+router.put('/assortments', function(req, res, next){
+    Item.findOne({itemNumber: req.body.itemNumber}, function(err, item){
+        if (err) {
+            return res.status(500).json({
+                message: 'An error occurrred',
+                error: err
+            });
+        }
+
+        if (!item) {
+            return res.status(500).json({
+                message: 'Item not found',
+                error: { message: 'Item not found'}
+            });
+        }
+        item.save(function(err, item){
+            if (err) return next(err);
+            item.quantity = (item.quantity + req.body.quantity);
+            res.status(200).json({
+                message: 'Item added',
+                obj: item
+            });
+        });
+    });
+});
+
 // Adding items to inventory
 router.post('/newItem', function(req, res, next){
     //var decoded = jwt.decode(req.query.token);

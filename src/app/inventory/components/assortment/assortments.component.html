@@ -1,20 +1,71 @@
 <div class="container">
     <div class="row">
-        <div *ngFor="let assortment of assortments">
-            <div class="dropdown">
-                    <button class="btn btn-light dropdown-toggle" 
-                            type="button" 
-                            id="dropdownMenuButton" 
-                            data-toggle="dropdown" 
-                            aria-haspopup="true" 
-                            aria-expanded="false"
-                            >{{assortment.assortmentNumber}} - {{assortment.description}}</button>
-                <div class="dropdown-menu">
-                    <div *ngFor="let item of assortment.items" class="dropdown-item">
-                        <p>{{item.itemNumber}} - {{item.description}} - {{item.quantity}}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Assortment Number</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let assortment of assortments">
+                    <td>{{assortment.assortmentNumber}}</td>
+                    <td>{{assortment.description}}</td>
+                    <button class="btn btn-secondary" (click)="activate(assortment)">{{buttonActive}}</button>
+                    <table *ngIf="assortment.isShown">
+                        <thead>
+                            <tr>
+                                <th>Prepared</th>
+                                <th>Item Number</th>
+                                <th>Description</th>
+                                <th>Date</th>
+                                <th>Quantity</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of assortment.items">
+                                <td><input type="checkbox" name="checkbox" value={{item.itemNumber}}></td>
+                                <td>{{item.itemNumber}}</td>
+                                <td>{{item.description}}</td>
+                                <td>{{item.date}}</td>
+                                <td>{{item.quantity}}</td>
+                            </tr>
+                            <tr>
+                                <button class="btn btn-secondary" (click)="onShowForm()">Add an Item Here</button>
+                            </tr>
+                            <tr *ngIf="formActive">
+                                <form class="formGroup" (ngSubmit)="onSubmit(f)" #f="ngForm">
+                                    <input type="hidden" 
+                                           name="assortment" 
+                                           id="assortment" 
+                                           value={{item.assortmentNumber}} 
+                                           class="form-control"
+                                           [ngModel]="item?.assortmentNumber">
+                                    <label for="itemNumber">Provide an Item Number:</label>
+                                    <input type="number" 
+                                           name="itemNumber" 
+                                           id="itemNumber" 
+                                           class="form-control" 
+                                           [ngModel]="item?.itemNumber">
+                                    <label for="description">Provide a descritpion</label>
+                                    <input type="text" 
+                                           name="description" 
+                                           id="description" 
+                                           class="form-control"
+                                           [ngModel]="item?.description">
+
+                                    <label for="quantity">Quantity:</label>
+                                    <input type="number" name="quantity" id="quantity" class="form-control" [ngModel]="item?.quantity">
+
+                                    <button type="submit" class="btn btn-success down">Add Item</button>
+                                </form>
+                            </tr>
+                        </tbody>
+                    </table>
+                </tr>
+            </tbody>
+        </table>
+        <h3>Prepare all the Selected Items</h3>
+        <button type="submit" class="btn btn-primary right">Prepare</button>
     </div>
 </div>

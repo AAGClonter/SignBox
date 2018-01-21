@@ -3,5 +3,7 @@ export class Item {
                 public itemNumber: number,
                 public description: string,
                 public quantity: number,
-                public date: string) {}
+                public date?: string,
+                public _id?: string,
+                public isShown: boolean = false) {}
 }
