@@ -46,6 +46,11 @@ export class AssortmentsComponent implements OnInit{
     }
 
     onSubmit(form: NgForm) {
+
+        this.inventoryService.updatingItem(form.value).subscribe(
+            (response) => console.log(response)
+        )
+        /*
         const newItem = new Item(
             form.value.assortment, 
             form.value.itemNumber, 
@@ -61,6 +66,7 @@ export class AssortmentsComponent implements OnInit{
                 assortment.items.push(newItem);
             }
         )
+        */
     }
  
     //Template related code
@@ -68,7 +74,8 @@ export class AssortmentsComponent implements OnInit{
         assortment.isShown = !assortment.isShown;
     }
 
-    onShowForm() {
-         this.formActive = !this.formActive;
+    onQuantity(item: Item) {
+         item.isShown = !item.isShown;
+         this.inventoryService.editItem(item)
     }
 }

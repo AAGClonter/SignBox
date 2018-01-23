@@ -29,26 +29,20 @@
                                 <td>{{item.description}}</td>
                                 <td>{{item.date}}</td>
                                 <td>{{item.quantity}}</td>
-                            </tr>
-                            <tr>
-                                <button class="btn btn-secondary" (click)="onShowForm()">Add an Item Here</button>
-                            </tr>
-                            <tr *ngIf="formActive">
-                                <form class="formGroup" (ngSubmit)="onSubmit(f)" #f="ngForm">
+                                <button class="btn btn-secondary" (click)="onQuantity(item)">Add an Item Here</button>
+                                <form *ngIf="item.isShown" class="form-inline" (ngSubmit)="onSubmit(f)" #f="ngForm">
                                     <input type="hidden" 
                                            name="assortment" 
                                            id="assortment" 
-                                           value={{item.assortmentNumber}} 
+                                           value={{item.assortment}} 
                                            class="form-control"
-                                           [ngModel]="item?.assortmentNumber">
-                                    <label for="itemNumber">Provide an Item Number:</label>
-                                    <input type="number" 
+                                           [ngModel]="item?.assortment">
+                                    <input type="hidden" 
                                            name="itemNumber" 
                                            id="itemNumber" 
                                            class="form-control" 
                                            [ngModel]="item?.itemNumber">
-                                    <label for="description">Provide a descritpion</label>
-                                    <input type="text" 
+                                    <input type="hidden" 
                                            name="description" 
                                            id="description" 
                                            class="form-control"

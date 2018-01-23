@@ -11,10 +11,10 @@ import { UserService } from './auth/user.service';
         <div class="row">
             <nav class="down">
                 <ul class="navbar navbar-dark bg-dark">
-                    <li class="nav-item"><a routerLinkActive="active" routerLink="/boxes">Boxes to Sign Out</a></li>
-                    <li class="nav-item"><a routerLinkActive="active" routerLink="/inventory/assortments">Inventory</a></li>
-                    <li class="nav-item"><a routerLinkActive="active" routerLink="/signup">Sign Up</a></li>
-                    <li class="nav-item" *ngIf="!isLoggedIn()"><a class="nav-link" routerLink="/signin">Login</a></li>
+                    <li class="nav-item"><a class="nav-link" routerLinkActive="inUse" routerLink="/boxes">Boxes to Sign Out</a></li>
+                    <li class="nav-item"><a class="nav-link" routerLinkActive="inUse" routerLink="/inventory/assortments">Inventory</a></li>
+                    <li class="nav-item"><a class="nav-link" routerLinkActive="inUse" routerLink="/signup">Sign Up</a></li>
+                    <li class="nav-item" *ngIf="!isLoggedIn()"><a class="nav-link" routerLinkActive="inUse" routerLink="/signin">Login</a></li>
                     <div class="justify-content-end">
                         <form class="form-inline right">
                             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
@@ -38,6 +38,14 @@ import { UserService } from './auth/user.service';
 
         ul {
             list-style: none;
+        }
+
+        a {
+            color: white;
+        }
+
+        .inUse {
+            color: #737475;
         }
     `]
 })

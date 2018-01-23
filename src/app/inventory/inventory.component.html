@@ -1,6 +1,26 @@
 <div class="container">
     <div class="row down">
         <h1>Jazwares Inventory</h1>
+        <h2 class="down">Add Assortment Here</h2>
+        <div class="row spacing down">
+            <form class="form-group down" (ngSubmit)="onSubmit(f)" #f="ngForm">
+                <label for="assortmentNumber">Provide an assortment number:</label>
+                <input type="number" 
+                       id="assortmentNumber" 
+                       name="assortmentNumber" 
+                       class="form-control"
+                       [ngModel]="assortment?.assortmentNumber">
+
+                <label for="description">Description</label>
+                <input type="text" 
+                       id="description" 
+                       name="description" 
+                       class="form-control"
+                       [ngModel]="assortment?.description">
+
+                <button type="submit" class="btn btn-success down">Add Assortment</button>
+            </form>
+        </div>
     </div>
     <div class="row spacing down">
             <nav>

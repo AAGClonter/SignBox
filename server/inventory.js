@@ -8,14 +8,19 @@ var Assortment = require('../models/invItems');
 var Item = require('../models/invItem');
 
 //Adding assortments
-router.post('/assortment', function(req, res, next){
+router.post('/assortments', function(req, res, next){
     var assortment = new Assortment({
         assortmentNumber: req.body.assortmentNumber,
         description: req.body.description
     });
 
     assortment.save(function(err, assortment){
-        if (err) return next(err);
+        if (err) {
+            return res.status(500).json({
+                message: 'An error occurred',
+                error: err
+            });
+        };
         res.status(200).json({
             message: 'Assortment created',
             obj: assortment
@@ -34,7 +39,7 @@ router.get('/assortments', function(req, res, next){
 });
 
 //Adding certain quantity to an Item
-router.put('/assortments', function(req, res, next){
+router.patch('/assortments', function(req, res, next){
     Item.findOne({itemNumber: req.body.itemNumber}, function(err, item){
         if (err) {
             return res.status(500).json({
@@ -49,9 +54,10 @@ router.put('/assortments', function(req, res, next){
                 error: { message: 'Item not found'}
             });
         }
+
+        item.quantity = (item.quantity + req.body.quantity);
         item.save(function(err, item){
             if (err) return next(err);
-            item.quantity = (item.quantity + req.body.quantity);
             res.status(200).json({
                 message: 'Item added',
                 obj: item
