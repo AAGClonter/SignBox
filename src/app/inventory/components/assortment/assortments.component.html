@@ -1,5 +1,25 @@
 <div class="container">
     <div class="row">
+        <h2 class="down">Add Assortment Here</h2>
+        <form class="form-inline down" (ngSubmit)="onSubmit(f)" #f="ngForm">
+            <label for="assortmentNumber">Provide an assortment number:</label>
+            <input type="number" 
+                    id="assortmentNumber" 
+                    name="assortmentNumber" 
+                    class="form-control"
+                    [ngModel]="assortment?.assortmentNumber">
+
+            <label for="description">Description</label>
+            <input type="text" 
+                    id="description" 
+                    name="description" 
+                    class="form-control"
+                    [ngModel]="assortment?.description">
+
+            <button type="submit" class="btn btn-success down">Add Assortment</button>
+        </form>
+    </div>
+    <div class="row">
         <table class="table">
             <thead>
                 <tr>
@@ -12,6 +32,7 @@
                     <td>{{assortment.assortmentNumber}}</td>
                     <td>{{assortment.description}}</td>
                     <button class="btn btn-secondary" (click)="activate(assortment)">{{buttonActive}}</button>
+                    <button class="btn btn-danger" (click)="deleteAssortment(assortment)">Delete Assortment</button>
                     <table *ngIf="assortment.isShown">
                         <thead>
                             <tr>
@@ -30,7 +51,8 @@
                                 <td>{{item.date}}</td>
                                 <td>{{item.quantity}}</td>
                                 <button class="btn btn-secondary" (click)="onQuantity(item)">Add an Item Here</button>
-                                <form *ngIf="item.isShown" class="form-inline" (ngSubmit)="onSubmit(f)" #f="ngForm">
+                                <button class="btn btn-danger" (click)="onDeleteItem(item)">Delete Item</button>
+                                <form *ngIf="item.isShown" class="form-inline" (ngSubmit)="onItemSubmit(f)" #f="ngForm">
                                     <input type="hidden" 
                                            name="assortment" 
                                            id="assortment" 

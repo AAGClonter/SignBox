@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 import { InventoryService } from '../../inventory.service';
@@ -23,7 +23,7 @@ import { Item } from '../../item.model';
         }
     `]
 })
-export class AssortmentsComponent implements OnInit{
+export class AssortmentsComponent {
 
     item: Item;
 
@@ -46,6 +46,19 @@ export class AssortmentsComponent implements OnInit{
     }
 
     onSubmit(form: NgForm) {
+        const newAssortment = new Assortment(
+            form.value.assortmentNumber,
+            form.value.description
+        )
+        this.inventoryService.addingAssortments(newAssortment).subscribe(
+            (assortment) => {
+                this.assortments.push(assortment),
+                console.log(assortment)
+            }
+        )
+    }
+
+    onItemSubmit(form: NgForm) {
 
         this.inventoryService.updatingItem(form.value).subscribe(
             (response) => console.log(response)
@@ -68,7 +81,6 @@ export class AssortmentsComponent implements OnInit{
         )
         */
     }
- 
     //Template related code
     activate(assortment: Assortment) {
         assortment.isShown = !assortment.isShown;
@@ -78,4 +90,19 @@ export class AssortmentsComponent implements OnInit{
          item.isShown = !item.isShown;
          this.inventoryService.editItem(item)
     }
+
+    //Deleting assortment
+    deleteAssortment(assortment: Assortment) {
+        this.inventoryService.deleteAssortment(assortment).subscribe(
+            (response) => console.log(response)
+        )
+    }
+
+    //Deleting an Item
+    onDeleteItem(item: Item) {
+        this.inventoryService.deleteItem(item).subscribe(
+            (response) => console.log(response)
+        )
+    }
+
 }

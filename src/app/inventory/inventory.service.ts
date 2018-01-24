@@ -40,7 +40,7 @@ export class InventoryService {
     //Adding an assortment
     addingAssortments(assortment: Assortment): Observable<Assortment> {
         return this.httpClient.post<Assortment>('http://localhost:3000/inventory/assortments', assortment, this.httpOptions)
-                              .map((assortment) => {
+                              .map((assortment: Assortment) => {
                                   this.assortments.push(assortment);
                                   return assortment;
                               })
@@ -52,5 +52,16 @@ export class InventoryService {
 
     editItem(item: Item) {
         this.itemIsEdit.emit(item);
+    }
+
+    //Deleting an assormtent
+    deleteAssortment(assortment: Assortment): Observable<Assortment>{
+        return this.httpClient
+                    .post<any>('http://localhost:3000/inventory/assortments/' + assortment._id, assortment, this.httpOptions)
+    }
+
+    //Deleting an item
+    deleteItem(item: Item): Observable<Item>{
+        return this.httpClient.delete<Item>('http://localhost:3000/inventory/assortments/' + item._id, this.httpOptions)
     }
 }

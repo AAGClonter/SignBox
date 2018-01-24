@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 import { InventoryService } from './inventory.service';
@@ -11,21 +11,5 @@ import { Item } from './item.model';
     templateUrl: './inventory.component.html',
     styleUrls: ['./inventory.component.css']
 })
-export class InventoryComponent {
-
-    assortments: Assortment[];
-
-    constructor(private inventoryService: InventoryService) {}
-
-    onSubmit(form: NgForm) {
-        const newAssortment = new Assortment(
-            form.value.assortmentNumber,
-            form.value.description
-        )
-        this.inventoryService.addingAssortments(newAssortment).subscribe(
-            (response) => {
-                console.log(response)
-            }
-        )
-    }
+export class InventoryComponent {    
 }
