@@ -67,20 +67,17 @@ router.patch('/assortments', function(req, res, next){
 });
 
 //Delete an Assortment
-router.post('/assortments/:id', function(req, res, next){
-    Assortment.findById(req.params.id, function(err, assortment){
+router.delete('/assortments/:id', function(req, res, next){
+    Assortment.findByIdAndRemove(req.params.id, function(err, assortment){
         if (err) {
             return res.status(500).json({
                 message: 'An error occurred',
                 error: err
             });
         }
-        assortment.remove(function(err, result){
-            if (err) return next(err);
-            res.status(200).json({
-                message: 'Succesfully deleted',
-                obj: result
-            });
+        res.status(200).json({
+            message: 'Succesfully deleted',
+            obj: assortment
         });
     });
 });
@@ -157,12 +154,20 @@ router.get('/prepareItem', function(req, res, next){
 });
 
 //Deleting a single item
-router.delete('/assortments/:id', function(req, res, next){
-    Item.findByIdAndRemove(req.params.id, function(err, item){
-        if (err) return next(err);
-        res.status(200).json({
-            message: 'Successfully deleted',
-            obj: item
+router.post('/assortments/:id', function(req, res, next){
+    Item.findById(req.params.id, function(err, item){
+        if (err) {
+            return res.status(500).json({
+                message: 'An error occurred',
+                error: err
+            });
+        }
+        item.remove(function(err, result){
+            if (err) return next(err);
+            res.status(200).json({
+                message: 'Item successfully deleted',
+                obj: result
+            });
         });
     });
 });

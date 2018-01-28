@@ -5,5 +5,6 @@ export class Item {
                 public quantity: number,
                 public date?: string,
                 public _id?: string,
-                public isShown: boolean = false) {}
+                public isShown: boolean = false,
+                public onNewItem: boolean = false) {}
 }

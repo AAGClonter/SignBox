@@ -25,7 +25,7 @@ import { Item } from '../../item.model';
 })
 export class AssortmentsComponent {
 
-    item: Item;
+    items: Item[];
 
     showForm: boolean = false;
     buttonActive = "See Items";
@@ -51,11 +51,12 @@ export class AssortmentsComponent {
             form.value.description
         )
         this.inventoryService.addingAssortments(newAssortment).subscribe(
-            (assortment) => {
-                this.assortments.push(assortment),
-                console.log(assortment)
+            assortment => {
+                this.assortments.push(newAssortment);
+                console.log(assortment);
             }
         )
+        form.reset();
     }
 
     onItemSubmit(form: NgForm) {
@@ -63,7 +64,10 @@ export class AssortmentsComponent {
         this.inventoryService.updatingItem(form.value).subscribe(
             (response) => console.log(response)
         )
-        /*
+        form.reset();
+    }
+
+    onSubmitNewItem(form: NgForm) {
         const newItem = new Item(
             form.value.assortment, 
             form.value.itemNumber, 
@@ -73,13 +77,8 @@ export class AssortmentsComponent {
         this.inventoryService.addingItems(newItem).subscribe(
             (response) => console.log(response)
         )
-        this.assortments.filter(
-            assortment => {
-                assortment.assortmentNumber = newItem.assortment;
-                assortment.items.push(newItem);
-            }
-        )
-        */
+
+        form.reset();
     }
     //Template related code
     activate(assortment: Assortment) {
@@ -88,19 +87,25 @@ export class AssortmentsComponent {
 
     onQuantity(item: Item) {
          item.isShown = !item.isShown;
-         this.inventoryService.editItem(item)
+         this.inventoryService.editItem(item);
+    }
+
+    onAddItem(item: Item) {
+        item.onNewItem = !item.onNewItem;
     }
 
     //Deleting assortment
     deleteAssortment(assortment: Assortment) {
         this.inventoryService.deleteAssortment(assortment).subscribe(
-            (response) => console.log(response)
+            (response) => {
+                console.log(response)
+            }
         )
     }
 
     //Deleting an Item
-    onDeleteItem(item: Item) {
-        this.inventoryService.deleteItem(item).subscribe(
+    onDeleteItem(assortment: Assortment, item: Item) {
+        this.inventoryService.deleteItem(assortment, item).subscribe(
             (response) => console.log(response)
         )
     }

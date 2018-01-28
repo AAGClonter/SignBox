@@ -50,8 +50,8 @@
                                 <td>{{item.description}}</td>
                                 <td>{{item.date}}</td>
                                 <td>{{item.quantity}}</td>
-                                <button class="btn btn-secondary" (click)="onQuantity(item)">Add an Item Here</button>
-                                <button class="btn btn-danger" (click)="onDeleteItem(item)">Delete Item</button>
+                                <button class="btn btn-secondary" (click)="onQuantity(item)">Update Quantity</button>
+                                <button class="btn btn-danger" (click)="onDeleteItem(assortment, item)">Delete Item</button>
                                 <form *ngIf="item.isShown" class="form-inline" (ngSubmit)="onItemSubmit(f)" #f="ngForm">
                                     <input type="hidden" 
                                            name="assortment" 
@@ -73,7 +73,38 @@
                                     <label for="quantity">Quantity:</label>
                                     <input type="number" name="quantity" id="quantity" class="form-control" [ngModel]="item?.quantity">
 
-                                    <button type="submit" class="btn btn-success down">Add Item</button>
+                                    <button type="submit" class="btn btn-success down">Apply</button>
+                                </form>
+                                <button class="btn btn-primary" (click)="onAddItem(item)">Add New item</button>
+                                <form *ngIf="item.onNewItem" class="form-inline" (ngSubmit)="onSubmitNewItem(f)" #f="ngForm">
+                                    <label for="assortment">Provide an Assortment Number</label>
+                                    <input type="text" 
+                                           name="assortment" 
+                                           id="assortment" 
+                                           value={{item.assortment}} 
+                                           class="form-control"
+                                           [ngModel]="item?.assortment">
+                                    <label for="itemNumber">Provide an Item Number</label>
+                                    <input type="number" 
+                                           name="itemNumber" 
+                                           id="itemNumber" 
+                                           class="form-control" 
+                                           [ngModel]="item?.itemNumber">
+                                    <label for="description">Provide a description</label>
+                                    <input type="text" 
+                                           name="description" 
+                                           id="description" 
+                                           class="form-control"
+                                           [ngModel]="item?.description">
+
+                                    <label for="quantity">Quantity:</label>
+                                    <input type="number" 
+                                           name="quantity" 
+                                           id="quantity" 
+                                           class="form-control" 
+                                           [ngModel]="item?.quantity">
+
+                                    <button type="submit" class="btn btn-success down">Apply</button>
                                 </form>
                             </tr>
                         </tbody>
