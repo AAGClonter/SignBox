@@ -67,16 +67,19 @@ export class AssortmentsComponent {
         form.reset();
     }
 
-    onSubmitNewItem(form: NgForm) {
+    onSubmitNewItem(form: NgForm, assortment: Assortment) {
         const newItem = new Item(
             form.value.assortment, 
             form.value.itemNumber, 
             form.value.description,
             form.value.quantity
             )
-        this.inventoryService.addingItems(newItem).subscribe(
-            (response) => console.log(response)
-        )
+            this.inventoryService.addingItems(newItem).subscribe(
+                item => {
+                    assortment.items.push(newItem);
+                    console.log(item)
+                }
+            )
 
         form.reset();
     }

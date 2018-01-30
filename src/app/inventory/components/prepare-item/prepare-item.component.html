@@ -1,11 +1,41 @@
 <div class="container">
     <div class="row">
         <div class="form-group">
-            <form>
+            <form class="form-group">
                 <label>Search by brand name:</label>
-                <input type="text" name="search" id="search">
+                <input #searchBox 
+                        type="text" 
+                        name="search" 
+                        id="search" 
+                        class="form-control"
+                        (keyup)="search(searchBox.value)">
                 <button type="submit" class="btn btn-success">Search</button>
             </form>
         </div>
+
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Item Number</th>
+                    <th>Description</th>
+                    <th>Date Signed In</th>
+                    <th>Quantity</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of preparedItems">
+                    <td>{{item.itemNumber}}</td>
+                    <td>{{item.description}}</td>
+                    <td>{{item.date}}</td>
+                    <td>{{item.quantity}}</td>
+                    <td>
+                        <form class="form-inline">
+                            <label for="qtySignOut">How many Items are you signing Out</label>
+                            <input type="number" id="qtySignOut" name="qtySignOut" class="form-control">
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>

@@ -98,4 +98,16 @@ export class InventoryService {
         return this.httpClient.post<any>(this.inventoryUrl + '/assortments/' + item._id, item, this.httpOptions)
             
     }
+
+    //Searching Items for the SignOut
+    /* GET heroes whose name contains search term */
+searchHeroes(term: string): Observable<Item[]> {
+    if (!term.trim()) {
+      // if not search term, return empty hero array.
+      return of([]);
+    }
+    return this.httpClient.get<Item[]>(this.inventoryUrl + `/?description=${term}`).pipe(
+      catchError(this.handleError<Item[]>('searchHeroes', []))
+    );
+  }
 }

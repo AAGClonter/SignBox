@@ -2,33 +2,33 @@
     <div class="row">
         <h2 class="down">Add Assortment Here</h2>
         <form class="form-inline down" (ngSubmit)="onSubmit(f)" #f="ngForm">
-            <label for="assortmentNumber">Provide an assortment number:</label>
+            <label for="assortmentNumber" class="right">Provide an assortment number:</label>
             <input type="number" 
                     id="assortmentNumber" 
                     name="assortmentNumber" 
-                    class="form-control"
+                    class="form-control right"
                     [ngModel]="assortment?.assortmentNumber">
 
-            <label for="description">Description</label>
+            <label for="description" class="right">Description</label>
             <input type="text" 
                     id="description" 
                     name="description" 
-                    class="form-control"
+                    class="form-control right"
                     [ngModel]="assortment?.description">
 
-            <button type="submit" class="btn btn-success down">Add Assortment</button>
+            <button type="submit" class="btn btn-success right">Add Assortment</button>
         </form>
     </div>
     <div class="row">
-        <table class="table">
-            <thead>
+        <table class="table down">
+            <thead class="thead-dark">
                 <tr>
                     <th>Assortment Number</th>
                     <th>Description</th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let assortment of assortments">
+                <tr *ngFor="let assortment of assortments; let i = index">
                     <td>{{assortment.assortmentNumber}}</td>
                     <td>{{assortment.description}}</td>
                     <button class="btn btn-secondary" (click)="activate(assortment)">{{buttonActive}}</button>
@@ -76,7 +76,7 @@
                                     <button type="submit" class="btn btn-success down">Apply</button>
                                 </form>
                                 <button class="btn btn-primary" (click)="onAddItem(item)">Add New item</button>
-                                <form *ngIf="item.onNewItem" class="form-inline" (ngSubmit)="onSubmitNewItem(f)" #f="ngForm">
+                                <form *ngIf="item.onNewItem" class="form-inline" (ngSubmit)="onSubmitNewItem(f, assortment)" #f="ngForm">
                                     <label for="assortment">Provide an Assortment Number</label>
                                     <input type="text" 
                                            name="assortment" 
