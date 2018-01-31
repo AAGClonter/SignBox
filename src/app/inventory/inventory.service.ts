@@ -50,6 +50,10 @@ export class InventoryService {
                                 catchError(this.handleError('getAssortments', []))
                             )
     }
+    //Getting the items
+    gettingItems(assortment: Assortment) {
+        return assortment.items;
+    }
 
     //Adding more items
     addingItems(item: Item): Observable<Item> {
@@ -101,7 +105,7 @@ export class InventoryService {
 
     //Searching Items for the SignOut
     /* GET heroes whose name contains search term */
-searchHeroes(term: string): Observable<Item[]> {
+searchItems(term: string): Observable<Item[]> {
     if (!term.trim()) {
       // if not search term, return empty hero array.
       return of([]);

@@ -26,12 +26,11 @@ import { Item } from '../../item.model';
 export class AssortmentsComponent {
 
     items: Item[];
+    assortments: Assortment[];
 
     showForm: boolean = false;
     buttonActive = "See Items";
     formActive: boolean = false;
-
-    assortments: Assortment[];
 
     constructor(private inventoryService: InventoryService) {}
 
@@ -51,9 +50,9 @@ export class AssortmentsComponent {
             form.value.description
         )
         this.inventoryService.addingAssortments(newAssortment).subscribe(
-            assortment => {
-                this.assortments.push(newAssortment);
-                console.log(assortment);
+            data => {
+                this.gettingAssortments();
+                console.log(data);
             }
         )
         form.reset();
@@ -75,9 +74,8 @@ export class AssortmentsComponent {
             form.value.quantity
             )
             this.inventoryService.addingItems(newItem).subscribe(
-                item => {
-                    assortment.items.push(newItem);
-                    console.log(item)
+                data => {
+                    this.gettingAssortments();
                 }
             )
 
