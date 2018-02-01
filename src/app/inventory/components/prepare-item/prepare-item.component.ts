@@ -7,7 +7,12 @@ import { Assortment } from '../../assortment.model';
 
 @Component({
     selector: 'inventory-prepare',
-    templateUrl: './prepare-item.component.html'
+    templateUrl: './prepare-item.component.html',
+    styles: [`
+        .down {
+            margin-top: 20px;
+        }
+    `]
 })
 export class PrepareItemComponent {
 

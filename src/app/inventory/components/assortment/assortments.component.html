@@ -31,8 +31,39 @@
                 <tr *ngFor="let assortment of assortments; let i = index">
                     <td>{{assortment.assortmentNumber}}</td>
                     <td>{{assortment.description}}</td>
-                    <button class="btn btn-secondary" (click)="activate(assortment)">{{buttonActive}}</button>
+                    <button type="button" class="btn btn-primary" (click)="activate(assortment)">See Items</button>
                     <button class="btn btn-danger" (click)="deleteAssortment(assortment)">Delete Assortment</button>
+                    <button class="btn btn-primary" (click)="onAddItem(assortment)">Add New item</button>
+                                <form *ngIf="assortment.onAddingItem" class="form-group" (ngSubmit)="onSubmitNewItem(f, assortment)" #f="ngForm">
+                                    <label for="assortment">Provide an Assortment Number</label>
+                                    <input type="text" 
+                                           name="assortment" 
+                                           id="assortment" 
+                                           class="form-control"
+                                           [ngModel]="item?.assortment">
+                                    <label for="itemNumber">Provide an Item Number</label>
+                                    <input type="number" 
+                                           name="itemNumber" 
+                                           id="itemNumber" 
+                                           class="form-control" 
+                                           [ngModel]="item?.itemNumber">
+                                    <label for="description">Provide a description</label>
+                                    <input type="text" 
+                                           name="description" 
+                                           id="description" 
+                                           class="form-control"
+                                           [ngModel]="item?.description">
+
+                                    <label for="quantity">Quantity:</label>
+                                    <input type="number" 
+                                           name="quantity" 
+                                           id="quantity" 
+                                           class="form-control" 
+                                           [ngModel]="item?.quantity">
+
+                                    <button type="submit" class="btn btn-success down">Apply</button>
+                                    <button type="button" class="btn btn-secondary down" (click)="gettingItems(assortment)">Save</button>
+                                </form>
                     <table *ngIf="assortment.isShown">
                         <thead>
                             <tr>
@@ -45,7 +76,7 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let item of assortment.items">
-                                <td><input type="checkbox" name="checkbox" value={{item.itemNumber}}></td>
+                                <td><input type="checkbox" name="checkbox" value={{item.prepared}}></td>
                                 <td>{{item.itemNumber}}</td>
                                 <td>{{item.description}}</td>
                                 <td>{{item.date}}</td>
@@ -72,37 +103,6 @@
 
                                     <label for="quantity">Quantity:</label>
                                     <input type="number" name="quantity" id="quantity" class="form-control" [ngModel]="item?.quantity">
-
-                                    <button type="submit" class="btn btn-success down">Apply</button>
-                                </form>
-                                <button class="btn btn-primary" (click)="onAddItem(item)">Add New item</button>
-                                <form *ngIf="item.onNewItem" class="form-inline" (ngSubmit)="onSubmitNewItem(f, assortment)" #f="ngForm">
-                                    <label for="assortment">Provide an Assortment Number</label>
-                                    <input type="text" 
-                                           name="assortment" 
-                                           id="assortment" 
-                                           value={{item.assortment}} 
-                                           class="form-control"
-                                           [ngModel]="item?.assortment">
-                                    <label for="itemNumber">Provide an Item Number</label>
-                                    <input type="number" 
-                                           name="itemNumber" 
-                                           id="itemNumber" 
-                                           class="form-control" 
-                                           [ngModel]="item?.itemNumber">
-                                    <label for="description">Provide a description</label>
-                                    <input type="text" 
-                                           name="description" 
-                                           id="description" 
-                                           class="form-control"
-                                           [ngModel]="item?.description">
-
-                                    <label for="quantity">Quantity:</label>
-                                    <input type="number" 
-                                           name="quantity" 
-                                           id="quantity" 
-                                           class="form-control" 
-                                           [ngModel]="item?.quantity">
 
                                     <button type="submit" class="btn btn-success down">Apply</button>
                                 </form>

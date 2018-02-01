@@ -36,6 +36,7 @@ export class AssortmentsComponent {
 
     ngOnInit() {
         this.gettingAssortments();
+        this.getAllItems();
     }
     //Data requests 
     gettingAssortments() {
@@ -44,6 +45,18 @@ export class AssortmentsComponent {
            );
     }
 
+    getAllItems() {
+        this.inventoryService.getAllItems().subscribe(
+            items => this.items = items
+        )
+    }
+    //Getting Items by Assortment
+    gettingItems(assortment: Assortment) {
+        this.inventoryService.gettingItems(assortment).subscribe(
+            items => this.items = items
+        );
+    }
+    //POST new Assortment
     onSubmit(form: NgForm) {
         const newAssortment = new Assortment(
             form.value.assortmentNumber,
@@ -57,7 +70,7 @@ export class AssortmentsComponent {
         )
         form.reset();
     }
-
+    //Updating item
     onItemSubmit(form: NgForm) {
 
         this.inventoryService.updatingItem(form.value).subscribe(
@@ -65,7 +78,7 @@ export class AssortmentsComponent {
         )
         form.reset();
     }
-
+    //Creating new item
     onSubmitNewItem(form: NgForm, assortment: Assortment) {
         const newItem = new Item(
             form.value.assortment, 
@@ -75,10 +88,11 @@ export class AssortmentsComponent {
             )
             this.inventoryService.addingItems(newItem).subscribe(
                 data => {
-                    this.gettingAssortments();
+                    assortment.items.push(newItem);
+                    console.log(data);
                 }
             )
-
+        this.gettingItems(assortment);
         form.reset();
     }
     //Template related code
@@ -91,8 +105,8 @@ export class AssortmentsComponent {
          this.inventoryService.editItem(item);
     }
 
-    onAddItem(item: Item) {
-        item.onNewItem = !item.onNewItem;
+    onAddItem(assortment: Assortment) {
+        assortment.onAddingItem = !assortment.onAddingItem;
     }
 
     //Deleting assortment

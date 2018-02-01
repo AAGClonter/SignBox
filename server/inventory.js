@@ -93,6 +93,7 @@ router.post('/newItem', function(req, res, next){
                     itemNumber: req.body.itemNumber,
                     description: req.body.description,
                     quantity: req.body.quantity,
+                    prepared: false,
                     date: Date.now()
                 });
 
@@ -134,6 +135,29 @@ router.get('/items', function(req, res, next){
         res.status(200).json({
             message: 'Items found',
             obj: items
+        });
+    });
+});
+
+router.get('/item/:assortment', function(req, res, next){
+    Assortment.findOne({assortmentNumber: req.params.assortment}, function(err, assortment){
+        if (err) {
+            return res.status(500).json({
+                message: 'An error occurred',
+                error: err
+            });
+        }
+        Item.find({assortmentNumber: assortment.assortmentNumber}, function(err, items){
+            if (err) {
+                return res.status(500).json({
+                    message: 'An error occurred',
+                    error: err
+                });
+            }
+            res.status(200).json({
+                message: 'Item found',
+                obj: items
+            });
         });
     });
 });

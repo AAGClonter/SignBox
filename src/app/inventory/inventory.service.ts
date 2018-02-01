@@ -52,7 +52,25 @@ export class InventoryService {
     }
     //Getting the items
     gettingItems(assortment: Assortment) {
-        return assortment.items;
+        return this.httpClient.get<Item[]>(this.inventoryUrl + '/item/' + assortment.assortmentNumber)
+                            .map(
+                                (items) => {
+                                    this.items = items['items']
+                                    return items['items']
+                                }
+                            ).pipe(
+                                catchError(this.handleError('gettingItems', []))
+                            )
+    }
+    
+    getAllItems(){
+        return this.httpClient.get<Item[]>(this.inventoryUrl + '/items')
+                                .map(
+                                    (items) => {
+                                        this.items = items['items']
+                                        return items['items']
+                                    }
+                                )
     }
 
     //Adding more items
