@@ -31,22 +31,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(morgan('dev'));
 // Point static path to dist
 app.use(express.static(path.join(__dirname, 'dist')));
-
-// Getting every single employee
-/*
-app.use(function(req, res, next){
-    Employee.find({}, function(err, employees){
-      if (err) {
-        return res.status(500).json({
-          message: 'An error occurred',
-          error: err
-        });
-      }
-      res.json(employees);
-      next();
-    });
-});
-*/
 // Set our api routes
 app.use('/', api);
 app.use('/', signinBox);

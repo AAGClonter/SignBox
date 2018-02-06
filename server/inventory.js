@@ -132,10 +132,7 @@ router.get('/items', function(req, res, next){
                 error: err
             });
         }
-        res.status(200).json({
-            message: 'Items found',
-            obj: items
-        });
+        res.json({items})
     });
 });
 
@@ -192,6 +189,37 @@ router.post('/assortments/:id', function(req, res, next){
                 message: 'Item successfully deleted',
                 obj: result
             });
+        });
+    });
+});
+
+//Prepared method signing out items
+router.post('/prepared/:id/prepare', function(req, res, next){
+    Item.findOne(req.params.id, function(err, item){
+        if (err) {
+            return res.status(500).json({
+                message: 'An error occurred',
+                error: err
+            });
+        }
+        item.quantity -= req.body.quantity;
+        item.save(function(err, result){
+            if (err) return next(err);
+            res.status(200).json({
+                message: 'Item updated',
+                obj: result
+            });
+        });
+    });
+});
+
+//Getting items by Description
+router.get('/preparedItems', function(req, res, next){
+    Item.findOne({description: req.query.description}, function(err, item){
+        if (err) return next(err);
+        res.status(200).json({
+            message: 'Item found',
+            obj: item
         });
     });
 });

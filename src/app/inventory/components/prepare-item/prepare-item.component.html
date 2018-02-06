@@ -11,6 +11,14 @@
                         (keyup)="search(searchBox.value)">
                 <button type="submit" class="btn btn-success down">Search</button>
             </form>
+
+            <ul class="search-result">
+                <li *ngFor="let item of preparedItems$ | async" >
+                  <a routerLink="/detail/{{hero.id}}">
+                    {{(item | async).itemNumber}} {{(item | async).description}}
+                  </a>
+                </li>
+              </ul>
         </div>
 
         <table class="table">
@@ -23,7 +31,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let item of preparedItems">
+                <tr *ngFor="let item of preparedItems$ | async">
                     <td>{{item.itemNumber}}</td>
                     <td>{{item.description}}</td>
                     <td>{{item.date}}</td>

@@ -53,7 +53,7 @@ export class AssortmentsComponent {
     //Getting Items by Assortment
     gettingItems(assortment: Assortment) {
         this.inventoryService.gettingItems(assortment).subscribe(
-            items => this.items = items
+            items => assortment.items = items
         );
     }
     //POST new Assortment
@@ -74,7 +74,11 @@ export class AssortmentsComponent {
     onItemSubmit(form: NgForm) {
 
         this.inventoryService.updatingItem(form.value).subscribe(
-            (response) => console.log(response)
+            (response) => {
+                console.log(response);
+                this.getAllItems();
+            }
+            
         )
         form.reset();
     }
@@ -86,10 +90,10 @@ export class AssortmentsComponent {
             form.value.description,
             form.value.quantity
             )
-            this.inventoryService.addingItems(newItem).subscribe(
-                data => {
+            this.inventoryService.addingItems(newItem, assortment).subscribe(
+                newItem => {
                     assortment.items.push(newItem);
-                    console.log(data);
+                    console.log(newItem);
                 }
             )
         this.gettingItems(assortment);

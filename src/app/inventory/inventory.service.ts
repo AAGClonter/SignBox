@@ -54,17 +54,17 @@ export class InventoryService {
     gettingItems(assortment: Assortment) {
         return this.httpClient.get<Item[]>(this.inventoryUrl + '/item/' + assortment.assortmentNumber)
                             .map(
-                                (items) => {
-                                    this.items = items['items']
-                                    return items['items']
+                                items => {
+                                    return items;
                                 }
-                            ).pipe(
+                            )
+                            .pipe(
                                 catchError(this.handleError('gettingItems', []))
                             )
     }
     
     getAllItems(){
-        return this.httpClient.get<Item[]>(this.inventoryUrl + '/items')
+        return this.httpClient.get<Item[]>(this.inventoryUrl + '/items', { observe: 'response'})
                                 .map(
                                     (items) => {
                                         this.items = items['items']
@@ -74,9 +74,14 @@ export class InventoryService {
     }
 
     //Adding more items
-    addingItems(item: Item): Observable<Item> {
+    addingItems(item: Item, assortment: Assortment): Observable<Item> {
         return this.httpClient
                     .post<Item>(this.inventoryUrl + '/newItem', item, this.httpOptions)
+                    .map(
+                        result => {
+                            return item;
+                        }
+                    )
                     .pipe(
                         catchError(this.handleError<Item>('addingItems'))
                     )
@@ -86,6 +91,9 @@ export class InventoryService {
     addingAssortments(assortment: Assortment): Observable<Assortment> {
         return this.httpClient
                     .post<Assortment>(this.inventoryUrl + '/assortments', assortment, this.httpOptions)
+                    .map(
+                        assortment => {return assortment}
+                    )
                     .pipe(
                         catchError(this.handleError<Assortment>('addingAssortments'))
                     )
@@ -122,14 +130,14 @@ export class InventoryService {
     }
 
     //Searching Items for the SignOut
-    /* GET heroes whose name contains search term */
+    /* GET item whose description contains search term */
 searchItems(term: string): Observable<Item[]> {
     if (!term.trim()) {
-      // if not search term, return empty hero array.
+      // if not search term, return empty item array.
       return of([]);
     }
-    return this.httpClient.get<Item[]>(this.inventoryUrl + `/?description=${term}`).pipe(
-      catchError(this.handleError<Item[]>('searchHeroes', []))
+    return this.httpClient.get<Item[]>(this.inventoryUrl + `/preparedItems/?description=${term}`).pipe(
+      catchError(this.handleError<Item[]>('searchItems', []))
     );
   }
 }
