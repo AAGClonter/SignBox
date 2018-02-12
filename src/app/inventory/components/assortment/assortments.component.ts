@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { HttpResponse } from '@angular/common/http';
+import { Params } from '@angular/router';
 
 import { InventoryService } from '../../inventory.service';
 
@@ -36,7 +38,6 @@ export class AssortmentsComponent {
 
     ngOnInit() {
         this.gettingAssortments();
-        this.getAllItems();
     }
     //Data requests 
     gettingAssortments() {
@@ -44,16 +45,18 @@ export class AssortmentsComponent {
            assortments => this.assortments = assortments
            );
     }
-
     getAllItems() {
-        this.inventoryService.getAllItems().subscribe(
+        this.inventoryService.gettingItems().subscribe(
             items => this.items = items
         )
     }
     //Getting Items by Assortment
     gettingItems(assortment: Assortment) {
-        this.inventoryService.gettingItems(assortment).subscribe(
-            items => assortment.items = items
+        this.inventoryService.gettingItems().subscribe(
+            items => {
+                this.items === assortment.items;
+                return this.items;
+            }
         );
     }
     //POST new Assortment
@@ -64,7 +67,7 @@ export class AssortmentsComponent {
         )
         this.inventoryService.addingAssortments(newAssortment).subscribe(
             data => {
-                this.gettingAssortments();
+                this.assortments.push(data['obj']);
                 console.log(data);
             }
         )
@@ -76,7 +79,6 @@ export class AssortmentsComponent {
         this.inventoryService.updatingItem(form.value).subscribe(
             (response) => {
                 console.log(response);
-                this.getAllItems();
             }
             
         )
@@ -91,12 +93,11 @@ export class AssortmentsComponent {
             form.value.quantity
             )
             this.inventoryService.addingItems(newItem, assortment).subscribe(
-                newItem => {
-                    assortment.items.push(newItem);
-                    console.log(newItem);
+                data => {
+                    assortment.items.push(data['obj']);
+                    console.log(data);
                 }
             )
-        this.gettingItems(assortment);
         form.reset();
     }
     //Template related code

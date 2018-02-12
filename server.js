@@ -30,7 +30,18 @@ app.use(bodyParser.urlencoded({ extended: false }));
 //Morgan
 app.use(morgan('dev'));
 // Point static path to dist
-app.use(express.static(path.join(__dirname, 'dist')));
+//app.use(express.static(path.join(__dirname, 'dist')));
+
+app.use(function(req, res, next){
+	res.header("Access-Control-Allow-Origin", "*");
+	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+	if(req.method === "OPTIONS") {
+		res.header("Access-Control-Allow-Methods", "PATCH,PUT,POST,DELETE");
+		return res.status(200).json({});
+	}
+	next();
+});
+
 // Set our api routes
 app.use('/', api);
 app.use('/', signinBox);

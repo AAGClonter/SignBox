@@ -3,7 +3,7 @@ export class Item {
     itemNumber: number;
     description: string;
     quantity: number;
-    date?: Date;
+    date?: string;
     _id?: string;
     isShown: boolean = false;
     onNewItem: boolean = false
@@ -13,7 +13,7 @@ export class Item {
                  itemNumber: number,
                  description: string,
                  quantity: number,
-                 date?: Date,
+                 date?: string,
                  _id?: string,
                  isShown: boolean = false,
                  onNewItem: boolean = false) {

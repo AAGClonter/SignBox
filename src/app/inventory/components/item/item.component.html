@@ -1,0 +1,34 @@
+<tbody>
+    <tr *ngFor="let item of assortment.items">
+        <td><input type="checkbox" name={{item.description}} value={{item.itemNumber}} #itemPrepared></td>
+        <td>{{item.itemNumber}}</td>
+        <td>{{item.description}}</td>
+        <td>{{item.date}}</td>
+        <td>{{item.quantity}}</td>
+        <button class="btn btn-secondary" (click)="onQuantity(item)">Update Quantity</button>
+        <button class="btn btn-danger" (click)="onDeleteItem(assortment, item)">Delete Item</button>
+        <form *ngIf="item.isShown" class="form-inline" (ngSubmit)="onItemSubmit(f)" #f="ngForm">
+            <input type="hidden" 
+                   name="assortment" 
+                   id="assortment" 
+                   value={{item.assortment}} 
+                   class="form-control"
+                   [ngModel]="item?.assortment">
+            <input type="hidden" 
+                   name="itemNumber" 
+                   id="itemNumber" 
+                   class="form-control" 
+                   [ngModel]="item?.itemNumber">
+            <input type="hidden" 
+                   name="description" 
+                   id="description" 
+                   class="form-control"
+                   [ngModel]="item?.description">
+
+            <label for="quantity">Quantity:</label>
+            <input type="number" name="quantity" id="quantity" class="form-control" [ngModel]="item?.quantity">
+
+            <button type="submit" class="btn btn-success down">Apply</button>
+        </form>
+    </tr>
+</tbody>

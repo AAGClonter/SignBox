@@ -136,29 +136,6 @@ router.get('/items', function(req, res, next){
     });
 });
 
-router.get('/item/:assortment', function(req, res, next){
-    Assortment.findOne({assortmentNumber: req.params.assortment}, function(err, assortment){
-        if (err) {
-            return res.status(500).json({
-                message: 'An error occurred',
-                error: err
-            });
-        }
-        Item.find({assortmentNumber: assortment.assortmentNumber}, function(err, items){
-            if (err) {
-                return res.status(500).json({
-                    message: 'An error occurred',
-                    error: err
-                });
-            }
-            res.status(200).json({
-                message: 'Item found',
-                obj: items
-            });
-        });
-    });
-});
-
 router.get('/prepareItem', function(req, res, next){
     Item.find({prepared: true}, function(err, items){
         if (err) {

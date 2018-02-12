@@ -1,5 +1,5 @@
 import { Injectable, EventEmitter } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders} from '@angular/common/http';
 
 import 'rxjs/Rx';
 import { Observable } from "rxjs";
@@ -8,6 +8,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 
 import { Item } from './item.model';
 import { Assortment } from './assortment.model';
+import { HttpResponse } from '@angular/common/http/src/response';
 
 @Injectable()
 export class InventoryService {
@@ -51,10 +52,11 @@ export class InventoryService {
                             )
     }
     //Getting the items
-    gettingItems(assortment: Assortment) {
-        return this.httpClient.get<Item[]>(this.inventoryUrl + '/item/' + assortment.assortmentNumber)
+    gettingItems(): Observable<Item[]> {
+        return this.httpClient.get<Item[]>(this.inventoryUrl + '/items')
                             .map(
-                                items => {
+                                (items) => {
+                                    this.items = items['items']
                                     return items;
                                 }
                             )
@@ -62,28 +64,19 @@ export class InventoryService {
                                 catchError(this.handleError('gettingItems', []))
                             )
     }
-    
-    getAllItems(){
-        return this.httpClient.get<Item[]>(this.inventoryUrl + '/items', { observe: 'response'})
-                                .map(
-                                    (items) => {
-                                        this.items = items['items']
-                                        return items['items']
-                                    }
-                                )
-    }
 
     //Adding more items
     addingItems(item: Item, assortment: Assortment): Observable<Item> {
+        const body = JSON.stringify(item);
         return this.httpClient
-                    .post<Item>(this.inventoryUrl + '/newItem', item, this.httpOptions)
+                    .post<Item>(this.inventoryUrl + '/newItem', body, this.httpOptions)
                     .map(
-                        result => {
-                            return item;
+                        data => {
+                            return data;
                         }
                     )
                     .pipe(
-                        catchError(this.handleError<Item>('addingItems'))
+                        catchError(this.handleError<Item>('addingItems', item))
                     )
     }
 

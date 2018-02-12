@@ -28,7 +28,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let assortment of assortments; let i = index">
+                <tr *ngFor="let assortment of assortments">
                     <td>{{assortment.assortmentNumber}}</td>
                     <td>{{assortment.description}}</td>
                     <button type="button" class="btn btn-primary" (click)="activate(assortment)">See Items</button>
@@ -61,8 +61,7 @@
                                            class="form-control" 
                                            [ngModel]="item?.quantity">
 
-                                    <button type="submit" class="btn btn-success down">Apply</button>
-                                    <button type="button" class="btn btn-secondary down" (click)="gettingItems(assortment)">Save</button>
+                                    <button type="submit" class="btn btn-success down">Submit</button>
                                 </form>
                     <table *ngIf="assortment.isShown">
                         <thead>
@@ -77,6 +76,7 @@
                         <tbody>
                             <tr *ngFor="let item of assortment.items">
                                 <td><input type="checkbox" name={{item.description}} value={{item.itemNumber}} #itemPrepared></td>
+                                {{itemPrepared.value}}
                                 <td>{{item.itemNumber}}</td>
                                 <td>{{item.description}}</td>
                                 <td>{{item.date}}</td>
