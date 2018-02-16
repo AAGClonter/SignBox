@@ -74,8 +74,8 @@ export class AssortmentsComponent {
         form.reset();
     }
     //Updating item
+    /*
     onItemSubmit(form: NgForm) {
-
         this.inventoryService.updatingItem(form.value).subscribe(
             (response) => {
                 console.log(response);
@@ -84,6 +84,7 @@ export class AssortmentsComponent {
         )
         form.reset();
     }
+    */
     //Creating new item
     onSubmitNewItem(form: NgForm, assortment: Assortment) {
         const newItem = new Item(
@@ -112,6 +113,11 @@ export class AssortmentsComponent {
 
     onAddItem(assortment: Assortment) {
         assortment.onAddingItem = !assortment.onAddingItem;
+    }
+
+    togglePrepared(item: Item) {
+        item.prepared = !item.prepared;
+        console.log(item.prepared)
     }
 
     //Deleting assortment

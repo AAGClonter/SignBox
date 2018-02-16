@@ -75,8 +75,7 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let item of assortment.items">
-                                <td><input type="checkbox" name={{item.description}} value={{item.itemNumber}} #itemPrepared></td>
-                                {{itemPrepared.value}}
+                                <td><input type="checkbox" name={{item.description}} checked="{{item.prepared}}" (click)="togglePrepared(item)"></td>
                                 <td>{{item.itemNumber}}</td>
                                 <td>{{item.description}}</td>
                                 <td>{{item.date}}</td>

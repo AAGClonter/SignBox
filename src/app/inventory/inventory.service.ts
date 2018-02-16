@@ -129,7 +129,7 @@ searchItems(term: string): Observable<Item[]> {
       // if not search term, return empty item array.
       return of([]);
     }
-    return this.httpClient.get<Item[]>(this.inventoryUrl + `/preparedItems/?description=${term}`).pipe(
+    return this.httpClient.get<Item[]>(this.inventoryUrl + `/preparedItems/?description=${term}`, this.httpOptions).pipe(
       catchError(this.handleError<Item[]>('searchItems', []))
     );
   }

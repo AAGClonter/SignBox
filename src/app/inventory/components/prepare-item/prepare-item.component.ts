@@ -28,6 +28,8 @@ export class PrepareItemComponent implements OnInit{
     preparedItems$: Observable<Item[]>;
     private searchTerms = new Subject<string>();
 
+    items: Item[];
+
     constructor(private inventoryService: InventoryService) {}
 
     // Push a search term into the observable stream.
@@ -36,6 +38,7 @@ export class PrepareItemComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    this.gettingAllItems();
 
     this.preparedItems$ = this.searchTerms.pipe(
       // wait 300ms after each keystroke before considering the term
@@ -45,5 +48,13 @@ export class PrepareItemComponent implements OnInit{
       // switch to new search observable each time the term changes
       switchMap((term: string) => this.inventoryService.searchItems(term))
     );
+  }
+
+  gettingAllItems() {
+    this.inventoryService.gettingItems().subscribe(
+      data => {
+        this.items = data
+      }
+    )
   }
 }

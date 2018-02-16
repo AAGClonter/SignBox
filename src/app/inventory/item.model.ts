@@ -6,7 +6,7 @@ export class Item {
     date?: string;
     _id?: string;
     isShown: boolean = false;
-    onNewItem: boolean = false
+    prepared: boolean = false
     
     
     constructor( assortment: number,
@@ -16,7 +16,7 @@ export class Item {
                  date?: string,
                  _id?: string,
                  isShown: boolean = false,
-                 onNewItem: boolean = false) {
+                 prepared: boolean = false) {
 
                     this.assortment = assortment;
                     this.itemNumber = itemNumber;
@@ -25,6 +25,6 @@ export class Item {
                     this.date = date;
                     this._id = _id;
                     this.isShown = isShown;
-                    this.onNewItem = onNewItem;
+                    this.prepared = prepared;
                 }
 }
