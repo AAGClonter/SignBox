@@ -5,9 +5,6 @@ import { Component } from '@angular/core';
     template: `
         <h1>Welcome to our Box Signer</h1>
         <div class="row">
-            <app-box-input></app-box-input>
-        </div>
-        <div class="row">
             <app-box></app-box>
         </div>
     `

@@ -1,7 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { HttpResponse } from '@angular/common/http';
-import { Params } from '@angular/router';
 
 import { InventoryService } from '../../inventory.service';
 
@@ -9,7 +7,7 @@ import { Assortment } from '../../assortment.model';
 import { Item } from '../../item.model';
 
 @Component({
-    selector: 'inventory-assortments',
+    selector: 'app-inventory-assortments',
     templateUrl: './assortments.component.html',
     styles: [`
         .grow-down {
@@ -25,21 +23,19 @@ import { Item } from '../../item.model';
         }
     `]
 })
-export class AssortmentsComponent {
+export class AssortmentsComponent implements OnInit {
 
     items: Item[];
     assortments: Assortment[];
 
-    showForm: boolean = false;
-    buttonActive = "See Items";
-    formActive: boolean = false;
+    checkboxSelected: boolean = false;
 
     constructor(private inventoryService: InventoryService) {}
 
     ngOnInit() {
         this.gettingAssortments();
     }
-    //Data requests 
+    // Data requests
     gettingAssortments() {
         this.inventoryService.getAssortments().subscribe(
            assortments => this.assortments = assortments
@@ -50,7 +46,7 @@ export class AssortmentsComponent {
             items => this.items = items
         )
     }
-    //Getting Items by Assortment
+    // Getting Items by Assortment
     gettingItems(assortment: Assortment) {
         this.inventoryService.gettingItems().subscribe(
             items => {
@@ -59,12 +55,13 @@ export class AssortmentsComponent {
             }
         );
     }
-    //POST new Assortment
+    // POST new Assortment
     onSubmit(form: NgForm) {
-        const newAssortment = new Assortment(
-            form.value.assortmentNumber,
-            form.value.description
-        )
+        const newAssortment: Assortment = {
+          assortmentNumber: form.value.assortmentNumber,
+          description: form.value.description,
+          isSelected: false
+        }
         this.inventoryService.addingAssortments(newAssortment).subscribe(
             data => {
                 this.assortments.push(data['obj']);
@@ -73,23 +70,23 @@ export class AssortmentsComponent {
         )
         form.reset();
     }
-    //Updating item
+    // Updating item
     /*
     onItemSubmit(form: NgForm) {
         this.inventoryService.updatingItem(form.value).subscribe(
             (response) => {
                 console.log(response);
             }
-            
+
         )
         form.reset();
     }
     */
-    //Creating new item
+    // Creating new item
     onSubmitNewItem(form: NgForm, assortment: Assortment) {
         const newItem = new Item(
-            form.value.assortment, 
-            form.value.itemNumber, 
+            form.value.assortment,
+            form.value.itemNumber,
             form.value.description,
             form.value.quantity
             )
@@ -101,7 +98,7 @@ export class AssortmentsComponent {
             )
         form.reset();
     }
-    //Template related code
+    // Template related code
     activate(assortment: Assortment) {
         assortment.isShown = !assortment.isShown;
     }
@@ -120,7 +117,7 @@ export class AssortmentsComponent {
         console.log(item.prepared)
     }
 
-    //Deleting assortment
+    // Deleting assortment
     deleteAssortment(assortment: Assortment) {
         this.inventoryService.deleteAssortment(assortment).subscribe(
             (response) => {
@@ -129,11 +126,17 @@ export class AssortmentsComponent {
         )
     }
 
-    //Deleting an Item
+    // Deleting an Item
     onDeleteItem(assortment: Assortment, item: Item) {
         this.inventoryService.deleteItem(assortment, item).subscribe(
             (response) => console.log(response)
         )
+    }
+
+    onPick(assortment: Assortment) {
+      if (this.checkboxSelected) {
+        this.inventoryService.onSelectAssortment(assortment)
+      }
     }
 
 }

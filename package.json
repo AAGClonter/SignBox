@@ -21,6 +21,7 @@
     "@angular/platform-browser": "^5.1.2",
     "@angular/platform-browser-dynamic": "^5.1.2",
     "@angular/router": "^5.1.2",
+    "angular4-social-login": "^1.1.1",
     "async": "^2.6.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.17.2",
@@ -30,6 +31,9 @@
     "mongoose": "^4.10.5",
     "morgan": "^1.8.2",
     "nodemailer": "^4.0.1",
+    "passport": "^0.4.0",
+    "passport-google-oauth": "^1.0.0",
+    "passport-google-oauth20": "^1.0.0",
     "rxjs": "^5.5.6",
     "zone.js": "^0.8.12"
   },

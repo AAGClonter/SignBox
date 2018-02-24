@@ -1,5 +1,5 @@
 import { Injectable, EventEmitter } from '@angular/core';
-import { HttpClient, HttpHeaders} from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 import 'rxjs/Rx';
 import { Observable } from "rxjs";
@@ -12,9 +12,12 @@ import { HttpResponse } from '@angular/common/http/src/response';
 
 @Injectable()
 export class InventoryService {
-    
+
     private items: Item[] = [];
     private assortments: Assortment[] = [];
+    selectedAssortments: Assortment[] = [];
+    selectedItems: Item[] = [];
+
     private inventoryUrl: string = 'http://localhost:3000/inventory';
 
     private httpOptions = {
@@ -23,23 +26,23 @@ export class InventoryService {
 
     private handleError<T> (operation = 'operation', result?: T) {
         return (error: any): Observable<T> => {
-      
+
           // TODO: send the error to remote logging infrastructure
           console.error(error); // log to console instead
-      
+
           // TODO: better job of transforming error for user consumption
           console.log(`${operation} failed: ${error.message}`);
-      
+
           // Let the app keep running by returning an empty result.
           return of(result as T);
         };
       }
 
     itemIsEdit = new EventEmitter<Item>();
-    
+
     constructor(private httpClient: HttpClient) {}
 
-    //Getting all assortments
+    // Getting all assortments
     getAssortments(): Observable<Assortment[]> {
         return this.httpClient.get<Assortment[]>(this.inventoryUrl + '/assortments')
                             .map(
@@ -51,7 +54,7 @@ export class InventoryService {
                                 catchError(this.handleError('getAssortments', []))
                             )
     }
-    //Getting the items
+    // Getting the items
     gettingItems(): Observable<Item[]> {
         return this.httpClient.get<Item[]>(this.inventoryUrl + '/items')
                             .map(
@@ -65,7 +68,7 @@ export class InventoryService {
                             )
     }
 
-    //Adding more items
+    // Adding more items
     addingItems(item: Item, assortment: Assortment): Observable<Item> {
         const body = JSON.stringify(item);
         return this.httpClient
@@ -80,7 +83,7 @@ export class InventoryService {
                     )
     }
 
-    //Adding an assortment
+    // Adding an assortment
     addingAssortments(assortment: Assortment): Observable<Assortment> {
         return this.httpClient
                     .post<Assortment>(this.inventoryUrl + '/assortments', assortment, this.httpOptions)
@@ -92,7 +95,7 @@ export class InventoryService {
                     )
     }
 
-    //Updating the quantity of a particular item
+    // Updating the quantity of a particular item
     updatingItem(item: Item): Observable<Item> {
         return this.httpClient
             .patch<Item>(this.inventoryUrl + '/assortments', item, this.httpOptions)
@@ -105,7 +108,7 @@ export class InventoryService {
         this.itemIsEdit.emit(item);
     }
 
-    //Deleting an assormtent
+    // Deleting an assormtent
     deleteAssortment(assortment: Assortment): Observable<Assortment>{
         this.assortments.splice(this.assortments.indexOf(assortment), 1)
         return this.httpClient
@@ -115,22 +118,28 @@ export class InventoryService {
                     )
     }
 
-    //Deleting an item
+    // Deleting an item
     deleteItem(assortment: Assortment, item: Item): Observable<any>{
         assortment.items.splice(assortment.items.indexOf(item), 1)
         return this.httpClient.post<any>(this.inventoryUrl + '/assortments/' + item._id, item, this.httpOptions)
-            
+
     }
 
-    //Searching Items for the SignOut
+    // Searching Items for the SignOut
     /* GET item whose description contains search term */
 searchItems(term: string): Observable<Item[]> {
-    if (!term.trim()) {
-      // if not search term, return empty item array.
-      return of([]);
-    }
-    return this.httpClient.get<Item[]>(this.inventoryUrl + `/preparedItems/?description=${term}`, this.httpOptions).pipe(
+    term = term.trim();
+
+    // Add safe, URL encoded search parameter if there is a search term
+    const options = term ?
+     { params: new HttpParams().set('description', term) } : {};
+
+    return this.httpClient.get<Item[]>(this.inventoryUrl + '/preparedItems', options).pipe(
       catchError(this.handleError<Item[]>('searchItems', []))
     );
+  }
+
+  onSelectAssortment(assorment: Assortment) {
+    this.selectedAssortments.push(assorment);
   }
 }

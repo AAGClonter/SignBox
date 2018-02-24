@@ -13,9 +13,6 @@ import { InventoryComponent } from './inventory/inventory.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'boxes', pathMatch: 'full' },
-    { path: 'boxtosignout/:id/boxsignout', component: BoxDetailComponent },
-    { path: 'boxtonotify/:id/boxnotify', component: BoxNotifyComponent },
-    { path: 'boxes', component: BoxComponent },
     { path: 'inventory', component: InventoryComponent, children: INV_ROUTES },
     { path: 'signup', component: SignupComponent },
     { path: 'signin', component: SigninComponent },

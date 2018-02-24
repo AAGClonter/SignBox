@@ -3,16 +3,16 @@
         <h2 class="down">Add Assortment Here</h2>
         <form class="form-inline down" (ngSubmit)="onSubmit(f)" #f="ngForm">
             <label for="assortmentNumber" class="right">Provide an assortment number:</label>
-            <input type="number" 
-                    id="assortmentNumber" 
-                    name="assortmentNumber" 
+            <input type="number"
+                    id="assortmentNumber"
+                    name="assortmentNumber"
                     class="form-control right"
                     [ngModel]="assortment?.assortmentNumber">
 
             <label for="description" class="right">Description</label>
-            <input type="text" 
-                    id="description" 
-                    name="description" 
+            <input type="text"
+                    id="description"
+                    name="description"
                     class="form-control right"
                     [ngModel]="assortment?.description">
 
@@ -23,12 +23,19 @@
         <table class="table down">
             <thead class="thead-dark">
                 <tr>
+                    <th>Assortment</th>
                     <th>Assortment Number</th>
                     <th>Description</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let assortment of assortments">
+                    <td><input type="checkbox"
+                               name="check"
+                               id="check"
+                               [(ngModel)]="checkboxSelected"
+                               (ngModelChange)="onPick(assortment)"
+                    ></td>
                     <td>{{assortment.assortmentNumber}}</td>
                     <td>{{assortment.description}}</td>
                     <button type="button" class="btn btn-primary" (click)="activate(assortment)">See Items</button>
@@ -36,29 +43,29 @@
                     <button class="btn btn-primary" (click)="onAddItem(assortment)">Add New item</button>
                                 <form *ngIf="assortment.onAddingItem" class="form-group" (ngSubmit)="onSubmitNewItem(f, assortment)" #f="ngForm">
                                     <label for="assortment">Provide an Assortment Number</label>
-                                    <input type="text" 
-                                           name="assortment" 
-                                           id="assortment" 
+                                    <input type="text"
+                                           name="assortment"
+                                           id="assortment"
                                            class="form-control"
                                            [ngModel]="item?.assortment">
                                     <label for="itemNumber">Provide an Item Number</label>
-                                    <input type="number" 
-                                           name="itemNumber" 
-                                           id="itemNumber" 
-                                           class="form-control" 
+                                    <input type="number"
+                                           name="itemNumber"
+                                           id="itemNumber"
+                                           class="form-control"
                                            [ngModel]="item?.itemNumber">
                                     <label for="description">Provide a description</label>
-                                    <input type="text" 
-                                           name="description" 
-                                           id="description" 
+                                    <input type="text"
+                                           name="description"
+                                           id="description"
                                            class="form-control"
                                            [ngModel]="item?.description">
 
                                     <label for="quantity">Quantity:</label>
-                                    <input type="number" 
-                                           name="quantity" 
-                                           id="quantity" 
-                                           class="form-control" 
+                                    <input type="number"
+                                           name="quantity"
+                                           id="quantity"
+                                           class="form-control"
                                            [ngModel]="item?.quantity">
 
                                     <button type="submit" class="btn btn-success down">Submit</button>
@@ -83,20 +90,20 @@
                                 <button class="btn btn-secondary" (click)="onQuantity(item)">Update Quantity</button>
                                 <button class="btn btn-danger" (click)="onDeleteItem(assortment, item)">Delete Item</button>
                                 <form *ngIf="item.isShown" class="form-inline" (ngSubmit)="onItemSubmit(f)" #f="ngForm">
-                                    <input type="hidden" 
-                                           name="assortment" 
-                                           id="assortment" 
-                                           value={{item.assortment}} 
+                                    <input type="hidden"
+                                           name="assortment"
+                                           id="assortment"
+                                           value={{item.assortment}}
                                            class="form-control"
                                            [ngModel]="item?.assortment">
-                                    <input type="hidden" 
-                                           name="itemNumber" 
-                                           id="itemNumber" 
-                                           class="form-control" 
+                                    <input type="hidden"
+                                           name="itemNumber"
+                                           id="itemNumber"
+                                           class="form-control"
                                            [ngModel]="item?.itemNumber">
-                                    <input type="hidden" 
-                                           name="description" 
-                                           id="description" 
+                                    <input type="hidden"
+                                           name="description"
+                                           id="description"
                                            class="form-control"
                                            [ngModel]="item?.description">
 
