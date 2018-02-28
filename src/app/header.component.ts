@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { BoxComponent } from './box/box.component';
 import { Router } from '@angular/router';
+
+import { BoxComponent } from './box/box.component';
 
 import { UserService } from './auth/user.service';
 

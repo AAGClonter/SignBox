@@ -2,6 +2,7 @@ var express = require('express');
 var nodemailer = require('nodemailer');
 var async = require('async');
 var jwt = require('jsonwebtoken');
+var xoauth2 = require('xoauth2');
 var router = express.Router();
 
 var Box = require('../models/box');
@@ -173,12 +174,20 @@ router.post('/boxtonotify/:id/boxnotify', function(req, res, next){
 
                 var smtpTransport = nodemailer.createTransport({
                     service: "gmail",
-                    host: "smtp.gmail.com",
+                    host: "gsmtp.gmail.com",
                     port: 465,
                     secure: true,
                     auth: {
-                        user: "sheldoneinsestein@gmail.com",
-                        pass: "shel4583"
+                        xoauth2: xoauth2.createXOAuth2Generator({
+                            user: "sheldoneinsestein@gmail.com",
+                            //pass: "shel4583",
+                            clientId: "459612530252-22upbserlv47oc95utdhi11nq2o809bm.apps.googleusercontent.com",
+                            clientSecret: "nNXxJtQT5fjsmwu1GrwtDlFg",
+                            //accessToken: "ya29.GltuBXRUJ3YtkJ9anWGwzUh-FWhjCTN7otF_iDM--9Ehu_dnwK1B6ACEu0nMWbY8XCNaqjM3XalPlzDSBRdh_zAFTRMkx-Oov5z5xN326jYsKiUp7Lefnsp1HHjx", 
+                            refreshToken: "1/g0hu6G9anYfRG_-dpj1SztDZdVhDcgn9XiZpdCDnJ6yl67KKRHOorJrV4heuB47j"
+                            //refreshToken: "1/Ft-3SGTku37rn--TtNjU27jn_JJvKlAi7y78ZC_NtT0",
+                            //expires: 3600
+                        })
                     }
                 });
 

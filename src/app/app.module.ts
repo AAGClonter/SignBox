@@ -5,9 +5,9 @@ import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { AuthenticationComponent } from './auth/authentication.component';
 import { HeaderComponent } from './header.component';
 import { AppRoutingModule } from './app-routing.module';
+import { LogoutComponent } from './auth/logout.component';
 
 import { InventoryComponent } from './inventory/inventory.component';
 import { AssortmentsComponent } from './inventory/components/assortment/assortments.component';
@@ -16,16 +16,18 @@ import { PrepareItemComponent } from './inventory/components/prepare-item/prepar
 import { InventoryService } from './inventory/inventory.service';
 import { BoxModule } from './box/box.module';
 import { AuthModule } from './auth/auth.module';
+import { FormsModule } from '@angular/forms';
+import { UserService } from './auth/user.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AuthenticationComponent,
-    HeaderComponent,
     InventoryComponent,
     AssortmentsComponent,
     ItemComponent,
-    PrepareItemComponent
+    PrepareItemComponent,
+    HeaderComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,
@@ -33,10 +35,11 @@ import { AuthModule } from './auth/auth.module';
     HttpModule,
     AppRoutingModule,
     HttpClientModule,
+    FormsModule,
     BoxModule,
     AuthModule
   ],
-  providers: [InventoryService],
+  providers: [InventoryService, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

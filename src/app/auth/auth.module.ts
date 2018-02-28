@@ -1,23 +1,21 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 import { SignupComponent } from './signup.component';
 import { SigninComponent } from './signin.component';
-import { LogoutComponent } from './logout.component';
 
-import { UserService } from './user.service';
+import { AuthRoutesModule } from './auth-routes.module';
 
 @NgModule({
     declarations: [
         SignupComponent,
-        SigninComponent,
-        LogoutComponent
+        SigninComponent
     ],
     imports: [
-        FormsModule
-    ],
-    providers: [
-        UserService
+        CommonModule,
+        FormsModule,
+        AuthRoutesModule
     ]
 })
 export class AuthModule {}
