@@ -12,7 +12,6 @@ import { UserService } from './user.service';
         .down {
             margin-top: 40px;
         }
-        
         .another {
             margin-top: 25px;
         }
@@ -23,7 +22,7 @@ export class SigninComponent {
     constructor(private userService: UserService, private router: Router) {}
 
 
-    onSubmit(form: NgForm){
+    onSubmit(form: NgForm) {
         const user = new User(form.value.email, form.value.pin);
         this.userService.signinUser(user)
                         .subscribe(
