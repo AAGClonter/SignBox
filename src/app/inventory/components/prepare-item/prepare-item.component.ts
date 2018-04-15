@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 
 import { Observable } from 'rxjs/Observable';
-import { Subject }    from 'rxjs/Subject';
-import { of }         from 'rxjs/observable/of';
+import { Subject } from 'rxjs/Subject';
+import { of } from 'rxjs/observable/of';
 
 import {
     debounceTime, distinctUntilChanged, switchMap
@@ -15,7 +15,7 @@ import { Item } from '../../item.model';
 import { Assortment } from '../../assortment.model';
 
 @Component({
-    selector: 'inventory-prepare',
+    selector: 'app-inventory-prepare',
     templateUrl: './prepare-item.component.html',
     styles: [`
         .down {
@@ -23,7 +23,11 @@ import { Assortment } from '../../assortment.model';
         }
     `]
 })
-export class PrepareItemComponent implements OnInit{
+export class PrepareItemComponent implements OnInit {
+
+  applicationID = 'Y35L6PLLI4';
+  searchOnlyAPIKey = '2b6a13f64374f092fd09da75977fb25e';
+  adminAPIKey = '2b68d36f76f36617e8777d4c18c59fdc';
 
   items: Item[];
 

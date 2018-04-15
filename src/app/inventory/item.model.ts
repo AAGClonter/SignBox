@@ -5,10 +5,9 @@ export class Item {
     quantity: number;
     date?: string;
     _id?: string;
-    isShown: boolean = false;
-    prepared: boolean = false
-    
-    
+    isShown = false;
+    prepared = false
+
     constructor( assortment: number,
                  itemNumber: number,
                  description: string,
