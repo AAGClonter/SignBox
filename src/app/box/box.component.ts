@@ -8,7 +8,7 @@ import { Box } from './box.model';
 import { Employee } from './employee.model';
 
 import 'rxjs/Rx';
-import { Observable } from "rxjs";
+import { Observable } from 'rxjs';
 import 'rxjs/add/operator/switchMap';
 
 import { trigger, state, style, animate, transition } from '@angular/animations';
@@ -33,15 +33,15 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
         ])
     ]
 })
-export class BoxComponent implements OnInit{
-     
+export class BoxComponent implements OnInit {
+
      boxes: Box[];
      employees: Employee[];
 
     constructor(private boxService: BoxService,
-                private route: Router){}
+                private route: Router) {}
 
-    ngOnInit(){
+    ngOnInit() {
         this.getBoxes();
         this.getEmployees();
     }
@@ -54,7 +54,7 @@ export class BoxComponent implements OnInit{
         );
     }
 
-    getEmployees(){
+    getEmployees() {
         this.boxService.getEmployees().subscribe(
             (employees: Employee[]) => {
                 this.employees = employees;
@@ -65,15 +65,21 @@ export class BoxComponent implements OnInit{
     onSubmit(form: NgForm) {
             const box = new Box(form.value.tracking, form.value.addressedTo);
             this.boxService.signinBox(box).subscribe(
-            box => {
-                this.boxes.push(box);
+            data => {
+                this.boxes.push(data);
             },
             error => console.error(error)
         );
-        
+
         form.resetForm();
     }
-    
+    onSubmitEmployee(form: NgForm) {
+        const employee = new Employee(form.value.name, form.value.email)
+        this.boxService.createEmployee(employee).subscribe(
+            data => { this.employees.push(data) },
+            error => { console.error(error) }
+        )
+    }
 }
 
 

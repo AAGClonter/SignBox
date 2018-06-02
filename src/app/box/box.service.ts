@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Response, RequestOptions, Headers } from '@angular/http';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import 'rxjs/Rx';
-import { Observable } from "rxjs";
+import { Observable } from 'rxjs';
 
 import { Box } from './box.model';
 import { ErasedBox } from './erasedBox.model';
@@ -11,7 +11,7 @@ import { Employee } from './employee.model';
 
 @Injectable()
 export class BoxService {
-    
+
      private boxes: Box[] = [];
      private employees: Employee[] = [];
 
@@ -20,24 +20,22 @@ export class BoxService {
     signinBox(box: Box) {
         const body = JSON.stringify(box);
         const headers = new Headers({'Content-type': 'application/json'});
-        const token = localStorage.getItem('token') 
+        const token = localStorage.getItem('token')
         ? '?token=' + localStorage.getItem('token')
         : '';
         return this.http.post('http://localhost:3000/boxes' + token, body, {headers: headers})
                     .map((response: Response) => {
                         const result = response.json();
-                        const box = new Box(
+                        const newBox = new Box(
                             result.obj.tracking,
-                            result.obj.addressedTo,
-                            result.obj._id,
-                            result.obj.user._id
+                            result.obj.addressedTo
                         );
-                        this.boxes.push(box);
-                        return box;
+                        this.boxes.push(newBox);
+                        return newBox;
                     })
                     .catch((error: Response) => Observable.throw(error.json()));
     }
-    getBoxes(){
+    getBoxes() {
         return this.http.get('http://localhost:3000/boxes')
                 .map((response: Response) => response.json().obj)
                 .catch((error: Response) => Observable.throw(error.json()));
@@ -64,32 +62,32 @@ export class BoxService {
     }
 // NOTE FOR LATER
 // CREATE HEADERS OBJECT, CREATE NEW ERASED BOX WITH THE BOX INFORMATION
-    deleteBox(box: Box){
+    deleteBox(box: Box) {
         this.boxes.splice(this.boxes.indexOf(box), 1);
-        //const token = localStorage.getItem('token') 
-        //? '?token=' + localStorage.getItem('token')
-        //: '';
+        // const token = localStorage.getItem('token')
+        // ? '?token=' + localStorage.getItem('token')
+        // : '';
         return this.http.delete('http://localhost:3000/boxtosignout/' + box._id + '/boxsignout'/*+ token*/)
             .map((response: Response) => response.json().obj)
             .catch((error: Response) => Observable.throw(error.json()));
     }
-    
-    eraseBox(box: Box, erasedBox: ErasedBox){
+
+    eraseBox(box: Box, erasedBox: ErasedBox) {
         const body = JSON.stringify(erasedBox);
         const headers = new Headers({'Content-type': 'application/json'});
         return this.http.post('http://localhost:3000/boxtosignout/' + box._id + '/boxsignout', body, {headers: headers})
                         .map((response: Response) => {
                             const result = response.json();
-                            const erasedBox = new ErasedBox(
+                            const newErasedBox = new ErasedBox(
                                 box,
                                 result.obj.signedBy,
                                 result.obj._id
                             );
-                            return erasedBox;
+                            return newErasedBox;
                         })
                         .catch((error: Response) => Observable.throw(error.json()));
     }
-    emailBox(box: Box){
+    emailBox(box: Box) {
         const body = JSON.stringify(box);
         const headers = new Headers({'Content-type': 'application/json'});
         return this.http.post('http://localhost:3000/boxtonotify/' + box._id + '/boxnotify', body, {headers: headers})
@@ -103,19 +101,31 @@ export class BoxService {
                         })
                         .catch((error: Response) => Observable.throw(error.json()));
     }
-  //EMPLOYEES SECTION
-   getEmployees(){
+  // EMPLOYEES SECTION
+   getEmployees() {
         return this.http.get('http://localhost:3000/employee')
                 .map((response: Response) => response.json().obj)
                 .catch((error: Response) => Observable.throw(error.json()));
     }
 
-    deleteEmployee(box: Box){
+    createEmployee(employee: Employee) {
+        const body = JSON.stringify(employee);
+        const headers = new Headers({'Content-type': 'application/json'});
+        return this.http.post('http://localhost:3000/employees', body, {headers: headers})
+                    .map((response: Response) => {
+                        const result = response.json();
+                        const newEmployee = new Employee(
+                            result.obj.name,
+                            result.obj.email
+                        );
+                        return newEmployee;
+                    })
+                    .catch((error: Response) => Observable.throw(error.json()));
+    }
+
+    deleteEmployee(box: Box) {
         return this.http.get('http://localhost:3000/boxtosignout/' + box._id + '/boxsignout')
                         .map((response: Response) => response.json().obj)
                         .catch((error: Response) => Observable.throw(error.json()));
     }
 }
-
-
-   

@@ -36,26 +36,31 @@ router.post('/boxes', function(req, res, next){
                 error: err
             });
         }
-            var box = new Box({
-                tracking: req.body.tracking,
-                addressedTo: req.body.addressedTo,
-                user: user
+        if (!user) {
+            return res.status(500).json({
+                message: 'An error occurred',
+                error: { message: 'User could not be found!'}
             });
+        }
+        var box = new Box({
+            tracking: req.body.tracking,
+            addressedTo: req.body.addressedTo
+        });
 
-            box.save(function(err, box){
-                if (err) {
-                    return res.status(500).json({
-                        message: 'An error has occurred',
-                        error: err
-                    });
-                }
-                user.boxesSignedIn.push(box);
-                user.save();
-                res.status(200).json({
-                    message: 'Box created',
-                    obj: box
+        box.save(function(err, box){
+            if (err) {
+                return res.status(500).json({
+                    message: 'An error has occurred',
+                    error: err
                 });
+            }
+            user.boxesSignedIn.push(box);
+            user.save();
+            res.status(200).json({
+                message: 'Box created',
+                obj: box
             });
+        });
     });
 });
 
@@ -241,8 +246,8 @@ router.get('/employee', function(req, res, next){
 
 router.post('/employees', function(req, res, next){
     var employee = new Employee({
-        name: 'Andy Alcantara',
-        email: 'andyalcantara745@yahoo.com'
+        name: req.body.name,
+        email: req.body.email
     });
 
     employee.save(function(err, employee){

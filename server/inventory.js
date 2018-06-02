@@ -9,21 +9,36 @@ var Item = require('../models/invItem');
 
 //Adding assortments
 router.post('/assortments', function(req, res, next){
-    var assortment = new Assortment({
-        assortmentNumber: req.body.assortmentNumber,
-        description: req.body.description
-    });
-
-    assortment.save(function(err, assortment){
+    var decoded = jwt.decode(req.query.token);
+    User.findById(decoded.user._id, (err, user) => {
         if (err) {
             return res.status(500).json({
                 message: 'An error occurred',
                 error: err
             });
-        };
-        res.status(200).json({
-            message: 'Assortment created',
-            obj: assortment
+        }
+        if (!user) {
+            return res.status(500).json({
+                message: 'An error occurred',
+                error: { message: 'User could not be found'}
+            });
+        }
+        var assortment = new Assortment({
+            assortmentNumber: req.body.assortmentNumber,
+            description: req.body.description
+        });
+    
+        assortment.save(function(err, assortment){
+            if (err) {
+                return res.status(500).json({
+                    message: 'An error occurred',
+                    error: err
+                });
+            };
+            res.status(200).json({
+                message: 'Assortment created',
+                obj: assortment
+            });
         });
     });
 });

@@ -7,16 +7,17 @@ var User = require('./users');
 
 var schema = new Schema({
     tracking: { type: String, required: true },
-    addressedTo: { type: String, require: true },
-    employee: { type: Schema.Types.ObjectId, ref: 'Employee' },
-    user: { type: Schema.Types.ObjectId, ref: 'User'}
+    addressedTo: { type: String, require: true }
+    // employee: { type: Schema.Types.ObjectId, ref: 'Employee' },
+    //user: { type: Schema.Types.ObjectId, ref: 'User'}
 });
 
+/*
 schema.plugin(mongooseAlgolia, {
-    appId: '',
-    apiKey: '',
-    indexName: '',
-    selector: '',
+    appId: 'Y35L6PLLI4',
+    apiKey: '2b68d36f76f36617e8777d4c18c59fdc',
+    indexName: 'dev_boxesinv',
+    selector: '_id tracking addressedTo employee',
     populate: {
         path: '',
         select: ''
@@ -25,5 +26,5 @@ schema.plugin(mongooseAlgolia, {
     mappings: {},
     virtuals: {}
 })
-
+*/
 module.exports = mongoose.model('Box', schema);
