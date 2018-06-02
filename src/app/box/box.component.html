@@ -57,7 +57,7 @@
           <button 
             type="button" 
             class="btn btn-warning right" 
-            [routerLink]="['/boxsignin']">Edit</button>
+            (click)="editBox(box)">Edit</button>
           <button 
             type="button" 
             [routerLink]="['/boxtosignout', box._id, 'boxsignout']" 

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Response, RequestOptions, Headers } from '@angular/http';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import 'rxjs/Rx';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 import { Box } from './box.model';
 import { ErasedBox } from './erasedBox.model';
@@ -11,6 +11,8 @@ import { Employee } from './employee.model';
 
 @Injectable()
 export class BoxService {
+
+    boxIsEdit = new Subject<Box>();
 
      private boxes: Box[] = [];
      private employees: Employee[] = [];
@@ -60,6 +62,10 @@ export class BoxService {
         return this.http.patch('http://localhost:3000/boxes/' + box._id, body, {headers: headers})
                     .map((response: Response) => response.json())
                     .catch((error: Response) => Observable.throw(error.json()));
+    }
+
+    editBox(box: Box) {
+        this.boxIsEdit.next(box);
     }
 // NOTE FOR LATER
 // CREATE HEADERS OBJECT, CREATE NEW ERASED BOX WITH THE BOX INFORMATION

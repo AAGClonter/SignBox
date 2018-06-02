@@ -80,6 +80,22 @@ router.get('/boxtonotify/:id/boxnotify', function(req, res, next){
     });
 });
 
+// Patch method for updating a box
+router.patch('/boxes', (req, res, next) => {
+    Box.findOne({box: req.body}, (err, box) => {
+        if (err) return next(err);
+        box.tracking = req.body.tracking;
+        box.addressedTo = req.body.addressedTo;
+        box.save((err, result) => {
+            if (err) return next(err);
+            res.status(200).json({
+                message: 'Box saved',
+                obj: result
+            })
+        })
+    })
+});
+
 //Getting the Employee through a box
 router.get('/boxtosignout/:id/boxsignout', function(req, res, next){
     Box.findById(req.params.id, function(err, box){

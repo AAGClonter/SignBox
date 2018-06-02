@@ -8,7 +8,7 @@ import { Box } from './box.model';
 import { Employee } from './employee.model';
 
 import 'rxjs/Rx';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import 'rxjs/add/operator/switchMap';
 
 import { trigger, state, style, animate, transition } from '@angular/animations';
@@ -35,8 +35,11 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
 })
 export class BoxComponent implements OnInit {
 
-     boxes: Box[];
-     employees: Employee[];
+    box: Box;
+    boxes: Box[];
+    employees: Employee[];
+
+    boxSubscription: Subscription;
 
     constructor(private boxService: BoxService,
                 private route: Router) {}
@@ -44,6 +47,10 @@ export class BoxComponent implements OnInit {
     ngOnInit() {
         this.getBoxes();
         this.getEmployees();
+    }
+
+    ngOnDestroy() {
+        this.boxSubscription.unsubscribe();
     }
 
      getBoxes() {
@@ -63,22 +70,34 @@ export class BoxComponent implements OnInit {
     }
 
     onSubmit(form: NgForm) {
+        if (this.box) {
+            this.box.tracking = form.value.tracking;
+            this.box.addressedTo = form.value.addressedTo;
+        } else {
             const box = new Box(form.value.tracking, form.value.addressedTo);
             this.boxService.signinBox(box).subscribe(
-            data => {
-                this.boxes.push(data);
-            },
-            error => console.error(error)
-        );
-
-        form.resetForm();
+                data => {
+                    this.boxes.push(data);
+                },
+                error => console.error(error)
+            );
+            form.resetForm();
+        }
     }
+
     onSubmitEmployee(form: NgForm) {
         const employee = new Employee(form.value.name, form.value.email)
         this.boxService.createEmployee(employee).subscribe(
             data => { this.employees.push(data) },
             error => { console.error(error) }
         )
+    }
+
+    editBox(box: Box) {
+        this.boxService.boxIsEdit.next(box);
+        this.boxSubscription = this.boxService.boxIsEdit.subscribe(
+            (box: Box) => this.box = box
+        );
     }
 }
 
