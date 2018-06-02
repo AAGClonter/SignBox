@@ -50,9 +50,18 @@
         >
           <th scope="row">{{box.tracking}}</th>
           <td>{{box.addressedTo}}</td>
-          <button type="button" [routerLink]="['/boxtonotify', box._id, 'boxnotify']" class="btn btn-info right">Notify</button>
-          <button type="button" class="btn btn-warning right" [routerLink]="['/boxsignin']">Edit</button>
-          <button type="button" [routerLink]="['/boxtosignout', box._id, 'boxsignout']" class="btn btn-danger right">Sign Out</button>
+          <button 
+            type="button" 
+            [routerLink]="['/boxtonotify', box._id, 'boxnotify']" 
+            class="btn btn-info right">Notify</button>
+          <button 
+            type="button" 
+            class="btn btn-warning right" 
+            [routerLink]="['/boxsignin']">Edit</button>
+          <button 
+            type="button" 
+            [routerLink]="['/boxtosignout', box._id, 'boxsignout']" 
+            class="btn btn-danger right">Sign Out</button>
         </tr>
       </tbody>
   </table>

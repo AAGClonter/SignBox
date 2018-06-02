@@ -28,7 +28,8 @@ export class BoxService {
                         const result = response.json();
                         const newBox = new Box(
                             result.obj.tracking,
-                            result.obj.addressedTo
+                            result.obj.addressedTo,
+                            result.obj._id
                         );
                         this.boxes.push(newBox);
                         return newBox;
