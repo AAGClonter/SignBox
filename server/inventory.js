@@ -35,6 +35,8 @@ router.post('/assortments', function(req, res, next){
                     error: err
                 });
             };
+            user.invItemSignedIn.push(assortment);
+            user.save();
             res.status(200).json({
                 message: 'Assortment created',
                 obj: assortment
