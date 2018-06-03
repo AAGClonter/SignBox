@@ -85,11 +85,11 @@ export class InventoryService {
 
     // Adding an assortment
     addingAssortments(assortment: Assortment): Observable<Assortment> {
+        const token = localStorage.getItem('token')
+        ? '?token=' + localStorage.getItem('token')
+        : '';
         return this.httpClient
-                    .post<Assortment>(this.inventoryUrl + '/assortments', assortment, this.httpOptions)
-                    .map(
-                        assortment => {return assortment}
-                    )
+                    .post<Assortment>(this.inventoryUrl + '/assortments' + token, assortment, this.httpOptions)
                     .pipe(
                         catchError(this.handleError<Assortment>('addingAssortments'))
                     )

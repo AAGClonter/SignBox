@@ -63,9 +63,9 @@ export class AssortmentsComponent implements OnInit {
           isSelected: false
         }
         this.inventoryService.addingAssortments(newAssortment).subscribe(
-            data => {
-                this.assortments.push(data['obj']);
-                console.log(data);
+            (assortment: Assortment) => {
+                this.assortments.push(assortment['obj']);
+                console.log(assortment);
             }
         )
         form.reset();
