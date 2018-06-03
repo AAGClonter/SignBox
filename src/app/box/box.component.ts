@@ -48,11 +48,7 @@ export class BoxComponent implements OnInit {
         this.getBoxes();
         this.getEmployees();
     }
-
-    ngOnDestroy() {
-        this.boxSubscription.unsubscribe();
-    }
-
+    
      getBoxes() {
         this.boxService.getBoxes().subscribe(
             (boxes: Box[]) => {
@@ -73,6 +69,10 @@ export class BoxComponent implements OnInit {
         if (this.box) {
             this.box.tracking = form.value.tracking;
             this.box.addressedTo = form.value.addressedTo;
+            this.boxService.patchBox(this.box).subscribe(
+                data => console.log(data),
+                error => console.error(error)
+            );
         } else {
             const box = new Box(form.value.tracking, form.value.addressedTo);
             this.boxService.signinBox(box).subscribe(
@@ -93,11 +93,8 @@ export class BoxComponent implements OnInit {
         )
     }
 
-    editBox(box: Box) {
-        this.boxService.boxIsEdit.next(box);
-        this.boxSubscription = this.boxService.boxIsEdit.subscribe(
-            (box: Box) => this.box = box
-        );
+    editBox(boxToEdit: Box) {
+        this.box = boxToEdit;
     }
 }
 
