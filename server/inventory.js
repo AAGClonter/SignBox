@@ -101,44 +101,56 @@ router.delete('/assortments/:id', function(req, res, next){
 
 // Adding items to inventory
 router.post('/newItem', function(req, res, next){
-    //var decoded = jwt.decode(req.query.token);
-    //User.findById(decoded.user._id, function(err, user){
-        async.waterfall([
-            function(callback){
-                var newItem = new Item({
-                    assortmentNumber: req.body.assortment,
-                    itemNumber: req.body.itemNumber,
-                    description: req.body.description,
-                    quantity: req.body.quantity,
-                    prepared: false,
-                    date: Date.now()
+    var decoded = jwt.decode(req.query.token);
+    User.findById(decoded.user._id, function(err, user){
+        if (err) {
+            return res.status(500).json({
+                message: 'An error occurred',
+                error: err
+            });
+        }
+        if (!user) {
+            return res.status(500).json({
+                message: 'User not found',
+                error: {message: 'User not found'}
+            });
+        }
+        Assortment.findOne({assortmentNumber: req.body.assortment}, function(err, assortment){
+            if (err) return next(err);
+            if (!assortment) {
+                return res.status(500).json({
+                    message: 'Assortment not found',
+                    error: {message: 'Assortment not found'}
                 });
-
-                newItem.save(function(err, item){
-                    if (err) {
-                        return res.status(500).json({
-                            message: 'An error occurred',
-                            error: err
-                        });
-                    }
-                    callback(null, item)
-                });
-            },
-            function(item, callback){
-                Assortment.findOne({assortmentNumber: item.assortmentNumber}, function(err, assortment){
-                    if (err) return next(err);
-                        assortment.items.push(item);
-                        assortment.save();
-                        res.status(200).json({
-                            message: 'Item saved',
-                            obj: item
-                        });
-                    });
-                
             }
-        ]);
+            const newItem = new Item({
+                assortmentNumber: req.body.assortment,
+                itemNumber: req.body.itemNumber,
+                description: req.body.description,
+                quantity: req.body.quantity,
+                prepared: false,
+                date: Date.now()
+            });
+
+            newItem.save(function(err, item){
+                if (err) {
+                    return res.status(500).json({
+                        message: 'An error occurred',
+                        error: err
+                    });
+                }
+                user.invItemSignedIn.push(item);
+                user.save();
+                assortment.items.push(item);
+                assortment.save();
+                res.status(200).json({
+                    message: 'Item saved',
+                    obj: item
+                });
+            });
         });
-    //});
+    });
+});
 
 //List of Items in Inventory
 router.get('/items', function(req, res, next){

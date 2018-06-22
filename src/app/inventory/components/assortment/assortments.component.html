@@ -30,18 +30,12 @@
             </thead>
             <tbody>
                 <tr *ngFor="let assortment of assortments">
-                    <td><input type="checkbox"
-                               name="check"
-                               id="check"
-                               [(ngModel)]="checkboxSelected"
-                               (ngModelChange)="onPick(assortment)"
-                    ></td>
                     <td>{{assortment.assortmentNumber}}</td>
                     <td>{{assortment.description}}</td>
                     <button type="button" class="btn btn-primary" (click)="activate(assortment)">See Items</button>
                     <button class="btn btn-danger" (click)="deleteAssortment(assortment)">Delete Assortment</button>
                     <button class="btn btn-primary" (click)="onAddItem(assortment)">Add New item</button>
-                                <form *ngIf="assortment.onAddingItem" class="form-group" (ngSubmit)="onSubmitNewItem(f, assortment)" #f="ngForm">
+                                <form #f="ngForm" *ngIf="assortment.onAddingItem" class="form-group" (ngSubmit)="onSubmitNewItem(f, assortment)">
                                     <label for="assortment">Provide an Assortment Number</label>
                                     <input type="text"
                                            name="assortment"
@@ -82,14 +76,13 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let item of assortment.items">
-                                <td><input type="checkbox" name={{item.description}} checked="{{item.prepared}}" (click)="togglePrepared(item)"></td>
                                 <td>{{item.itemNumber}}</td>
                                 <td>{{item.description}}</td>
                                 <td>{{item.date}}</td>
                                 <td>{{item.quantity}}</td>
                                 <button class="btn btn-secondary" (click)="onQuantity(item)">Update Quantity</button>
                                 <button class="btn btn-danger" (click)="onDeleteItem(assortment, item)">Delete Item</button>
-                                <form *ngIf="item.isShown" class="form-inline" (ngSubmit)="onItemSubmit(f)" #f="ngForm">
+                                <form *ngIf="item.isShown" class="form-inline" (ngSubmit)="onSubmitNewItem(f, assortment)" #f="ngForm">
                                     <input type="hidden"
                                            name="assortment"
                                            id="assortment"

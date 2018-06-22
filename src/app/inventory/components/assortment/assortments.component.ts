@@ -88,11 +88,12 @@ export class AssortmentsComponent implements OnInit {
             form.value.assortment,
             form.value.itemNumber,
             form.value.description,
-            form.value.quantity
+            form.value.quantity,
+            Date.now()
             )
-            this.inventoryService.addingItems(newItem, assortment).subscribe(
+            this.inventoryService.addingItem(newItem, assortment).subscribe(
                 data => {
-                    assortment.items.push(data['obj']);
+                    assortment.items.push(newItem);
                     console.log(data);
                 }
             )
@@ -105,7 +106,6 @@ export class AssortmentsComponent implements OnInit {
 
     onQuantity(item: Item) {
          item.isShown = !item.isShown;
-         this.inventoryService.editItem(item);
     }
 
     onAddItem(assortment: Assortment) {

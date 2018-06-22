@@ -38,8 +38,6 @@ export class InventoryService {
         };
       }
 
-    itemIsEdit = new EventEmitter<Item>();
-
     constructor(private httpClient: HttpClient) {}
 
     // Getting all assortments
@@ -69,14 +67,14 @@ export class InventoryService {
     }
 
     // Adding more items
-    addingItems(item: Item, assortment: Assortment): Observable<Item> {
-        const body = JSON.stringify(item);
+    addingItem(item: Item, assortment: Assortment): Observable<Item> {
+        const token = localStorage.getItem('token')
+        ? '?token=' + localStorage.getItem('token')
+        : '';
         return this.httpClient
-                    .post<Item>(this.inventoryUrl + '/newItem', body, this.httpOptions)
+                    .post<Item>(this.inventoryUrl + '/newItem' + token, item, this.httpOptions)
                     .map(
-                        data => {
-                            return data;
-                        }
+                        () => {return item}
                     )
                     .pipe(
                         catchError(this.handleError<Item>('addingItems', item))
@@ -102,10 +100,6 @@ export class InventoryService {
             .pipe(
                 catchError(this.handleError<any>('updatingItem'))
             )
-    }
-
-    editItem(item: Item) {
-        this.itemIsEdit.emit(item);
     }
 
     // Deleting an assormtent
