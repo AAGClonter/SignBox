@@ -14,6 +14,12 @@ import { AuthModule } from './auth/auth.module';
 import { FormsModule } from '@angular/forms';
 import { UserService } from './auth/user.service';
 
+// Angular Material Components
+import { MatButtonModule } from '@angular/material';
+import {MatInputModule} from '@angular/material/input';
+import {MatSelectModule} from '@angular/material/select';
+import {MatFormFieldModule} from '@angular/material/form-field';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,7 +34,11 @@ import { UserService } from './auth/user.service';
     HttpClientModule,
     FormsModule,
     BoxModule,
-    AuthModule
+    AuthModule,
+    MatButtonModule,
+    MatInputModule,
+    MatSelectModule,
+    MatFormFieldModule
   ],
   providers: [UserService],
   bootstrap: [AppComponent]

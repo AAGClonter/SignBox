@@ -10,17 +10,27 @@ import { CommonModule } from '@angular/common';
 import { BoxService } from './box.service';
 import { BoxRoutingModule } from './box-routing.module';
 
+// Angular Material Components
+import { MatButtonModule } from '@angular/material';
+import {MatInputModule} from '@angular/material/input';
+import {MatSelectModule} from '@angular/material/select';
+import {MatFormFieldModule} from '@angular/material/form-field';
+
 @NgModule({
     declarations: [
         BoxesComponent,
         BoxComponent,
         BoxNotifyComponent,
-        BoxDetailComponent
+        BoxDetailComponent,
     ],
     imports: [
         FormsModule,
         CommonModule,
-        BoxRoutingModule
+        BoxRoutingModule,
+        MatButtonModule,
+        MatInputModule,
+        MatSelectModule,
+        MatFormFieldModule
     ],
     providers: [
         BoxService
