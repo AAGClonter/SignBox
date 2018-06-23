@@ -4,6 +4,7 @@ var Schema = mongoose.Schema;
 var Assortment = require('./invItems');
 
 var schema = new Schema({
+    assortment: { type: Schema.Types.ObjectId, ref: 'Assortment'},
     assortmentNumber: { type: Number, required: true },
     itemNumber: { type: Number, required: true },
     description: { type: String, required: true },
