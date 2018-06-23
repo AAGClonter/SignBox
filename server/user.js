@@ -19,7 +19,7 @@ router.post('/signup', function(req, res, next){
                     error: err
                 });
             }
-            var token = jwt.sign({user: user}, 'secret', {expiresIn: 7200});
+            let token = jwt.sign({user: user}, 'secret', {expiresIn: 7200});
             res.status(201).json({
                 message: 'user saved',
                 token: token,

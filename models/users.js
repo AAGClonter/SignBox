@@ -2,7 +2,6 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var Box = require('./box');
-var Item = require('./invItems');
 
 var userSchema = new Schema({
     email: { type: String, required: true, unique: true },
