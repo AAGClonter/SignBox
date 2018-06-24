@@ -10,6 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { LogoutComponent } from './auth/logout.component';
 
 import { BoxModule } from './box/box.module';
+import { InventoryModule } from './inventory/inventory.module';
 import { AuthModule } from './auth/auth.module';
 import { FormsModule } from '@angular/forms';
 import { UserService } from './auth/user.service';
@@ -34,6 +35,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     HttpClientModule,
     FormsModule,
     BoxModule,
+    InventoryModule,
     AuthModule,
     MatButtonModule,
     MatInputModule,

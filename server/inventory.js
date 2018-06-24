@@ -23,6 +23,17 @@ router.post('/newAssortment', (req, res, next) => {
     });
 });
 
+// GET request all assortments
+router.get('assortment', (req, res, next) => {
+    Assortment.find({}, (err, assortments) => {
+        if (err) return next(err);
+        res.status(200).json({
+            message: 'Found assortments',
+            obj: assortments
+        });
+    });
+});
+
 // POST request new Item
 router.post('/newItem', (req, res, next) => {
     let newItem = new Item({
@@ -38,6 +49,17 @@ router.post('/newItem', (req, res, next) => {
         res.status(200).json({
             message: 'Item saved',
             obj: item
+        });
+    });
+});
+
+// GET request all items
+router.get('/items', (req, res, next) => {
+    Item.find({}, (err, items) => {
+        if (err) return next(err);
+        res.status(200).json({
+            message: 'Items found',
+            obj: items
         });
     });
 });
