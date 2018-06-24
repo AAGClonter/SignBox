@@ -8,6 +8,10 @@ import { InventoryService } from './inventoryService/inventory.service';
 
 // Angular Material Modules
 import { MatTableModule } from '@angular/material/table';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
     declarations: [
@@ -17,7 +21,11 @@ import { MatTableModule } from '@angular/material/table';
         CommonModule,
         FormsModule,
         InventoryRoutingModule,
-        MatTableModule
+        MatTableModule,
+        MatExpansionModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule
     ],
     providers: [
         InventoryService

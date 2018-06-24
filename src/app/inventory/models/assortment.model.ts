@@ -1,11 +1,13 @@
 export class Assortment {
+    _id: string;
     assortmentNumber: number;
     description: string;
-    date: Date
+    date: number
 
-    constructor(assortmentNumber: number, description: string, date: Date) {
+    constructor(assortmentNumber: number, description: string, _id?: string) {
         this.assortmentNumber = assortmentNumber,
         this.description = description,
-        this.date = date
+        this.date = Date.now(),
+        this._id = _id
     }
 }

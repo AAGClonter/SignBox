@@ -34,6 +34,17 @@ router.get('/assortment', (req, res, next) => {
     });
 });
 
+// DELETE request /:id assortment
+router.delete('/assortment/:id', (req, res, next) => {
+    Assortment.findByIdAndRemove(req.params.id, (err, assortment) => {
+        if (err) return next(err);
+        res.status(200).json({
+            message: 'Assortment Deleted',
+            obj: assortment
+        });
+    });
+});
+
 // POST request new Item
 router.post('/newItem', (req, res, next) => {
     let newItem = new Item({

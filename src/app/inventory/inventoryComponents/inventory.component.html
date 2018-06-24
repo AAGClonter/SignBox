@@ -2,11 +2,47 @@
 
 <h2>Company Name's Inventory</h2>
 
-<table mat-table [dataSource]="dataSource">
+<div class="example-container">
+    <form #f="ngForm" (ngSubmit)="assortmentSubmit(f)">
+        <mat-form-field appearance="legacy">
+            <input 
+                matInput 
+                placeholder="Assortment Number" 
+                name="assortment" 
+                [ngModel]="assortment?.assortmentNumber">
+        </mat-form-field>
+            
+        <mat-form-field>
+        <input 
+            matInput 
+            placeholder="description" 
+            name="description"
+            [ngModel]="assortment?.description">
+        </mat-form-field>
+            
+        <button mat-button type="submit">Add Assortment</button>
+    </form>
+</div>
 
-    <ng-container matColumnDef="position">
-        <th mat-header-cell *matHeaderCellDef> Assortment No. </th>
-        <td mat-cell *matCellDef="let assortment"> {{assortment.assortmentNumber}} </td>
-    </ng-container>
+<mat-accordion>
+        <mat-expansion-panel *ngFor="let assortment of assortments" class="panel">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    {{assortment.assortmentNumber}}
+                </mat-panel-title>
 
-</table>
+                <mat-panel-description>
+                    {{assortment.description}}
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+          
+            <mat-form-field>
+                <input matInput placeholder="First name">
+            </mat-form-field>
+
+            <mat-action-row>
+                <button mat-button color="primary" (click)="onDelete(assortment)">Delete</button>
+            </mat-action-row>
+        </mat-expansion-panel>
+</mat-accordion>
+  

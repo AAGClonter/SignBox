@@ -26,4 +26,8 @@ export class InventoryService {
     getAssortments() {
         return this.httpClient.get(this.url + 'assortment');
     }
+
+    deleteAssortment(assortment: Assortment) {
+        return this.httpClient.delete(this.url + 'assortment/' + assortment._id)
+    }
  }
