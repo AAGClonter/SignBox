@@ -12,3 +12,7 @@
 .left {
     margin-left: 30px;
 }
+
+.myStyle {
+    display: flex;
+}

@@ -3,7 +3,7 @@
         <h1 class="down">Sign In your Box</h1>
     </div>
 
-    <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+    <form (ngSubmit)="onSubmit(f)" #f="ngForm" class="myStyle">
         <mat-form-field>
             <input matInput placeholder="Tracking Number:" type="text" name="tracking" id="tracking" [ngModel]="box?.tracking" class="left">
         </mat-form-field>

@@ -7,7 +7,7 @@ import { InventoryComponent } from './inventoryComponents/inventory.component';
 import { InventoryService } from './inventoryService/inventory.service';
 
 // Angular Material Modules
-import {MatTableModule} from '@angular/material/table';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
     declarations: [

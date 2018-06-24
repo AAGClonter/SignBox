@@ -24,7 +24,7 @@ router.post('/newAssortment', (req, res, next) => {
 });
 
 // GET request all assortments
-router.get('assortment', (req, res, next) => {
+router.get('/assortment', (req, res, next) => {
     Assortment.find({}, (err, assortments) => {
         if (err) return next(err);
         res.status(200).json({

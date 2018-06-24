@@ -1,1 +1,12 @@
 <p>Hello I am working</p>
+
+<h2>Company Name's Inventory</h2>
+
+<table mat-table [dataSource]="dataSource">
+
+    <ng-container matColumnDef="position">
+        <th mat-header-cell *matHeaderCellDef> Assortment No. </th>
+        <td mat-cell *matCellDef="let assortment"> {{assortment.assortmentNumber}} </td>
+    </ng-container>
+
+</table>
