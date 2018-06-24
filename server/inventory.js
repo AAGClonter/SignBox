@@ -45,6 +45,28 @@ router.delete('/assortment/:id', (req, res, next) => {
     });
 });
 
+// PUT request /:id assortment
+router.put('/assortment/:id', (req, res, next) => {
+    Assortment.findById(req.params.id, (err, assortment) => {
+        if (err) return next(err);
+        if (!assortment) {
+            return res.status(404).json({
+                message: 'Assortment not found',
+                error: { message: 'Assortment not found'}
+            });
+        }
+        assortment.assortmentNumber = req.body.assortmentNumber
+        assortment.description = req.body.description
+        assortment.save((err, assortment) => {
+            if (err) return next(err);
+            res.status(200).json({
+                message: 'Assortment updated',
+                obj: assortment
+            });
+        });
+    });
+});
+
 // POST request new Item
 router.post('/newItem', (req, res, next) => {
     let newItem = new Item({

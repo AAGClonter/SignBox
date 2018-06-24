@@ -3,10 +3,12 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Assortment } from '../models/assortment.model';
 import 'rxjs/Rx';
-import { Observable } from "rxjs";
+import { Observable, Subject } from "rxjs";
 
 @Injectable()
 export class InventoryService {
+
+    //assortmentEdit = new Subject<Assortment>();
 
     url: string = 'http://localhost:3000/inventory/';
     httpOptions = {
@@ -27,7 +29,20 @@ export class InventoryService {
         return this.httpClient.get(this.url + 'assortment');
     }
 
+    // DELETE request for an Assortment
     deleteAssortment(assortment: Assortment) {
-        return this.httpClient.delete(this.url + 'assortment/' + assortment._id)
+        return this.httpClient.delete(this.url + 'assortment/' + assortment._id);
     }
+
+    // UPDATE request for an Assortment
+    updateAssortment(assortment: Assortment) {
+        return this.httpClient.put(this.url + 'assortment/' + assortment._id, assortment, this.httpOptions);
+    }
+
+    // Calling next on Assortment Subject
+    /*
+    editAssortment(assortment: Assortment) {
+        this.assortmentEdit.next(assortment);
+    }
+    */
  }

@@ -16,6 +16,7 @@ import { Assortment } from '../models/assortment.model';
 })
 export class InventoryComponent implements OnInit {
 
+    assortment: Assortment;
     assortments: Assortment[];
     panelOpenState: boolean = false;
 
@@ -34,20 +35,34 @@ export class InventoryComponent implements OnInit {
 
     // Form submit function 
     assortmentSubmit(form: NgForm) {
-        let newAssortment = new Assortment(
-            form.value.assortment,
-            form.value.description
-        );
+        if (this.assortment) {
+            this.assortment.assortmentNumber = form.value.assortment
+            this.assortment.description = form.value.description
 
-        this.inventoryService.addAssortment(newAssortment).subscribe((data: Assortment) => {
-            console.log(data);
-        });
+            this.inventoryService.updateAssortment(this.assortment).subscribe(
+                data => console.log(data)
+            );
+        } else {
+            let newAssortment = new Assortment(
+                form.value.assortment,
+                form.value.description
+            );
+            this.inventoryService.addAssortment(newAssortment).subscribe((data: Assortment) => {
+                console.log(data);
+            });
+        }
     }
 
+    // Delete an assortment
     onDelete(assortment: Assortment) {
         this.inventoryService.deleteAssortment(assortment).subscribe(data => {
             console.log(data);
         })
+    }
+
+    // Update an assortment
+    onUpdate(assortment: Assortment) {
+        this.assortment = assortment;
     }
 
 }
