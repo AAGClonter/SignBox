@@ -4,6 +4,38 @@
 <h3>Assortment Description</h3>
 
 <form #f="ngForm" (ngSubmit)="onAddNewItem(f)">
+    <mat-form-field appearance="legacy">
+        <input 
+            matInput 
+            placeholder="Assortment Number" 
+            name="assortmentNumber" 
+            [ngModel]="item?.assortmentNumber">
+    </mat-form-field>
 
+    <mat-form-field appearance="legacy">
+        <input 
+            matInput 
+            placeholder="Item Number" 
+            name="itemNumber" 
+            [ngModel]="item?.assortmentNumber">
+    </mat-form-field>
+
+    <mat-form-field appearance="legacy">
+        <input 
+            matInput 
+            placeholder="description" 
+            name="description" 
+            [ngModel]="item?.description">
+    </mat-form-field>
+
+    <mat-form-field appearance="legacy">
+        <input 
+            matInput 
+            placeholder="quantity" 
+            name="quantity" 
+            [ngModel]="item?.quantity">
+    </mat-form-field>
+
+    <button mat-button type="submit">Add Item</button>
 </form>
 

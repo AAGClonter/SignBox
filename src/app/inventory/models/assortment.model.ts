@@ -1,8 +1,11 @@
+import { Item } from './item.model';
+
 export class Assortment {
     _id: string;
     assortmentNumber: number;
     description: string;
-    date: number
+    date: number;
+    items: Item[]
 
     constructor(assortmentNumber: number, description: string, _id?: string) {
         this.assortmentNumber = assortmentNumber,
