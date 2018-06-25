@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 
 import { InventoryService } from '../inventoryService/inventory.service';
@@ -20,7 +21,10 @@ export class InventoryComponent implements OnInit {
     assortments: Assortment[];
     panelOpenState: boolean = false;
 
-    constructor(private inventoryService: InventoryService) {}
+    constructor(
+        private inventoryService: InventoryService,
+        private router: Router
+    ) {}
 
     ngOnInit() {
         this.getAssortment();
@@ -63,6 +67,11 @@ export class InventoryComponent implements OnInit {
     // Update an assortment
     onUpdate(assortment: Assortment) {
         this.assortment = assortment;
+    }
+
+    // Click event to navigate to Detail View of the assortment
+    onGoToDetail(assortment: Assortment) {
+        this.router.navigate(['assortment', assortment._id, 'detail']);
     }
 
 }

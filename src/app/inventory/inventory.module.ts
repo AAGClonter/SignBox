@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { InventoryRoutingModule } from './inventory-routing.module';
 import { InventoryComponent } from './inventoryComponents/inventory.component';
 import { InventoryService } from './inventoryService/inventory.service';
+import { DetailAssortment } from './detailAssortmentComp/detail-assortment.component';
 
 // Angular Material Modules
 import { MatTableModule } from '@angular/material/table';
@@ -15,7 +16,8 @@ import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
     declarations: [
-        InventoryComponent
+        InventoryComponent,
+        DetailAssortment
     ],
     imports: [
         CommonModule,

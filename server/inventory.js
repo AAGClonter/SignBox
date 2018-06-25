@@ -66,6 +66,7 @@ router.put('/assortment/:id', (req, res, next) => {
         });
     });
 });
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // POST request new Item
 router.post('/newItem', (req, res, next) => {

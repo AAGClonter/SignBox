@@ -9,6 +9,7 @@ import { BoxDetailComponent } from './box/box-detail.component';
 import { BoxNotifyComponent } from './box/box-notify.component';
 import { LogoutComponent } from './auth/logout.component';
 import { InventoryComponent } from './inventory/inventoryComponents/inventory.component';
+import { DetailAssortment } from './inventory/detailAssortmentComp/detail-assortment.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'boxes', pathMatch: 'full' },
