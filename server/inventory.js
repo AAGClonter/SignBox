@@ -66,25 +66,51 @@ router.put('/assortment/:id', (req, res, next) => {
         });
     });
 });
+
+// GET request getting an assortment by id
+router.get('assortment/:id/detail', (req, res, next) => {
+    Assortment.findById(req.params.id, (err, assortment) => {
+        if (err) return next(err);
+        if (!assortment) {
+            return res.status(404).json({
+                message: 'Assortment not found',
+                error: { message: 'Assortment not found'}
+            });
+        }
+        res.status(200).json({
+            message: 'Assortment found',
+            obj: assortment
+        });
+    });
+});
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // POST request new Item
-router.post('/newItem', (req, res, next) => {
-    let newItem = new Item({
-        assortment: req.body.assortment,
-        itemNumber: req.body.itemNumber,
-        description: req.body.description,
-        quantity: req.body.quantity,
-        creationDate: Date.now()
-    });
-
-    newItem.save((err, item) => {
+router.post('assortment/:id/detail', (req, res, next) => {
+    Assortment.findById(req.params.id, (err, assortment) => {
         if (err) return next(err);
-        res.status(200).json({
-            message: 'Item saved',
-            obj: item
+        if (!assortment) {
+            return res.status(404).json({
+                message: 'Assortment not found',
+                error: { message: 'Assortment not found'}
+            });
+        }
+        let newItem = new Item({
+            assortment: req.body.assortment,
+            itemNumber: req.body.itemNumber,
+            description: req.body.description,
+            quantity: req.body.quantity,
+            creationDate: Date.now()
         });
-    });
+
+        newItem.save((err, item) => {
+            if (err) return next(err);
+            res.status(200).json({
+                message: 'Item saved',
+                obj: item
+            });
+        });
+    })
 });
 
 // GET request all items

@@ -2,14 +2,15 @@
 
 <h3>Assortment Number</h3>
 <h3>Assortment Description</h3>
+<button mat-button type="button" (click)="goBack()">Back</button>
 
-<form #f="ngForm" (ngSubmit)="onAddNewItem(f)">
+<form #f="ngForm" (ngSubmit)="onAddNewItem(f, assortment)">
     <mat-form-field appearance="legacy">
         <input 
             matInput 
             placeholder="Assortment Number" 
-            name="assortmentNumber" 
-            [ngModel]="item?.assortmentNumber">
+            name="assortment" 
+            [ngModel]="item?.assortment">
     </mat-form-field>
 
     <mat-form-field appearance="legacy">

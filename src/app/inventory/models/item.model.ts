@@ -1,18 +1,18 @@
 export class Item {
-    assortmentNumber: number;
+    assortment: number;
     itemNumber: number;
     description: string;
     quantity: number;
     creationDate?: Date;
 
     constructor(
-        assortmentNumber: number, 
+        assortment: number, 
         itemNumber: number, 
         description: string, 
         quantity: number, 
         creationDate?: Date
     ) {
-        this.assortmentNumber = assortmentNumber;
+        this.assortment = assortment;
         this.itemNumber = itemNumber;
         this.description = description;
         this.quantity = quantity;
