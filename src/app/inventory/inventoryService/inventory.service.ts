@@ -43,7 +43,7 @@ export class InventoryService {
 
     // Getting assortment by id 
     getAssortment(id: string) {
-        return this.httpClient.get(this.url + 'assortment/' + id);
+        return this.httpClient.get(this.url + 'assortment/' + id + '/detail');
     }
 
     // Calling next on Assortment Subject

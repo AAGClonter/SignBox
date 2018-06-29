@@ -24,7 +24,7 @@ router.post('/newAssortment', (req, res, next) => {
 });
 
 // GET request all assortments
-router.get('/assortment', (req, res, next) => {
+router.get('/assortments', (req, res, next) => {
     Assortment.find({}, (err, assortments) => {
         if (err) return next(err);
         res.status(200).json({
@@ -35,7 +35,7 @@ router.get('/assortment', (req, res, next) => {
 });
 
 // DELETE request /:id assortment
-router.delete('/assortment/:id', (req, res, next) => {
+router.delete('/assortments/:id', (req, res, next) => {
     Assortment.findByIdAndRemove(req.params.id, (err, assortment) => {
         if (err) return next(err);
         res.status(200).json({
@@ -46,7 +46,7 @@ router.delete('/assortment/:id', (req, res, next) => {
 });
 
 // PUT request /:id assortment
-router.put('/assortment/:id', (req, res, next) => {
+router.put('/assortments/:id/update', (req, res, next) => {
     Assortment.findById(req.params.id, (err, assortment) => {
         if (err) return next(err);
         if (!assortment) {
@@ -67,50 +67,20 @@ router.put('/assortment/:id', (req, res, next) => {
     });
 });
 
-// GET request getting an assortment by id
-router.get('assortment/:id/detail', (req, res, next) => {
-    Assortment.findById(req.params.id, (err, assortment) => {
-        if (err) return next(err);
-        if (!assortment) {
-            return res.status(404).json({
-                message: 'Assortment not found',
-                error: { message: 'Assortment not found'}
-            });
-        }
-        res.status(200).json({
-            message: 'Assortment found',
-            obj: assortment
-        });
-    });
-});
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // POST request new Item
-router.post('assortment/:id/detail', (req, res, next) => {
-    Assortment.findById(req.params.id, (err, assortment) => {
+router.post('/newItem', (req, res, next) => {
+    let myItem = new Item({
+        assortment: req.body.assortment,
+        itemNumber: req.body.itemNumber,
+        description: req.body.description,
+        quantity: req.body.quantity
+    });
+    myItem.save((err, result) => {
         if (err) return next(err);
-        if (!assortment) {
-            return res.status(404).json({
-                message: 'Assortment not found',
-                error: { message: 'Assortment not found'}
-            });
-        }
-        let newItem = new Item({
-            assortment: req.body.assortment,
-            itemNumber: req.body.itemNumber,
-            description: req.body.description,
-            quantity: req.body.quantity,
-            creationDate: Date.now()
-        });
-
-        newItem.save((err, item) => {
-            if (err) return next(err);
-            res.status(200).json({
-                message: 'Item saved',
-                obj: item
-            });
-        });
-    })
+        res.send(result);
+    });
 });
 
 // GET request all items
@@ -120,6 +90,24 @@ router.get('/items', (req, res, next) => {
         res.status(200).json({
             message: 'Items found',
             obj: items
+        });
+    });
+});
+
+// PUT request update item
+router.put('/items/:id/update', (req, res, next) => {
+    Item.findById(req.params.id, (err, item) => {
+        if (err) return next(err);
+        item.assortment = req.body.assortment;
+        item.itemNumber = req.body.itemNumber;
+        item.description = req.body.description;
+        item.quantity = req.body.quantity;
+        item.save((err, item) => {
+            if (err) return next(err);
+            res.status(200).json({
+                message: 'Item updated',
+                obj: item
+            });
         });
     });
 });

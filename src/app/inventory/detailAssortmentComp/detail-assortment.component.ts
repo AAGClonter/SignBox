@@ -4,8 +4,10 @@ import { NgForm } from '@angular/forms';
 
 import { Assortment } from '../models/assortment.model';
 import { Item } from '../models/item.model';
+import { AssortmentInt } from '../models/assortment.interface';
+
 import { Location } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
     selector: 'app-detail-assortment',
@@ -13,7 +15,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class DetailAssortment implements OnInit {
 
-    @Input() assortment: Assortment;
+    @Input() assortment: AssortmentInt;
 
     constructor(
         private inventoryService: InventoryService,
@@ -26,9 +28,10 @@ export class DetailAssortment implements OnInit {
     }
 
     getAssortment(): void {
-        const id = this.route.snapshot.paramMap.get('id');
-        this.inventoryService.getAssortment(id).subscribe((assortment: Assortment) => {
-            this.assortment = assortment['obj'];
+        this.route.params.subscribe((params: Params) => {
+            this.inventoryService.getAssortment(params['id']).subscribe(
+                (assortment: AssortmentInt) => this.assortment = assortment['obj']
+            )
         })
     }
 

@@ -1,42 +1,44 @@
-<h2>My Assortment Description</h2>
+<div *ngIf="assortment">
+    <h2>My Assortment Description</h2>
 
-<h3>Assortment Number</h3>
-<h3>Assortment Description</h3>
-<button mat-button type="button" (click)="goBack()">Back</button>
+    <h3>Assortment Number</h3>
+    <h3>Assortment Description</h3>
+    <button mat-button type="button" (click)="goBack()">Back</button>
 
-<form #f="ngForm" (ngSubmit)="onAddNewItem(f, assortment)">
-    <mat-form-field appearance="legacy">
-        <input 
-            matInput 
-            placeholder="Assortment Number" 
-            name="assortment" 
-            [ngModel]="item?.assortment">
-    </mat-form-field>
-
-    <mat-form-field appearance="legacy">
-        <input 
-            matInput 
-            placeholder="Item Number" 
-            name="itemNumber" 
-            [ngModel]="item?.assortmentNumber">
-    </mat-form-field>
-
-    <mat-form-field appearance="legacy">
-        <input 
-            matInput 
-            placeholder="description" 
-            name="description" 
-            [ngModel]="item?.description">
-    </mat-form-field>
-
-    <mat-form-field appearance="legacy">
-        <input 
-            matInput 
-            placeholder="quantity" 
-            name="quantity" 
-            [ngModel]="item?.quantity">
-    </mat-form-field>
-
-    <button mat-button type="submit">Add Item</button>
-</form>
+    <form #f="ngForm" (ngSubmit)="onAddNewItem(f, assortment)">
+        <mat-form-field appearance="legacy">
+            <input 
+                matInput 
+                placeholder="Assortment Number" 
+                name="assortment" 
+                [ngModel]="item?.assortment">
+        </mat-form-field>
+    
+        <mat-form-field appearance="legacy">
+            <input 
+                matInput 
+                placeholder="Item Number" 
+                name="itemNumber" 
+                [ngModel]="item?.assortmentNumber">
+        </mat-form-field>
+    
+        <mat-form-field appearance="legacy">
+            <input 
+                matInput 
+                placeholder="description" 
+                name="description" 
+                [ngModel]="item?.description">
+        </mat-form-field>
+    
+        <mat-form-field appearance="legacy">
+            <input 
+                matInput 
+                placeholder="quantity" 
+                name="quantity" 
+                [ngModel]="item?.quantity">
+        </mat-form-field>
+    
+        <button mat-button type="submit">Add Item</button>
+    </form>
+</div>
 
