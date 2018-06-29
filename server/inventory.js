@@ -112,4 +112,38 @@ router.put('/items/:id/update', (req, res, next) => {
     });
 });
 
+// DELETE request for items
+router.delete('/items/:id/delete', (req, res, next) => {
+    Item.findById(req.params.id, (err, item) => {
+        if (err) return next(err);
+        item.remove((err, result) => {
+            if (err) return next(err);
+            res.status(200).json({
+                message: 'Item deleted',
+                obj: result
+            });
+        });
+    });
+});
+
+// GET request for items 
+router.get('/assortments/:id/items', (req, res, next) => {
+    Assortment.findById(req.params.id, (err, assortment) => {
+        if (err) return next(err);
+        if (!assortment) {
+            return res.status(404).json({
+                message: 'Assortment was not found',
+                error: {message: 'Assormtent was not found'}
+            });
+        }
+        Item.find({assortment: assortment.assortmentNumber}, (err, items) => {
+            if (err) return next(err);
+            res.status(200).json({
+                message: 'Items found',
+                obj: items
+            });
+        });
+    });
+});
+
 module.exports = router;
