@@ -11,7 +11,13 @@ import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
     selector: 'app-detail-assortment',
-    templateUrl: './detail-assortment.component.html'
+    templateUrl: './detail-assortment.component.html',
+    styles: [`
+        .item-card {
+            width: 65%;
+            margin-top: 20px;
+        }
+    `]
 })
 export class DetailAssortment implements OnInit {
 
@@ -26,22 +32,23 @@ export class DetailAssortment implements OnInit {
 
     ngOnInit() {
         this.getAssortment();
-        this.getAssItems();
     }
 
+    // Getting Assortment
     getAssortment(): void {
         this.route.params
             .switchMap((params: Params) => this.inventoryService.getAssortment(params['id']))
             .subscribe((assortment: Assortment) => {
                 this.assortment = assortment['obj'];
-                console.log(this.assortment);
+                this.getAssortmentItems();
             });
     }
 
-    getAssItems() {
-        this.inventoryService.getItems(this.assortment).subscribe((items: Item[]) => {
-            this.items = items['obj'];
-            console.log(this.items);
+    // Getting assortment's items
+    getAssortmentItems() {
+        this.inventoryService.getItems(this.assortment._id).subscribe(
+            (items: Item[]) => {
+               this.items = items['obj'];
         });
     }
 

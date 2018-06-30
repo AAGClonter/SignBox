@@ -61,7 +61,7 @@ export class InventoryService {
     }
 
     // GET items per assortment
-    getItems(assortment: Assortment) {
-        return this.httpClient.get(this.url + 'assortments/' + assortment._id + '/detail');
+    getItems(id: string) {
+        return this.httpClient.get(this.url + 'assortments/' + id + '/details');
     }
  }
