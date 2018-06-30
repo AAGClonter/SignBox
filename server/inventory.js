@@ -45,6 +45,23 @@ router.delete('/assortments/:id', (req, res, next) => {
     });
 });
 
+// GET request for specific assortment
+router.get('/assortments/:id/detail', (req, res, next) => {
+    Assortment.findById(req.params.id, (err, assortment) => {
+        if (err) return next(err);
+        if (!assortment) {
+            return res.status(404).json({
+                message: 'Assortment not found',
+                error: { message: 'Assortment not found' }
+            });
+        }
+        res.status(200).json({
+            message: 'Assortment found',
+            obj: assortment
+        });
+    });
+});
+
 // PUT request /:id assortment
 router.put('/assortments/:id/update', (req, res, next) => {
     Assortment.findById(req.params.id, (err, assortment) => {
@@ -127,7 +144,7 @@ router.delete('/items/:id/delete', (req, res, next) => {
 });
 
 // GET request for items 
-router.get('/assortments/:id/items', (req, res, next) => {
+router.get('/assortments/:id/details', (req, res, next) => {
     Assortment.findById(req.params.id, (err, assortment) => {
         if (err) return next(err);
         if (!assortment) {

@@ -56,7 +56,12 @@ export class InventoryService {
     /////////////////////////////////////////////////////////////////////////////////////////////////
 
     // POST request for Item
-    addItem(item: Item, assortment: Assortment) {
-        return this.httpClient.post(this.url + 'assortment/' + assortment._id +  '/newItem', item, this.httpOptions);
+    addItem(item: Item) {
+        return this.httpClient.post(this.url + 'newItem', item, this.httpOptions);
+    }
+
+    // GET items per assortment
+    getItems(assortment: Assortment) {
+        return this.httpClient.get(this.url + 'assortments/' + assortment._id + '/detail');
     }
  }

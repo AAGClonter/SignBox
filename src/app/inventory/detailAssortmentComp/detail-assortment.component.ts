@@ -15,7 +15,8 @@ import { ActivatedRoute, Params } from '@angular/router';
 })
 export class DetailAssortment implements OnInit {
 
-    @Input() assortment: AssortmentInt;
+    @Input() assortment: Assortment;
+    items: Item[];
 
     constructor(
         private inventoryService: InventoryService,
@@ -24,18 +25,27 @@ export class DetailAssortment implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.getAssortment()
+        this.getAssortment();
+        this.getAssItems();
     }
 
     getAssortment(): void {
-        this.route.params.subscribe((params: Params) => {
-            this.inventoryService.getAssortment(params['id']).subscribe(
-                (assortment: AssortmentInt) => this.assortment = assortment['obj']
-            )
-        })
+        this.route.params
+            .switchMap((params: Params) => this.inventoryService.getAssortment(params['id']))
+            .subscribe((assortment: Assortment) => {
+                this.assortment = assortment['obj'];
+                console.log(this.assortment);
+            });
     }
 
-    onAddNewItem(form: NgForm, assortment: Assortment) {
+    getAssItems() {
+        this.inventoryService.getItems(this.assortment).subscribe((items: Item[]) => {
+            this.items = items['obj'];
+            console.log(this.items);
+        });
+    }
+
+    onAddNewItem(form: NgForm) {
         let newItem = new Item(
             form.value.assortment,
             form.value.itemNumber,
@@ -43,7 +53,7 @@ export class DetailAssortment implements OnInit {
             form.value.quantity
         );
 
-        this.inventoryService.addItem(newItem, assortment).subscribe(data => {
+        this.inventoryService.addItem(newItem).subscribe(data => {
             console.log(data);
         })
     }

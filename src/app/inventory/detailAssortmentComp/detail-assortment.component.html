@@ -1,11 +1,10 @@
 <div *ngIf="assortment">
-    <h2>My Assortment Description</h2>
-
-    <h3>Assortment Number</h3>
-    <h3>Assortment Description</h3>
+    <h2>{{assortment.description}}</h2>
+    <h2>{{assortment._id}}</h2>
+    <h3>{{assortment.assortmentNumber}}</h3>
     <button mat-button type="button" (click)="goBack()">Back</button>
 
-    <form #f="ngForm" (ngSubmit)="onAddNewItem(f, assortment)">
+    <form #f="ngForm" (ngSubmit)="onAddNewItem(f)">
         <mat-form-field appearance="legacy">
             <input 
                 matInput 
@@ -40,5 +39,17 @@
     
         <button mat-button type="submit">Add Item</button>
     </form>
+
+    <div *ngFor="let item of items">
+        <h2>{{item.description}}</h2>
+        <h2>{{item.itemNumber}}</h2>
+        <h2>{{item.quantity}}</h2>
+    </div>
+</div>
+
+<div *ngFor="let item of items">
+    <h2>{{item.description}}</h2>
+    <h2>{{item.itemNumber}}</h2>
+    <h2>{{item.quantity}}</h2>
 </div>
 
