@@ -28,22 +28,22 @@ export class InventoryService {
 
     // GET request for Assortment
     getAssortments() {
-        return this.httpClient.get(this.url + 'assortment');
+        return this.httpClient.get(this.url + 'assortments');
     }
 
     // DELETE request for an Assortment
     deleteAssortment(assortment: Assortment) {
-        return this.httpClient.delete(this.url + 'assortment/' + assortment._id);
+        return this.httpClient.delete(this.url + 'assortments/' + assortment._id);
     }
 
     // UPDATE request for an Assortment
     updateAssortment(assortment: Assortment) {
-        return this.httpClient.put(this.url + 'assortment/' + assortment._id, assortment, this.httpOptions);
+        return this.httpClient.put(this.url + 'assortments/' + assortment._id, assortment, this.httpOptions);
     }
 
     // Getting assortment by id 
     getAssortment(id: string) {
-        return this.httpClient.get(this.url + 'assortment/' + id + '/detail');
+        return this.httpClient.get(this.url + 'assortments/' + id + '/detail');
     }
 
     // Calling next on Assortment Subject
