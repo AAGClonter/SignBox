@@ -11,9 +11,17 @@ import { Router } from '@angular/router';
     styles: [`
         button {
             margin-top: 15px;
+            margin-left: 120px;
+            width: 100px;
+            font-weight: 100;
         }
         .down {
             margin-top: 40px;
+        }
+
+        .signUpHeader {
+            margin-left: 120px;
+            font-weight: 100;
         }
     `]
 })

@@ -16,12 +16,6 @@ import { UserService } from './auth/user.service';
                     <li class="nav-item"><a class="nav-link" routerLinkActive="inUse" routerLink="/inventory">Inventory</a></li>
                     <li class="nav-item"><a class="nav-link" routerLinkActive="inUse" routerLink="/signup">Sign Up</a></li>
                     <li class="nav-item" *ngIf="!isLoggedIn()"><a class="nav-link" routerLinkActive="inUse" routerLink="/signin">Login</a></li>
-                    <div class="justify-content-end">
-                        <form class="form-inline right">
-                            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                            <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
-                        </form>
-                    </div>
                     <li class="nav-item"><app-logout *ngIf="isLoggedIn()"></app-logout></li>
                 </ul>
             </nav>
@@ -30,7 +24,10 @@ import { UserService } from './auth/user.service';
     `,
     styles: [`
         .down {
-            margin-top: 40px;
+            width: 100%;
+            position: sticky;
+            overflow: scroll;
+            top: 0;
         }
 
         .right {

@@ -10,7 +10,6 @@ import { Assortment } from '../models/assortment.model';
     templateUrl: './inventory.component.html',
     styles: [`
         .panel {
-            height: 50px;
             width: 80%;
         }
     `]

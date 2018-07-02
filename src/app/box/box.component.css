@@ -16,3 +16,7 @@
 .myStyle {
     display: flex;
 }
+
+.boxHeader {
+    font-weight: 100;
+}

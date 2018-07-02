@@ -14,6 +14,7 @@ import { UserService } from './user.service';
         }
         .another {
             margin-top: 25px;
+            margin-left: 90px;
         }
     `]
 })

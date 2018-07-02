@@ -12,9 +12,10 @@ import { BoxRoutingModule } from './box-routing.module';
 
 // Angular Material Components
 import { MatButtonModule } from '@angular/material';
-import {MatInputModule} from '@angular/material/input';
-import {MatSelectModule} from '@angular/material/select';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
     declarations: [
@@ -30,7 +31,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
         MatButtonModule,
         MatInputModule,
         MatSelectModule,
-        MatFormFieldModule
+        MatFormFieldModule,
+        MatTableModule
     ],
     providers: [
         BoxService
