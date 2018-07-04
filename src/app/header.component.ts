@@ -12,10 +12,10 @@ import { UserService } from './auth/user.service';
         <div class="row">
             <nav class="down">
                 <ul class="navbar navbar-dark bg-dark">
-                    <li class="nav-item"><a class="nav-link" routerLinkActive="inUse" routerLink="/boxes">Boxes to Sign Out</a></li>
-                    <li class="nav-item"><a class="nav-link" routerLinkActive="inUse" routerLink="/inventory">Inventory</a></li>
-                    <li class="nav-item"><a class="nav-link" routerLinkActive="inUse" routerLink="/signup">Sign Up</a></li>
-                    <li class="nav-item" *ngIf="!isLoggedIn()"><a class="nav-link" routerLinkActive="inUse" routerLink="/signin">Login</a></li>
+                    <li class="nav-item"><a mat-button class="nav-link" routerLinkActive="inUse" routerLink="/boxes">Boxes to Sign Out</a></li>
+                    <li class="nav-item"><a mat-button class="nav-link" routerLinkActive="inUse" routerLink="/inventory">Inventory</a></li>
+                    <li class="nav-item"><a mat-button class="nav-link" routerLinkActive="inUse" routerLink="/signup">Sign Up</a></li>
+                    <li class="nav-item" *ngIf="!isLoggedIn()"><a mat-button class="nav-link" routerLinkActive="inUse" routerLink="/signin">Login</a></li>
                     <li class="nav-item"><app-logout *ngIf="isLoggedIn()"></app-logout></li>
                 </ul>
             </nav>

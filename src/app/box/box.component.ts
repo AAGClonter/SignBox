@@ -40,6 +40,7 @@ export class BoxComponent implements OnInit {
     employees: Employee[];
 
     boxSubscription: Subscription;
+    displayedColumns: string[] = ['number', 'tracking', 'employee', 'actions'];
 
     constructor(private boxService: BoxService,
                 private route: Router) {}

@@ -2,17 +2,17 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
+import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header.component';
-import { AppRoutingModule } from './app-routing.module';
 import { LogoutComponent } from './auth/logout.component';
 
 import { BoxModule } from './box/box.module';
 import { InventoryModule } from './inventory/inventory.module';
 import { AuthModule } from './auth/auth.module';
-import { FormsModule } from '@angular/forms';
 import { UserService } from './auth/user.service';
 
 // Angular Material Components
