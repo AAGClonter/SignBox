@@ -163,4 +163,11 @@ router.get('/assortments/:id/details', (req, res, next) => {
     });
 });
 
+////////////////////////////////////////////ORDERS RELATED ROUTES////////////////////////////////////////////////
+
+// POST request with items assigned
+router.post('/newOrder', (req, res, next) => {
+    
+})
+
 module.exports = router;

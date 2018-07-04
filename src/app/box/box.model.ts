@@ -14,3 +14,8 @@ export class Box {
         this.userId = userId;
     }
 }
+
+export class BoxForm {
+    tracking: ''
+    addressedTo: ''
+}

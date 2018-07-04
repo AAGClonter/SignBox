@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { BoxesComponent } from './boxes.component';
 import { BoxNotifyComponent } from './box-notify.component';
@@ -26,6 +27,7 @@ import { MatTableModule } from '@angular/material/table';
     ],
     imports: [
         FormsModule,
+        ReactiveFormsModule,
         CommonModule,
         BoxRoutingModule,
         MatButtonModule,
