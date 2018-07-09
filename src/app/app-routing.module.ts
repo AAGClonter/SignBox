@@ -10,10 +10,11 @@ import { BoxNotifyComponent } from './box/box-notify.component';
 import { LogoutComponent } from './auth/logout.component';
 import { InventoryComponent } from './inventory/inventoryComponents/inventory.component';
 import { DetailAssortment } from './inventory/detailAssortmentComp/detail-assortment.component';
+import { AuthGuard } from './auth-guard.service';
 
 const routes: Routes = [
     { path: '', redirectTo: 'boxes', pathMatch: 'full' },
-    { path: 'inventory', component: InventoryComponent }
+    { path: 'inventory', canActivate: [AuthGuard], component: InventoryComponent }
 ];
 @NgModule({
     imports: [RouterModule.forRoot(routes)],

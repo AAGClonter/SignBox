@@ -20,6 +20,7 @@ import { MatButtonModule } from '@angular/material';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import { AuthGuard } from './auth-guard.service';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     MatSelectModule,
     MatFormFieldModule
   ],
-  providers: [UserService],
+  providers: [UserService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
