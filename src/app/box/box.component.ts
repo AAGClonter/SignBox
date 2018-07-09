@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { Router } from '@angular/router';
-import { NgForm } from '@angular/forms';
+import { Router, ActivatedRoute, Data } from '@angular/router';
+import { NgForm, FormControl } from '@angular/forms';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
 import { BoxService } from './box.service';
@@ -48,21 +48,24 @@ export class BoxComponent implements OnInit {
 
     constructor(private boxService: BoxService,
                 private route: Router,
-                private formBuilder: FormBuilder
+                private formBuilder: FormBuilder,
+                private activatedRoute: ActivatedRoute
             ) {
                 this.createForm();
             }
 
     ngOnInit() {
-        this.getBoxes();
+        this.activatedRoute.data.subscribe((data: Data) => {
+            this.boxes = data['boxes'];
+        })
         this.getEmployees();
     }
 
     // New Form Functionality
     createForm() {
         this.boxForm = this.formBuilder.group({
-            tracking: '',
-            addressedTo: '',
+            tracking: new FormControl(),
+            addressedTo: new FormControl(),
             anotherBox: this.formBuilder.array([])
         });
     }
