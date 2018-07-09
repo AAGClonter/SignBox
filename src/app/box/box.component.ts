@@ -2,10 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
 import { BoxService } from './box.service';
 import { Box } from './box.model';
 import { Employee } from './employee.model';
+import { BoxForm } from './box.model';
 
 import 'rxjs/Rx';
 import { Observable, Subscription } from 'rxjs';
@@ -39,15 +41,38 @@ export class BoxComponent implements OnInit {
     boxes: Box[];
     employees: Employee[];
 
+    boxForm: FormGroup;
+
     boxSubscription: Subscription;
     displayedColumns: string[] = ['number', 'tracking', 'employee', 'actions'];
 
     constructor(private boxService: BoxService,
-                private route: Router) {}
+                private route: Router,
+                private formBuilder: FormBuilder
+            ) {
+                this.createForm();
+            }
 
     ngOnInit() {
         this.getBoxes();
         this.getEmployees();
+    }
+
+    // New Form Functionality
+    createForm() {
+        this.boxForm = this.formBuilder.group({
+            tracking: '',
+            addressedTo: '',
+            anotherBox: this.formBuilder.array([])
+        });
+    }
+
+    get anotherBox(): FormArray {
+        return this.boxForm.get('anotherBox') as FormArray;
+    }
+
+    addFormBox() {
+        this.anotherBox.push(this.formBuilder.group(new BoxForm()))
     }
     
      getBoxes() {
