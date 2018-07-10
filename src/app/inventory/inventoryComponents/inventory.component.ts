@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, Data } from '@angular/router';
 import { NgForm } from '@angular/forms';
 
 import { InventoryService } from '../inventoryService/inventory.service';
@@ -21,12 +21,15 @@ export class InventoryComponent implements OnInit {
     panelOpenState: boolean = false;
 
     constructor(
+        private route: ActivatedRoute,
         private inventoryService: InventoryService,
         private router: Router
     ) {}
 
     ngOnInit() {
-        this.getAssortment();
+        this.route.data.subscribe((data: Data) => {
+            this.assortments = data['assortments'].obj;
+        });
     }
 
     // Get request for all assortments

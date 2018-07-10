@@ -27,8 +27,8 @@ export class InventoryService {
     }
 
     // GET request for Assortment
-    getAssortments() {
-        return this.httpClient.get(this.url + 'assortments');
+    getAssortments(): Observable<Assortment[]> {
+        return this.httpClient.get<Assortment[]>(this.url + 'assortments');
     }
 
     // DELETE request for an Assortment

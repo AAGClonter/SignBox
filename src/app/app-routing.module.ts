@@ -11,10 +11,11 @@ import { LogoutComponent } from './auth/logout.component';
 import { InventoryComponent } from './inventory/inventoryComponents/inventory.component';
 import { DetailAssortment } from './inventory/detailAssortmentComp/detail-assortment.component';
 import { AuthGuard } from './auth-guard.service';
+import { AssortmentResolver } from './inventory/resolvers/assortments-resolver.service';
 
 const routes: Routes = [
     { path: '', redirectTo: 'boxes', pathMatch: 'full' },
-    { path: 'inventory', canActivate: [AuthGuard], component: InventoryComponent }
+    { path: 'inventory', canActivate: [AuthGuard], component: InventoryComponent, resolve: {assortments: AssortmentResolver} }
 ];
 @NgModule({
     imports: [RouterModule.forRoot(routes)],
