@@ -32,10 +32,10 @@ export class DetailAssortment implements OnInit {
 
     ngOnInit() {
         this.route.data.subscribe((data: Data) => {
-            this.assortment = data['assortment']
-            console.log(data);
-        })
-        this.getAssortment();
+            this.assortment = data['assortment'].obj
+            console.log(this.assortment);
+        });
+        this.getAssortmentItems();
     }
 
     // Getting Assortment
