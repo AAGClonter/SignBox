@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 import { InventoryService } from '../inventoryService/inventory.service';
 
 @Injectable()
-export class AssortmentResolver implements Resolve<Assortment[]> {
+export class AssortmentsResolver implements Resolve<Assortment[]> {
 
     constructor(private inventoryService: InventoryService) {}
 

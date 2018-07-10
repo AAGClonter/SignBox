@@ -21,7 +21,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { AuthGuard } from './auth-guard.service';
-import { AssortmentResolver } from './inventory/resolvers/assortments-resolver.service';
+import { AssortmentsResolver } from './inventory/resolvers/assortments-resolver.service';
 
 @NgModule({
   declarations: [
@@ -44,7 +44,7 @@ import { AssortmentResolver } from './inventory/resolvers/assortments-resolver.s
     MatSelectModule,
     MatFormFieldModule
   ],
-  providers: [UserService, AuthGuard, AssortmentResolver],
+  providers: [UserService, AuthGuard, AssortmentsResolver],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

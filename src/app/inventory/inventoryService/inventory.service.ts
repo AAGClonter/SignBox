@@ -42,8 +42,8 @@ export class InventoryService {
     }
 
     // Getting assortment by id 
-    getAssortment(id: string) {
-        return this.httpClient.get(this.url + 'assortments/' + id + '/detail');
+    getAssortment(id: string): Observable<Assortment> {
+        return this.httpClient.get<Assortment>(this.url + 'assortments/' + id + '/detail');
     }
 
     // Calling next on Assortment Subject

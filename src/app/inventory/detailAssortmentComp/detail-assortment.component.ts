@@ -7,7 +7,7 @@ import { Item } from '../models/item.model';
 import { AssortmentInt } from '../models/assortment.interface';
 
 import { Location } from '@angular/common';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Data } from '@angular/router';
 
 @Component({
     selector: 'app-detail-assortment',
@@ -31,6 +31,10 @@ export class DetailAssortment implements OnInit {
     ) {}
 
     ngOnInit() {
+        this.route.data.subscribe((data: Data) => {
+            this.assortment = data['assortment']
+            console.log(data);
+        })
         this.getAssortment();
     }
 

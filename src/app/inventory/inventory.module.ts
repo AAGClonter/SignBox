@@ -6,7 +6,7 @@ import { InventoryRoutingModule } from './inventory-routing.module';
 import { InventoryComponent } from './inventoryComponents/inventory.component';
 import { InventoryService } from './inventoryService/inventory.service';
 import { DetailAssortment } from './detailAssortmentComp/detail-assortment.component';
-import { AssortmentResolver } from './resolvers/assortments-resolver.service';
+import { AssortmentResolver } from './resolvers/assortment-resolver.service';
 
 // Angular Material Modules
 import { MatTableModule } from '@angular/material/table';
@@ -35,7 +35,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
         MatGridListModule
     ],
     providers: [
-        InventoryService
+        InventoryService,
+        AssortmentResolver
     ]
 })
 export class InventoryModule { }
