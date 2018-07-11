@@ -18,6 +18,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatTableModule } from '@angular/material/table';
 import { BoxResolver } from './box-resolver.service';
+import { BoxDetailResolver } from './resolvers/box-detail-resolver.service';
+import { BoxNotifyResolver } from './resolvers/box-notify-resolver.service';
 
 @NgModule({
     declarations: [
@@ -39,7 +41,9 @@ import { BoxResolver } from './box-resolver.service';
     ],
     providers: [
         BoxService,
-        BoxResolver
+        BoxResolver,
+        BoxDetailResolver,
+        BoxNotifyResolver
     ]
 })
 export class BoxModule {}

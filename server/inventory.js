@@ -5,6 +5,7 @@ const async = require('async');
 
 const Assortment = require('../models/assortment');
 const Item = require('../models/item');
+const Order = require('../models/order');
 
 // POST request new Assortment
 router.post('/newAssortment', (req, res, next) => {
@@ -167,7 +168,23 @@ router.get('/assortments/:id/details', (req, res, next) => {
 
 // POST request with items assigned
 router.post('/newOrder', (req, res, next) => {
-    
-})
+    let newOrder = new Order({
+        orderNumber: req.body.orderNumber,
+        requestedBy: req.body.requestedBy,
+        retailer: req.body.retailer,
+        boxWidth: req.body.boxWidth,
+        boxLength: req.body.boxLength,
+        boxHeight: req.body.boxHeight
+    });
+
+    newOrder.save((err, order) => {
+        if (err) return next(err)
+        res.status(200).json({
+            message: 'Order Saved',
+            obj: order
+        });
+    });
+});
+
 
 module.exports = router;

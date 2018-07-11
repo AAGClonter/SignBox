@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ActivatedRoute, ParamMap, Router, Params } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router, Params, Data } from '@angular/router';
 
 import { HttpParams } from '@angular/common/http';
 import { Location } from '@angular/common';
@@ -34,9 +34,14 @@ export class BoxDetailComponent implements OnInit {
     @Input() box: Box;
 
     ngOnInit() {
+        this.route.data.subscribe((data: Data) => {
+            this.box = data['box']
+        });
+        /*
          this.route.params
             .switchMap((params: Params) => this.boxService.getBoxSignOut(params['id']))
             .subscribe(box => this.box = box);
+        */
     }
     
     goBack(): void {
