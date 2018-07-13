@@ -37,11 +37,6 @@ export class BoxDetailComponent implements OnInit {
         this.route.data.subscribe((data: Data) => {
             this.box = data['box']
         });
-        /*
-         this.route.params
-            .switchMap((params: Params) => this.boxService.getBoxSignOut(params['id']))
-            .subscribe(box => this.box = box);
-        */
     }
     
     goBack(): void {

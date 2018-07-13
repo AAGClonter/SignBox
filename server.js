@@ -13,6 +13,7 @@ const api = require('./server/routes/api');
 const signinBox = require('./server/box');
 const userRouter = require('./server/user');
 const invRouter = require('./server/inventory');
+const orderRouter = require('./server/order');
 
 const app = express();
 
@@ -47,6 +48,7 @@ app.use('/', api);
 app.use('/', signinBox);
 app.use('/', userRouter);
 app.use('/inventory', invRouter);
+app.use('/order', orderRouter);
 
 // Catch all other routes and return the index file
 app.get('*', (req, res) => {

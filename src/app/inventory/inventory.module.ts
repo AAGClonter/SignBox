@@ -16,11 +16,13 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { OrderComponent } from '../order/order/order.component';
 
 @NgModule({
     declarations: [
         InventoryComponent,
-        DetailAssortment
+        DetailAssortment,
+        OrderComponent
     ],
     imports: [
         CommonModule,

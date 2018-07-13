@@ -13,6 +13,7 @@ import { LogoutComponent } from './auth/logout.component';
 import { BoxModule } from './box/box.module';
 import { InventoryModule } from './inventory/inventory.module';
 import { AuthModule } from './auth/auth.module';
+import { OrderModule } from './order/order/order.module';
 import { UserService } from './auth/user.service';
 
 // Angular Material Components
@@ -42,7 +43,8 @@ import { AssortmentsResolver } from './inventory/resolvers/assortments-resolver.
     MatButtonModule,
     MatInputModule,
     MatSelectModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    OrderModule
   ],
   providers: [UserService, AuthGuard, AssortmentsResolver],
   bootstrap: [AppComponent]

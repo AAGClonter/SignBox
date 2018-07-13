@@ -7,12 +7,7 @@ import { Assortment } from '../models/assortment.model';
 
 @Component({
     selector: 'app-inventory',
-    templateUrl: './inventory.component.html',
-    styles: [`
-        .panel {
-            width: 80%;
-        }
-    `]
+    templateUrl: './inventory.component.html'
 })
 export class InventoryComponent implements OnInit {
 
