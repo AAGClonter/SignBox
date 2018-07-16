@@ -8,5 +8,5 @@ export interface Order {
     boxWidth: number
     boxLength: number
     boxHeight: number
-    items: Item[]
+    items?: Item[]
 }

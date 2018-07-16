@@ -51,7 +51,86 @@
                     </mat-accordion>
         </mat-grid-tile>
         <mat-grid-tile [colspan]= "2">
-            <app-order></app-order>
+                <mat-accordion>
+                        <mat-expansion-panel *ngFor="let order of orders" class="panel">
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                    {{order.orderNumber}}
+                                </mat-panel-title>
+                
+                                <mat-panel-description>
+                                    {{order.retailer}}
+                                </mat-panel-description>
+                            </mat-expansion-panel-header>
+                          
+                            <mat-form-field>
+                                <input matInput placeholder="First name">
+                            </mat-form-field>
+                
+                            <mat-action-row>
+                                <button mat-button color="primary" (click)="onDelete(assortment)">Delete</button>
+                                <button mat-button color="primary" (click)="onUpdate(assortment)">Update</button>
+                                <button 
+                                    mat-button 
+                                    color="primary" 
+                                    (click)="onGoToDetail(assortment)">Detail</button>
+                            </mat-action-row>
+                        </mat-expansion-panel>
+                    </mat-accordion>
+                    
         </mat-grid-tile>
 </mat-grid-list>
+
+<button mat-button color="primary" (click)="addItem()">Add Order</button>
+                    <form *ngIf="isActive" #f="ngForm" (ngSubmit)="orderSubmit(f)">
+                            <mat-form-field appearance="legacy">
+                                <input 
+                                    matInput 
+                                    placeholder="Order Number" 
+                                    name="orderNumber" 
+                                    [ngModel]="order?.orderNumber">
+                            </mat-form-field>
+                                
+                            <mat-form-field>
+                                <input 
+                                    matInput 
+                                    placeholder="Requested By" 
+                                    name="requestedBy"
+                                    [ngModel]="order?.requestedBy">
+                            </mat-form-field>
+
+                            <mat-form-field>
+                                <input
+                                    matInput
+                                    placeholder="Retailer"
+                                    name="retailer"
+                                    [ngModel]="order?.retailer">
+                            </mat-form-field>
+
+                            <mat-form-field>
+                                <input
+                                    matInput
+                                    placeholder="boxWidth"
+                                    name="boxWidth"
+                                    [ngModel]="order?.boxWidth">
+                            </mat-form-field>
+
+                            <mat-form-field>
+                                <input
+                                    matInput
+                                    placeholder="boxWidth"
+                                    name="boxWidth"
+                                    [ngModel]="order?.boxLength">
+                            </mat-form-field>
+
+                            <mat-form-field>
+                                <input
+                                    matInput
+                                    placeholder="boxWidth"
+                                    name="boxWidth"
+                                    [ngModel]="order?.boxHeight">
+                            </mat-form-field>
+                                
+                            <button mat-button type="submit">Submit</button>
+                        </form>
   

@@ -4,6 +4,8 @@ import { NgForm } from '@angular/forms';
 
 import { InventoryService } from '../inventoryService/inventory.service';
 import { Assortment } from '../models/assortment.model';
+import { Order } from '../../order/models/order.model';
+import { OrderService } from '../../order/order.service';
 
 @Component({
     selector: 'app-inventory',
@@ -14,24 +16,30 @@ export class InventoryComponent implements OnInit {
     assortment: Assortment;
     assortments: Assortment[];
     panelOpenState: boolean = false;
+    orders: Order[];
+    isActive: boolean = false;
 
     constructor(
         private route: ActivatedRoute,
         private inventoryService: InventoryService,
-        private router: Router
+        private router: Router,
+        private orderService: OrderService
     ) {}
 
     ngOnInit() {
         this.route.data.subscribe((data: Data) => {
             this.assortments = data['assortments'].obj;
         });
+        
+        this.getOrders();
     }
 
-    // Get request for all assortments
-    getAssortment() {
-        this.inventoryService.getAssortments().subscribe((assortments: Assortment[]) => {
-            this.assortments = assortments['obj'];
-        })
+    // GET all orders
+    getOrders() {
+        this.orderService.getOrders().subscribe((orders: Order[]) => {
+            this.orders = orders['obj']
+            console.log(orders);
+        });
     }
 
     // Form submit function 
@@ -54,6 +62,21 @@ export class InventoryComponent implements OnInit {
         }
     }
 
+    orderSubmit(form: NgForm) {
+        let order: Order = {
+            orderNumber: form.value.orderNumber,
+            requestedBy: form.value.requestedBy,
+            retailer: form.value.retailer,
+            boxWidth: form.value.boxWidth,
+            boxLength: form.value.boxLength,
+            boxHeight: form.value.boxHeight
+        }
+
+        this.orderService.addOrder(order).subscribe((order: Order) => {
+            console.log(order);
+        })
+    }
+
     // Delete an assortment
     onDelete(assortment: Assortment) {
         this.inventoryService.deleteAssortment(assortment).subscribe(data => {
@@ -69,6 +92,10 @@ export class InventoryComponent implements OnInit {
     // Click event to navigate to Detail View of the assortment
     onGoToDetail(assortment: Assortment) {
         this.router.navigate(['assortment', assortment._id, 'detail']);
+    }
+
+    addItem() {
+        this.isActive = !this.isActive;
     }
 
 }
