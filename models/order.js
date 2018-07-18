@@ -12,4 +12,8 @@ const orderSchema = new Schema({
     boxHeight: { type: Number, required: true }
 });
 
+orderSchema.methods.calcVolume = function() {
+    return (orderSchema.boxLength * orderSchema.boxWidth * orderSchema.boxHeight);
+}
+
 module.exports = mongoose.model('Order', orderSchema);
