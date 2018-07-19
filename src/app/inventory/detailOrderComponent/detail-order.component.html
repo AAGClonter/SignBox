@@ -1,4 +1,5 @@
 <div *ngIf="order">
+    <button (click)="onBack()">Back</button>
     <h2>
         Order Number:    {{order.orderNumber}}
     </h2>
@@ -7,10 +8,20 @@
         Order Retailer: {{order.retailer}} Order Requested By: {{order.requestedBy}}
     </h2>
 
-    <div ngFor="let item of items">
-        <p>{{item.itemNumber}}</p>
-        <p>{{item.assortment}}</p>
-        <p>{{item.quantity}}</p>
+    <div *ngFor="let item of items">
+        <div class="card" style="width: 50%; margin-top: 20px;">
+            <div class="card-body">
+                <h5 class="card-title">{{item.description}} <input #check type="checkbox" name="order"></h5>
+                <p class="card-text"> Item Number: {{item.itemNumber}}</p>
+                <p class="card-text"> Assortment Number: {{item.assortment}}</p>
+                <p class="card-text"> Quantity: {{item.quantity}}</p>
+
+                <form *ngIf="check">
+                    <input type="number">
+                    <button mat-button>Add Item</button>
+                </form>
+            </div>
+        </div>
     </div>
     
     <button>Add</button>

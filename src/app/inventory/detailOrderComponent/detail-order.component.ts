@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Order } from '../../order/models/order.model';
 import { OrderService } from '../../order/order.service';
@@ -11,6 +11,7 @@ import { Item } from '../models/item.model';
 })
 export class DetailOrderComponent implements OnInit {
 
+    @ViewChild('check') check: ElementRef;
     @Input() order: Order;
     items: Item[];
 
@@ -21,8 +22,8 @@ export class DetailOrderComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.getOrder();
         this.getItems();
+        this.getOrder();
     }
 
     getOrder(): void {
@@ -36,6 +37,9 @@ export class DetailOrderComponent implements OnInit {
     getItems() {
         this.orderService.getItems().subscribe((items: Item[]) => {
             this.items = items['obj'];
+            console.log(this.items);
+        }, (error) => {
+            console.log(error, "Error from get items")
         })
     }
 
