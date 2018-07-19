@@ -9,7 +9,8 @@ const orderSchema = new Schema({
     retailer: { type: String, required: true },
     boxWidth: { type: Number, required: true },
     boxLength: { type: Number, required: true },
-    boxHeight: { type: Number, required: true }
+    boxHeight: { type: Number, required: true },
+    items: [{ type: Schema.Types.ObjectId }]
 });
 
 orderSchema.methods.calcVolume = function() {

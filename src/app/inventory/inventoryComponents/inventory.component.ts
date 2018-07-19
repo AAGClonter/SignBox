@@ -94,6 +94,10 @@ export class InventoryComponent implements OnInit {
         this.router.navigate(['assortment', assortment._id, 'detail']);
     }
 
+    goToOrder(order: Order) {
+        this.router.navigate(['order', order._id, 'order']);
+    }
+
     addItem() {
         this.isActive = !this.isActive;
     }

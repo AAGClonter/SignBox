@@ -26,4 +26,8 @@ export class OrderService {
     addOrder(order: Order): Observable<Order> {
         return this.httpClient.post<Order>(this.url, order, this.httpOptions);
     }
+
+    getOrder(id: string): Observable<Order> {
+        return this.httpClient.get<Order>(this.url + '/' + id + 'order');
+    }
 }

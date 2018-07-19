@@ -17,12 +17,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { OrderComponent } from '../order/order/order.component';
+import { DetailOrderComponent } from './detailOrderComponent/detail-order.component';
 
 @NgModule({
     declarations: [
         InventoryComponent,
         DetailAssortment,
-        OrderComponent
+        OrderComponent,
+        DetailOrderComponent
     ],
     imports: [
         CommonModule,
