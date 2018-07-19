@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const Order = require('../models/order');
+const Item = require('../models/item');
 
 // POST request creating a new order
 router.post('/', (req, res, next) => {
@@ -30,6 +31,27 @@ router.get('/', (req, res, next) => {
         res.status(200).json({
             message: 'Orders found',
             obj: orders
+        });
+    });
+});
+
+// GET request for one specific order
+router.get('/:id/order', (req, res, next) => {
+    Order.findById(req.params.id, (err, order) => {
+        if (err) return next(err);
+        res.status(200).json({
+            message: 'Order found',
+            obj: order
+        });
+    });
+});
+
+router.get('/', (req, res, next) => {
+    Item.find({}, (err, items) => {
+        if (err) return next(err);
+        res.status(200).json({
+            message: 'Items found',
+            obj: items
         });
     });
 });

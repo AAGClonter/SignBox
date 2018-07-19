@@ -6,6 +6,13 @@
     <h2>
         Order Retailer: {{order.retailer}} Order Requested By: {{order.requestedBy}}
     </h2>
+
+    <div ngFor="let item of items">
+        <p>{{item.itemNumber}}</p>
+        <p>{{item.assortment}}</p>
+        <p>{{item.quantity}}</p>
+    </div>
     
     <button>Add</button>
+    <button (click)="onBack()">Back</button>
 </div>

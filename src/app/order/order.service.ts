@@ -4,10 +4,12 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { Order } from './models/order.model';
+import { InventoryService } from '../inventory/inventoryService/inventory.service';
 
 @Injectable()
 export class OrderService {
 
+    itemsUrl: string = 'http://localhost:3000/items'
     url: string = 'http://localhost:3000/order';
     httpOptions = {
         headers: new HttpHeaders({
@@ -15,7 +17,7 @@ export class OrderService {
         })
     };
 
-    constructor(private httpClient: HttpClient) {}
+    constructor(private httpClient: HttpClient, private inventoryService: InventoryService) {}
 
     // GET request for Orders
     getOrders(): Observable<Order[]> {
@@ -28,6 +30,10 @@ export class OrderService {
     }
 
     getOrder(id: string): Observable<Order> {
-        return this.httpClient.get<Order>(this.url + '/' + id + 'order');
+        return this.httpClient.get<Order>(this.url + '/' + id + '/order');
+    }
+
+    getItems() {
+        return this.httpClient.get(this.itemsUrl);
     }
 }
