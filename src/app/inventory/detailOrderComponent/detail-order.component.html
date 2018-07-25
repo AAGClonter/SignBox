@@ -1,26 +1,39 @@
-<div *ngIf="order">
-    <button (click)="onBack()">Back</button>
-    <h2>
-        Order Number:    {{order.orderNumber}}
-    </h2>
-    
-    <h2>
-        Order Retailer: {{order.retailer}} Order Requested By: {{order.requestedBy}}
-    </h2>
+<div *ngIf="order" class="container">
+    <button mat-button (click)="onBack()">Back</button>
 
-    <div *ngFor="let item of items">
-        <div class="card" style="width: 50%; margin-top: 20px;">
-            <div class="card-body">
-                <h5 class="card-title">{{item.description}} <input #check type="checkbox" name="order"></h5>
-                <p class="card-text"> Item Number: {{item.itemNumber}}</p>
-                <p class="card-text"> Assortment Number: {{item.assortment}}</p>
-                <p class="card-text"> Quantity: {{item.quantity}}</p>
+    <h2>Order Number:    {{order.orderNumber}}</h2>
+    <h2>Order Retailer: {{order.retailer}} Order Requested By: {{order.requestedBy}}</h2>
 
-                <form *ngIf="check">
-                    <input type="number">
-                    <button mat-button>Add Item</button>
-                </form>
+    <div class="row">
+        <div *ngFor="let item of items" class="col col-md-8">
+            <div class="card" style="width: 50%; margin-top: 20px;">
+                <div class="card-body">
+                    <h5 class="card-title">{{item.description}} <input type="checkbox" name="order"></h5>
+                    <p class="card-text"> Item Number: {{item.itemNumber}}</p>
+                    <p class="card-text"> Assortment Number: {{item.assortment}}</p>
+                    <p class="card-text"> Quantity: {{item.quantity}}</p>
+                    
+                    <button mat-button (click)="settingAddItem()" type="button">Add to Order</button>
+                    <form *ngIf="addItem" #f="ngForm" (ngSubmit)="addItemsToOrderForm(f, item)">
+                        <input 
+                            type="number" 
+                            name="qtyToAdd" 
+                            ngModel>
+                        <button mat-button type="submit">Add Item</button>
+                    </form>
+                </div>
             </div>
+        </div>
+        <div class="col" style="margin-top: -1200px;">
+            <h4>Items:</h4>
+            <ul>
+                <li *ngFor="let selectedItem of selectedItems">Selected items list</li>
+                <li>Testing the items list</li>
+                <li>Testing the items list</li>
+                <li>Testing the items list</li>
+                <li>Testing the items list</li>
+                <li>Testing the items list</li>
+            </ul>
         </div>
     </div>
     

@@ -1,4 +1,5 @@
-import { Component, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Order } from '../../order/models/order.model';
 import { OrderService } from '../../order/order.service';
@@ -11,9 +12,10 @@ import { Item } from '../models/item.model';
 })
 export class DetailOrderComponent implements OnInit {
 
-    @ViewChild('check') check: ElementRef;
     @Input() order: Order;
+    addItem: boolean = false;
     items: Item[];
+    selectedItems: Item[] = [];
 
     constructor(
         private route: ActivatedRoute,
@@ -41,6 +43,21 @@ export class DetailOrderComponent implements OnInit {
         }, (error) => {
             console.log(error, "Error from get items")
         })
+    }
+
+    addItemsToOrder(item: Item) {
+
+    }
+
+    addItemsToOrderForm(form: NgForm, item: Item) {
+        this.orderService.updateOrderWithItems(this.order._id, this.order).subscribe(
+            (order: Order) => {
+            console.log(order);
+        })
+    }
+
+    settingAddItem() {
+        this.addItem = !this.addItem;
     }
 
     onBack() {
