@@ -5,11 +5,16 @@ import { Router } from '@angular/router';
 @Component({
     selector: 'app-logout',
     template: `
-        <button type="button" class="btn btn-danger" (click)="onLogOut()">Log Out</button>
+        <button 
+            mat-raised-button 
+            color="warn"
+            type="button" 
+            (click)="onLogOut()">Log Out</button>
     `,
     styles: [`
         button {
             margin-left: 15px;
+            font-weight: 100;
         }
     `]
 })

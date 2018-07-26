@@ -17,10 +17,11 @@ import { OrderModule } from './order/order/order.module';
 import { UserService } from './auth/user.service';
 
 // Angular Material Components
-import { MatButtonModule } from '@angular/material';
-import {MatInputModule} from '@angular/material/input';
-import {MatSelectModule} from '@angular/material/select';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatButtonModule, MatToolbarModule } from '@angular/material';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+
 import { AuthGuard } from './auth-guard.service';
 import { AssortmentsResolver } from './inventory/resolvers/assortments-resolver.service';
 
@@ -44,6 +45,7 @@ import { AssortmentsResolver } from './inventory/resolvers/assortments-resolver.
     MatInputModule,
     MatSelectModule,
     MatFormFieldModule,
+    MatToolbarModule,
     OrderModule
   ],
   providers: [UserService, AuthGuard, AssortmentsResolver],

@@ -8,19 +8,16 @@ import { UserService } from './auth/user.service';
 @Component({
     selector: 'app-header',
     template: `
-    <div class="container">
-        <div class="row">
-            <nav class="down">
-                <ul class="navbar navbar-dark bg-dark">
-                    <li class="nav-item"><a mat-button class="nav-link" routerLinkActive="inUse" routerLink="/boxes">Boxes to Sign Out</a></li>
-                    <li class="nav-item"><a mat-button class="nav-link" routerLinkActive="inUse" routerLink="/inventory">Inventory</a></li>
-                    <li class="nav-item" *ngIf="!isLoggedIn()"><a mat-button class="nav-link" routerLinkActive="inUse" routerLink="/signup">Sign Up</a></li>
-                    <li class="nav-item" *ngIf="!isLoggedIn()"><a mat-button class="nav-link" routerLinkActive="inUse" routerLink="/signin">Login</a></li>
-                    <li class="nav-item"><app-logout *ngIf="isLoggedIn()"></app-logout></li>
-                </ul>
-            </nav>
-        </div>
-    </div>
+    <mat-toolbar color="primary">
+        <mat-toolbar-row>
+            SignBox
+            <a class="right" mat-button routerLinkActive="inUse" routerLink="/boxes">Boxes to Sign Out</a>
+            <a class="right" mat-button routerLinkActive="inUse" routerLink="/inventory">Inventory</a>
+            <a class="right" mat-button routerLinkActive="inUse" routerLink="/signup" *ngIf="!isLoggedIn()">Sign Up</a>
+            <a class="right" mat-button routerLinkActive="inUse" routerLink="/signin" *ngIf="!isLoggedIn()">Login</a>
+            <app-logout class="logOut" *ngIf="isLoggedIn()"></app-logout>
+        </mat-toolbar-row>
+    </mat-toolbar>
     `,
     styles: [`
         .down {
@@ -30,12 +27,12 @@ import { UserService } from './auth/user.service';
             top: 0;
         }
 
-        .right {
-            margin-left: 320px;
+        .logOut {
+            margin-left: 400px;
         }
 
-        ul {
-            list-style: none;
+        .right {
+            margin-left: 60px;
         }
 
         a {

@@ -13,6 +13,7 @@ import { Item } from '../models/item.model';
 export class DetailOrderComponent implements OnInit {
 
     @Input() order: Order;
+
     addItem: boolean = false;
     items: Item[];
     selectedItems: Item[] = [];
@@ -24,10 +25,12 @@ export class DetailOrderComponent implements OnInit {
     ) {}
 
     ngOnInit() {
+        // GET items and order before view is loaded
         this.getItems();
         this.getOrder();
     }
 
+    // GET the id of the order
     getOrder(): void {
         this.route.params
             .switchMap((params: Params) => this.orderService.getOrder(params['id']))
@@ -36,6 +39,7 @@ export class DetailOrderComponent implements OnInit {
             });
     }
 
+    // GET all items to populate items of an order
     getItems() {
         this.orderService.getItems().subscribe((items: Item[]) => {
             this.items = items['obj'];
@@ -45,6 +49,7 @@ export class DetailOrderComponent implements OnInit {
         })
     }
 
+    // This will add an item to the order loaded
     addItemsToOrder(item: Item) {
 
     }
@@ -56,10 +61,12 @@ export class DetailOrderComponent implements OnInit {
         })
     }
 
+    // Add item property change method
     settingAddItem() {
         this.addItem = !this.addItem;
     }
 
+    // Navigates back 
     onBack() {
         this.location.back()
     }
