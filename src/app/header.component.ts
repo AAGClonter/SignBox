@@ -39,6 +39,11 @@ import { UserService } from './auth/user.service';
             color: white;
         }
 
+        mat-toolbar {
+            position: sticky;
+            overflow: scroll;
+        }
+
         .inUse {
             color: #737475;
         }
