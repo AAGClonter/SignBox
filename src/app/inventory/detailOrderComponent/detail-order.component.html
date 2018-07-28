@@ -9,8 +9,7 @@
             <div class="card" style="width: 50%; margin-top: 20px;">
                 <div class="card-body">
                     <h5 class="card-title">{{item.description}}
-                        <input #check type="checkbox" name="item" value="{{item.itemNumber}}" ngModel>
-                        <p>{{check.value}}</p>
+                        
                     </h5>
                     <p class="card-text"> Item Number: {{item.itemNumber}}</p>
                     <p class="card-text"> Assortment Number: {{item.assortment}}</p>
@@ -19,9 +18,18 @@
                     <button mat-button (click)="settingAddItem()" type="button">Add to Order</button>
                     <form *ngIf="addItem" #f="ngForm" (ngSubmit)="addItemsToOrderForm(f, item)">
                         <input 
+                            #test
+                            id="item"
+                            type="checkbox" 
+                            name="item" 
+                            value={{item.itemNumber}}
+                            ngModel
+                        >
+                        <input 
                             type="number" 
                             name="qtyToAdd" 
-                            ngModel>
+                            ngModel
+                        >
                         <button mat-button type="submit">Add Item</button>
                     </form>
                 </div>

@@ -55,10 +55,15 @@ export class DetailOrderComponent implements OnInit {
     }
 
     addItemsToOrderForm(form: NgForm, item: Item) {
-        this.orderService.updateOrderWithItems(this.order._id, this.order).subscribe(
-            (order: Order) => {
-            console.log(order);
-        })
+        if (form.value.item) {
+            this.selectedItems.push(item);
+            this.order.items = this.selectedItems;
+            this.orderService.updateOrderWithItems(this.order._id, this.order).subscribe((order: Order) => {
+                console.log(order);
+            })
+        } else {
+            console.log('Nothing to send');
+        }
     }
 
     // Add item property change method
