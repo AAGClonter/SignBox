@@ -8,7 +8,10 @@
         <div *ngFor="let item of items" class="col col-md-8">
             <div class="card" style="width: 50%; margin-top: 20px;">
                 <div class="card-body">
-                    <h5 class="card-title">{{item.description}} <input type="checkbox" name="order"></h5>
+                    <h5 class="card-title">{{item.description}}
+                        <input #check type="checkbox" name="item" value="{{item.itemNumber}}" ngModel>
+                        <p>{{check.value}}</p>
+                    </h5>
                     <p class="card-text"> Item Number: {{item.itemNumber}}</p>
                     <p class="card-text"> Assortment Number: {{item.assortment}}</p>
                     <p class="card-text"> Quantity: {{item.quantity}}</p>

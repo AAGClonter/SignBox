@@ -9,12 +9,13 @@ import { UserService } from './auth/user.service';
     selector: 'app-header',
     template: `
     <mat-toolbar color="primary">
-        <mat-toolbar-row>
+        <mat-toolbar-row class="myTitle">
             SignBox
             <a class="right" mat-button routerLinkActive="inUse" routerLink="/boxes">Boxes to Sign Out</a>
             <a class="right" mat-button routerLinkActive="inUse" routerLink="/inventory">Inventory</a>
             <a class="right" mat-button routerLinkActive="inUse" routerLink="/signup" *ngIf="!isLoggedIn()">Sign Up</a>
             <a class="right" mat-button routerLinkActive="inUse" routerLink="/signin" *ngIf="!isLoggedIn()">Login</a>
+            <span class="spacer"></span>
             <app-logout class="logOut" *ngIf="isLoggedIn()"></app-logout>
         </mat-toolbar-row>
     </mat-toolbar>
@@ -28,7 +29,11 @@ import { UserService } from './auth/user.service';
         }
 
         .logOut {
-            margin-left: 400px;
+            
+        }
+
+        .spacer {
+            flex: 1 1 auto;
         }
 
         .right {
@@ -42,6 +47,10 @@ import { UserService } from './auth/user.service';
         mat-toolbar {
             position: sticky;
             overflow: scroll;
+        }
+
+        .myTitle {
+            font-weight: 200;
         }
 
         .inUse {
