@@ -1,5 +1,5 @@
 export class Item {
-    _id: string;
+    _id?: string;
     assortment: number;
     itemNumber: number;
     description: string;
@@ -7,11 +7,11 @@ export class Item {
     creationDate?: Date;
 
     constructor(
-        _id: string,
         assortment: number, 
         itemNumber: number, 
         description: string, 
-        quantity: number, 
+        quantity: number,
+        _id?: string,
         creationDate?: Date
     ) {
         this._id = _id;

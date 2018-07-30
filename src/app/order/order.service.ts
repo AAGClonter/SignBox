@@ -38,7 +38,7 @@ export class OrderService {
         return this.httpClient.get<Item[]>(this.itemsUrl);
     }
 
-    updateOrderWithItems(id: string, order: Order): Observable<Order> {
-        return this.httpClient.put<Order>(this.url + '/' + id + '/order', order, this.httpOptions)
+    addItemsToOrder(order: Order, items: Item[]): Observable<Item[]> {
+        return this.httpClient.post<Item[]>(this.url + order._id + '/order', items, this.httpOptions);
     }
 }

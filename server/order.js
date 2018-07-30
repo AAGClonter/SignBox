@@ -58,8 +58,8 @@ router.get('/', (req, res, next) => {
 });
 
 // PUT request for one order
-router.put('/:id/order', (req, res, next) => {
-    Order.findByIdAndUpdate(req.params.id, (err, order) => {
+router.post('/:id/order', (req, res, next) => {
+    Order.findById(req.params.id, (err, order) => {
         if (err) return next(err);
         if (!order) {
             return res.status(404).json({
@@ -67,12 +67,6 @@ router.put('/:id/order', (req, res, next) => {
                 error: { message: 'Order could not be found'}
             });
         }
-        order.orderNumber = req.body.orderNumber;
-        order.requestedBy = req.body.requestedBy;
-        order.retailer = req.body.retailer;
-        order.boxWidth = req.body.boxWidth;
-        order.boxLength = req.body.boxLength;
-        order.boxHeight = req.body.boxHeight;
         order.items = req.body.items;
 
         order.save((err, updatedOrder) => {
