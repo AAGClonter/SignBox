@@ -79,4 +79,26 @@ router.patch('/:id/order', (req, res, next) => {
     });
 });
 
+// PUT request for one order
+router.put('/:id/order', (req, res, next) => {
+    Order.findById(req.params.id, (err, order) => {
+        if (err) return next(err);
+        if (!order) {
+            return res.status(404).json({
+                message: 'Order could not be found',
+                error: { message: 'Order could not be found'}
+            });
+        }
+        order.items = req.body.items;
+
+        order.save((err, updatedOrder) => {
+            if (err) return next(err)
+            res.status(200).json({
+                message: 'Order successfully updated',
+                obj: updatedOrder
+            });
+        });
+    });
+});
+
 module.exports = router;
