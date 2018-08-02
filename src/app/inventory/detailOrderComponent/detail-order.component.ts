@@ -52,6 +52,7 @@ export class DetailOrderComponent implements OnInit {
     // This will add an item to the order loaded
     addItemsToOrder() {
         this.orderService.addItemsToOrder(this.order, this.selectedItems).subscribe((itemsSent: Item[]) => {
+            this.order.items = itemsSent;
             console.log(itemsSent);
         })
     }

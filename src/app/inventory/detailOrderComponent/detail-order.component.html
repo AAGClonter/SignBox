@@ -38,12 +38,9 @@
         <div class="col" style="margin-top: -1200px;">
             <h4>Items:</h4>
             <ul>
-                <li *ngFor="let selectedItem of selectedItems">Selected items list</li>
-                <li>Testing the items list</li>
-                <li>Testing the items list</li>
-                <li>Testing the items list</li>
-                <li>Testing the items list</li>
-                <li>Testing the items list</li>
+                <li *ngFor="let selectedItem of selectedItems">
+                    {{selectedItem.itemNumber}} : {{selectedItem.description}} -> {{selectedItem.quantity}}
+                </li>
             </ul>
         </div>
     </div>

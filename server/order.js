@@ -58,7 +58,7 @@ router.get('/', (req, res, next) => {
 });
 
 // PUT request for one order
-router.post('/:id/order', (req, res, next) => {
+router.patch('/:id/order', (req, res, next) => {
     Order.findById(req.params.id, (err, order) => {
         if (err) return next(err);
         if (!order) {
