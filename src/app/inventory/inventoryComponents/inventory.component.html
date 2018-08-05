@@ -22,8 +22,8 @@
     </form>
 </div>
 <mat-grid-list cols="4">
-        <mat-grid-tile [colspan]="2">
-                <mat-accordion>
+        <mat-grid-tile [colspan]="2" [rowspan]="2">
+                <mat-accordion style="width: 70%;">
                         <mat-expansion-panel *ngFor="let assortment of assortments" class="panel">
                             <mat-expansion-panel-header>
                                 <mat-panel-title>
@@ -50,8 +50,8 @@
                         </mat-expansion-panel>
                     </mat-accordion>
         </mat-grid-tile>
-        <mat-grid-tile [colspan]= "2">
-                <mat-accordion>
+        <mat-grid-tile [colspan]="2" [rowspan]="2">
+                <mat-accordion style="width: 70%;">
                         <mat-expansion-panel *ngFor="let order of orders" class="panel">
                             <mat-expansion-panel-header>
                                 <mat-panel-title>
