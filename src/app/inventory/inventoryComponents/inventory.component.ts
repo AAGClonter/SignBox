@@ -84,6 +84,12 @@ export class InventoryComponent implements OnInit {
         })
     }
 
+    onDeleteOrder(order: Order) {
+        this.orderService.deleteOrder(order._id).subscribe((order: Order) => {
+            console.log(order);
+        })
+    }
+
     // Update an assortment
     onUpdate(assortment: Assortment) {
         this.assortment = assortment;

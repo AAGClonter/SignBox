@@ -38,8 +38,8 @@
         <div class="col" style="margin-top: -1200px;">
             <h4>Items:</h4>
             <ul>
-                <li *ngFor="let selectedItem of selectedItems">
-                    {{selectedItem.itemNumber}} : {{selectedItem.description}} -> {{selectedItem.quantity}}
+                <li *ngFor="let orderItem of order.items">
+                    {{orderItem.itemNumber}} : {{orderItem.description}} -> {{orderItem.quantity}}
                 </li>
             </ul>
         </div>

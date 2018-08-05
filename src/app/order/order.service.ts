@@ -38,7 +38,11 @@ export class OrderService {
         return this.httpClient.get<Item[]>(this.itemsUrl);
     }
 
-    addItemsToOrder(order: Order, items: Item[]): Observable<Item[]> {
-        return this.httpClient.patch<Item[]>(this.url + '/' + order._id + '/order', items, this.httpOptions);
+    addItemsToOrder(order: Order): Observable<Order> {
+        return this.httpClient.put<Order>(this.url + '/' + order._id + '/order', order, this.httpOptions);
+    }
+
+    deleteOrder(id: string): Observable<Order> {
+        return this.httpClient.delete<Order>(this.url + '/' + id + '/order', this.httpOptions);
     }
 }

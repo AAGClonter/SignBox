@@ -12,7 +12,8 @@ router.post('/', (req, res, next) => {
         retailer: req.body.retailer,
         boxWidth: req.body.boxWidth,
         boxLength: req.body.boxLength,
-        boxHeight: req.body.boxHeight
+        boxHeight: req.body.boxHeight,
+        items: req.body.items
     });
 
     newOrder.save((err, order) => {
@@ -58,7 +59,7 @@ router.get('/', (req, res, next) => {
 });
 
 // PUT request for one order
-router.patch('/:id/order', (req, res, next) => {
+router.put('/:id/order', (req, res, next) => {
     Order.findById(req.params.id, (err, order) => {
         if (err) return next(err);
         if (!order) {
@@ -67,7 +68,14 @@ router.patch('/:id/order', (req, res, next) => {
                 error: { message: 'Order could not be found'}
             });
         }
-        order.items = req.body.items;
+
+        order.orderNumber = req.body.orderNumber
+        order.requestedBy = req.body.requestedBy
+        order.retailer = req.body.retailer
+        order.boxWidth = req.body.boxWidth
+        order.boxLength = req.body.boxLength
+        order.boxHeight = req.body.boxHeight
+        order.items = req.body.items
 
         order.save((err, updatedOrder) => {
             if (err) return next(err)
@@ -79,23 +87,21 @@ router.patch('/:id/order', (req, res, next) => {
     });
 });
 
-// PUT request for one order
-router.put('/:id/order', (req, res, next) => {
+// DELETE request for an specific order
+router.delete('/:id/order', (req, res, next) => {
     Order.findById(req.params.id, (err, order) => {
         if (err) return next(err);
         if (!order) {
             return res.status(404).json({
-                message: 'Order could not be found',
-                error: { message: 'Order could not be found'}
+                message: 'Order not found',
+                error: { message: 'Order not found'}
             });
         }
-        order.items = req.body.items;
-
-        order.save((err, updatedOrder) => {
-            if (err) return next(err)
+        order.remove((err, result) => {
+            if (err) return next(err);
             res.status(200).json({
-                message: 'Order successfully updated',
-                obj: updatedOrder
+                message: 'Successfully erased',
+                obj: result
             });
         });
     });

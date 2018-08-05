@@ -1,8 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const itemSchema = new Schema({
-    order: { type: Schema.Types.ObjectId, ref: 'Order'},
+const orderItemSchema = new Schema({
     assortment: { type: Number, required: true },
     itemNumber: { type: Number, required: true },
     description: { type: String, required: true },
@@ -10,4 +9,4 @@ const itemSchema = new Schema({
     creationDate: { type: Date, default: Date.now }
 });
 
-module.exports = mongoose.model('Item', itemSchema);
+module.exports = mongoose.model('OrderItem', orderItemSchema);

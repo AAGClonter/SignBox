@@ -17,6 +17,7 @@ export class DetailOrderComponent implements OnInit {
     addItem: boolean = false;
     items: Item[];
     selectedItems: Item[] = [];
+    orderItems: Item[];
 
     constructor(
         private route: ActivatedRoute,
@@ -51,15 +52,19 @@ export class DetailOrderComponent implements OnInit {
 
     // This will add an item to the order loaded
     addItemsToOrder() {
-        this.orderService.addItemsToOrder(this.order, this.selectedItems).subscribe((itemsSent: Item[]) => {
-            this.order.items = itemsSent;
-            console.log(itemsSent);
+        this.orderService.addItemsToOrder(this.order).subscribe((updatedOrder: Order) => {
+            console.log(updatedOrder);
         })
     }
 
     addItemsToOrderForm(form: NgForm, item: Item) {
-        item.quantity = form.value.qtyToAdd;
-        this.selectedItems.push(item);
+        let orderItem: Item = {
+            itemNumber: item.itemNumber,
+            assortment: item.assortment,
+            description: item.description,
+            quantity: form.value.qtyToAdd
+        }
+        this.order.items.push(orderItem);
         console.log(this.selectedItems);
     }
 

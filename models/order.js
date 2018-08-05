@@ -10,7 +10,7 @@ const orderSchema = new Schema({
     boxWidth: { type: Number, required: true },
     boxLength: { type: Number, required: true },
     boxHeight: { type: Number, required: true },
-    items: [{ type: Schema.Types.ObjectId, ref: 'Item' }]
+    items: []
 });
 
 orderSchema.methods.calcVolume = function() {
