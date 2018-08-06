@@ -18,6 +18,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { OrderComponent } from '../order/order/order.component';
 import { DetailOrderComponent } from './detailOrderComponent/detail-order.component';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
     declarations: [
@@ -36,7 +37,8 @@ import { DetailOrderComponent } from './detailOrderComponent/detail-order.compon
         MatInputModule,
         MatButtonModule,
         MatCardModule,
-        MatGridListModule
+        MatGridListModule,
+        MatListModule
     ],
     providers: [
         InventoryService,

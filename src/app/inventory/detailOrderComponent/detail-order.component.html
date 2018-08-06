@@ -4,46 +4,42 @@
     <h2>Order Number:    {{order.orderNumber}}</h2>
     <h2>Order Retailer: {{order.retailer}} Order Requested By: {{order.requestedBy}}</h2>
 
-    <div class="row">
-        <div *ngFor="let item of items" class="col-md-8">
-            <div class="card" style="width: 50%; margin-top: 20px;">
-                <div class="card-body">
-                    <h5 class="card-title">{{item.description}}
-                        
-                    </h5>
-                    <p class="card-text"> Item Number: {{item.itemNumber}}</p>
-                    <p class="card-text"> Assortment Number: {{item.assortment}}</p>
-                    <p class="card-text"> Quantity: {{item.quantity}}</p>
-                    
-                    <button mat-button (click)="settingAddItem()" type="button">Add to Order</button>
-                    <form *ngIf="addItem" #f="ngForm" (ngSubmit)="addItemsToOrderForm(f, item)">
-                        <input 
-                            #test
-                            id="item"
-                            type="checkbox" 
-                            name="item" 
-                            value={{item.itemNumber}}
-                            ngModel
-                        >
-                        <input 
-                            type="number" 
-                            name="qtyToAdd" 
-                            ngModel
-                        >
-                        <button mat-button type="submit">Add Item</button>
-                    </form>
+            <mat-list>
+                    <mat-list-item *ngFor="let item of items">
+                                <h5>{{item.description}}</h5>
+                                <h5>Quantity: {{item.quantity}}</h5>
+                                <p> Item Number: {{item.itemNumber}}</p>
+                                <p> Assortment Number: {{item.assortment}}</p>
+                                        
+                                        
+                                        
+                            <button mat-button (click)="settingAddItem()" type="button">Add to Order</button>
+                            <form *ngIf="addItem" #f="ngForm" (ngSubmit)="addItemsToOrderForm(f, item)">
+                                <input 
+                                    #test
+                                    id="item"
+                                    type="checkbox" 
+                                    name="item" 
+                                    value={{item.itemNumber}}
+                                    ngModel
+                                >
+                                <input 
+                                    type="number" 
+                                    name="qtyToAdd" 
+                                    ngModel
+                                >
+                                <button mat-button type="submit">Add Item</button>
+                            </form>
+                        </mat-list-item>
+            </mat-list>
+                <div>
+                    <h4>Items:</h4>
+                    <ul>
+                        <li *ngFor="let orderItem of order.items">
+                            {{orderItem.itemNumber}} : {{orderItem.description}} -> {{orderItem.quantity}}
+                        </li>
+                    </ul>
                 </div>
-            </div>
-        </div>
-        <div class="col" style="margin-top: -1200px;">
-            <h4>Items:</h4>
-            <ul>
-                <li *ngFor="let orderItem of order.items">
-                    {{orderItem.itemNumber}} : {{orderItem.description}} -> {{orderItem.quantity}}
-                </li>
-            </ul>
-        </div>
-    </div>
     
     <button mat-button (click)="addItemsToOrder()">Add</button>
     <button mat-button (click)="onBack()">Back</button>
