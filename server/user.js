@@ -57,4 +57,11 @@ router.post('/signin', function(req, res, next){
      });
 });
 
+router.get('/logout', (req, res) => {
+    res.status(200).json({
+        auth: false,
+        token: null
+    });
+});
+
 module.exports = router;
