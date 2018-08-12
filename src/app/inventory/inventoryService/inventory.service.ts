@@ -64,4 +64,8 @@ export class InventoryService {
     getItems(id: string) {
         return this.httpClient.get(this.url + 'assortments/' + id + '/details');
     }
+
+    updateItem(item: Item): Observable<Item> {
+        return this.httpClient.put<Item>(this.url + 'items/' + item._id + '/update', item, this.httpOptions);
+    }
  }

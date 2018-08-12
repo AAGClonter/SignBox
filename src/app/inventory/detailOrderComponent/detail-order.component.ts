@@ -5,10 +5,17 @@ import { Order } from '../../order/models/order.model';
 import { OrderService } from '../../order/order.service';
 import { Location } from '@angular/common';
 import { Item } from '../models/item.model';
+import { InventoryService } from '../inventoryService/inventory.service';
 
 @Component({
     selector: 'app-detail-order',
-    templateUrl: './detail-order.component.html'
+    templateUrl: './detail-order.component.html',
+    styles: [`
+        .order-class {
+            width: 65%;
+            margin-top: 20px;
+        }
+    `]
 })
 export class DetailOrderComponent implements OnInit {
 
@@ -22,7 +29,8 @@ export class DetailOrderComponent implements OnInit {
     constructor(
         private route: ActivatedRoute,
         private orderService: OrderService,
-        private location: Location
+        private location: Location,
+        private inventoryService: InventoryService
     ) {}
 
     ngOnInit() {
@@ -54,7 +62,7 @@ export class DetailOrderComponent implements OnInit {
     addItemsToOrder() {
         this.orderService.addItemsToOrder(this.order).subscribe((updatedOrder: Order) => {
             console.log(updatedOrder);
-        })
+        });
     }
 
     addItemsToOrderForm(form: NgForm, item: Item) {
@@ -64,6 +72,10 @@ export class DetailOrderComponent implements OnInit {
             description: item.description,
             quantity: form.value.qtyToAdd
         }
+        item.quantity = item.quantity - form.value.qtyToAdd;
+        this.inventoryService.updateItem(item).subscribe((data) => {
+            console.log(data);
+        });
         this.order.items.push(orderItem);
         console.log(this.selectedItems);
     }

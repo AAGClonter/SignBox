@@ -65,6 +65,7 @@ export class DetailAssortment implements OnInit {
         );
 
         this.inventoryService.addItem(newItem).subscribe(data => {
+            this.items.push(newItem);
             console.log(data);
         })
     }
