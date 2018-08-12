@@ -66,17 +66,17 @@ export class BoxComponent implements OnInit {
         this.boxForm = this.formBuilder.group({
             tracking: new FormControl(),
             addressedTo: new FormControl(),
-            anotherBox: this.formBuilder.array([])
+           // anotherBox: this.formBuilder.array([])
         });
     }
 
-    get anotherBox(): FormArray {
-        return this.boxForm.get('anotherBox') as FormArray;
-    }
+    // get anotherBox(): FormArray {
+    //     return this.boxForm.get('anotherBox') as FormArray;
+    // }
 
-    addFormBox() {
-        this.anotherBox.push(this.formBuilder.group(new BoxForm()))
-    }
+    // addFormBox() {
+    //     this.anotherBox.push(this.formBuilder.group(new BoxForm()))
+    // }
     
      getBoxes() {
         this.boxService.getBoxes().subscribe(
@@ -95,23 +95,23 @@ export class BoxComponent implements OnInit {
     }
 
     onSubmit(form: NgForm) {
-        if (this.box) {
-            this.box.tracking = form.value.tracking;
-            this.box.addressedTo = form.value.addressedTo;
-            this.boxService.patchBox(this.box).subscribe(
-                data => console.log(data),
-                error => console.error(error)
-            );
-        } else {
-            const box = new Box(form.value.tracking, form.value.addressedTo);
-            this.boxService.signinBox(box).subscribe(
-                data => {
-                    this.boxes.push(data);
-                },
-                error => console.error(error)
-            );
-            form.resetForm();
-        }
+        // if (this.box) {
+        //     this.box.tracking = form.value.tracking;
+        //     this.box.addressedTo = form.value.addressedTo;
+        //     this.boxService.patchBox(this.box).subscribe(
+        //         data => console.log(data),
+        //         error => console.error(error)
+        //     );
+        // } else {
+        //     const box = new Box(form.value.tracking, form.value.addressedTo);
+        //     this.boxService.signinBox(box).subscribe(
+        //         data => {
+        //             this.boxes.push(data);
+        //         },
+        //         error => console.error(error)
+        //     );
+        //     form.resetForm();
+        // }
     }
 
     onSubmitEmployee(form: NgForm) {
