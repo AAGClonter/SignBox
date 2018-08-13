@@ -37,11 +37,17 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
 })
 export class BoxComponent implements OnInit {
 
+    boxForm = this.formBuilder.group({
+        tracking: new FormControl(),
+        addressedTo: new FormControl(),
+        anotherBox: this.formBuilder.array([
+             this.formBuilder.control('')
+         ])
+    });
+
     box: Box;
     boxes: Box[];
     employees: Employee[];
-
-    boxForm: FormGroup;
 
     boxSubscription: Subscription;
     displayedColumns: string[] = ['number', 'tracking', 'employee', 'actions'];
@@ -51,7 +57,6 @@ export class BoxComponent implements OnInit {
                 private formBuilder: FormBuilder,
                 private activatedRoute: ActivatedRoute
             ) {
-                this.createForm();
             }
 
     ngOnInit() {
@@ -61,22 +66,14 @@ export class BoxComponent implements OnInit {
         this.getEmployees();
     }
 
-    // New Form Functionality
-    createForm() {
-        this.boxForm = this.formBuilder.group({
-            tracking: new FormControl(),
-            addressedTo: new FormControl(),
-           // anotherBox: this.formBuilder.array([])
-        });
+
+    get anotherBox(): FormArray {
+        return this.boxForm.get('anotherBox') as FormArray;
     }
 
-    // get anotherBox(): FormArray {
-    //     return this.boxForm.get('anotherBox') as FormArray;
-    // }
-
-    // addFormBox() {
-    //     this.anotherBox.push(this.formBuilder.group(new BoxForm()))
-    // }
+    addFormBox() {
+        this.anotherBox.push(this.formBuilder.control(''))
+    }
     
      getBoxes() {
         this.boxService.getBoxes().subscribe(
@@ -112,6 +109,7 @@ export class BoxComponent implements OnInit {
         //     );
         //     form.resetForm();
         // }
+        console.log(form.value);
     }
 
     onSubmitEmployee(form: NgForm) {

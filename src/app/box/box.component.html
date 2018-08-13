@@ -41,7 +41,19 @@
 
         <button type="submit" mat-button color="primary">Add Box</button>
         
+        <div formArrayName="anotherBox">
+            <h3>Boxes</h3> <button (click)="addFormBox()">Add Box</button>
+        
+            <div *ngFor="let box of anotherBox.controls; let i=index">
+              <!-- The repeated alias template -->
+              <label>
+                Boxes:
+                <input type="text" [formControlName]="i">
+              </label>
+            </div>
+        </div>
     </form>
+    
 
     <div class="row">
         <h1 class="down boxHeader">Create new Employee</h1>

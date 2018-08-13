@@ -16,6 +16,11 @@ export class Box {
 }
 
 export class BoxForm {
-    tracking: ''
-    addressedTo: ''
+    tracking: string;
+    addressedTo: string;
+
+    constructor(tracking: string, addressedTo: string) {
+        this.tracking = tracking;
+        this.addressedTo = addressedTo;
+    }
 }
