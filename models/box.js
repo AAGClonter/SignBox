@@ -6,8 +6,8 @@ var Employee = require('./employee');
 var User = require('./users');
 
 var schema = new Schema({
-    tracking: { type: String, required: true },
-    addressedTo: { type: String, require: true }
+    tracking: [{ type: String, required: true }],
+    addressedTo: [{ type: String, require: true }]
 });
 
 /*
