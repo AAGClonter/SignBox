@@ -39,19 +39,19 @@
             >
         </mat-form-field>
 
-        <button type="submit" mat-button color="primary">Add Box</button>
-        
         <div formArrayName="anotherBox">
-            <h3>Boxes</h3> <button (click)="addFormBox()">Add Box</button>
+            <h3>Boxes</h3> <button (click)="addFormBox()" mat-button>Add Box</button>
         
             <div *ngFor="let box of anotherBox.controls; let i=index">
               <!-- The repeated alias template -->
               <label>
-                Boxes:
-                <input type="text" [formControlName]="i">
+                Tracking: <input type="text" [formControlName]="i">
+                Addressed To: <input type="text" [formControlName]="i">
+                
               </label>
             </div>
         </div>
+        <button type="submit" mat-button color="primary">Submit Shipment</button>
     </form>
     
 

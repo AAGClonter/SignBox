@@ -91,7 +91,8 @@ export class BoxComponent implements OnInit {
         );
     }
 
-    onSubmit(form: NgForm) {
+    onSubmit() {
+
         // if (this.box) {
         //     this.box.tracking = form.value.tracking;
         //     this.box.addressedTo = form.value.addressedTo;
@@ -109,7 +110,7 @@ export class BoxComponent implements OnInit {
         //     );
         //     form.resetForm();
         // }
-        console.log(form.value);
+        console.log(this.boxForm.value);
     }
 
     onSubmitEmployee(form: NgForm) {
