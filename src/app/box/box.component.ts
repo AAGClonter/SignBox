@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router, ActivatedRoute, Data } from '@angular/router';
-import { NgForm, FormControl } from '@angular/forms';
+import { NgForm, FormControl, Validators } from '@angular/forms';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
 import { BoxService } from './box.service';
@@ -37,17 +37,10 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
 })
 export class BoxComponent implements OnInit {
 
-    boxForm = this.formBuilder.group({
-        tracking: new FormControl(),
-        addressedTo: new FormControl(),
-        anotherBox: this.formBuilder.array([
-             this.formBuilder.control('')
-         ])
-    });
-
     box: Box;
-    boxes: Box[];
-    employees: Employee[];
+    boxForm: FormGroup; // Form property
+    boxes: Box[]; // Array of boxes already saved 
+    employees: Employee[]; // Array of active employees
 
     boxSubscription: Subscription;
     displayedColumns: string[] = ['number', 'tracking', 'employee', 'actions'];
@@ -62,27 +55,21 @@ export class BoxComponent implements OnInit {
     ngOnInit() {
         this.activatedRoute.data.subscribe((data: Data) => {
             this.boxes = data['boxes'];
-        })
-        this.getEmployees();
+        });
+
+        this.getEmployees(); // Getting existing Employees
+
+        // Creating the form 
+        this.boxForm = this.formBuilder.group({
+            'boxData': new FormGroup({
+                'tracking': new FormControl(null, Validators.required),
+                'addressedTo': new FormControl(null, Validators.required)
+            }),
+            'boxes': new FormArray([])
+        });
     }
 
-
-    get anotherBox(): FormArray {
-        return this.boxForm.get('anotherBox') as FormArray;
-    }
-
-    addFormBox() {
-        this.anotherBox.push(this.formBuilder.control(''))
-    }
-    
-     getBoxes() {
-        this.boxService.getBoxes().subscribe(
-            (boxes: Box[]) => {
-                this.boxes = boxes;
-            }
-        );
-    }
-
+    // Getting all employees, a resolver will be used in the future
     getEmployees() {
         this.boxService.getEmployees().subscribe(
             (employees: Employee[]) => {
@@ -110,7 +97,14 @@ export class BoxComponent implements OnInit {
         //     );
         //     form.resetForm();
         // }
-        console.log(this.boxForm.value);
+        const box = new Box(this.boxForm.get('boxData').value.tracking, this.boxForm.get('boxData').value.addressedTo);
+        this.boxService.signinBox(box).subscribe(data => {
+            this.boxes.push(data);
+            console.log(data);
+        }, error => {
+            console.log(error);
+        })
+        console.log(this.boxForm.value.addressedTo);
     }
 
     onSubmitEmployee(form: NgForm) {
@@ -119,6 +113,14 @@ export class BoxComponent implements OnInit {
             data => { this.employees.push(data) },
             error => { console.error(error) }
         )
+    }
+
+    onAddBoxes() {
+        const group = new FormGroup({
+            'tracking': new FormControl(null, Validators.required),
+            'addressedTo': new FormControl(null, Validators.required)
+        });
+        (<FormArray>this.boxForm.get('boxData')).push(group);
     }
 
     editBox(boxToEdit: Box) {

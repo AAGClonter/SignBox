@@ -4,54 +4,51 @@
     </div>
 
     <form [formGroup]="boxForm" (ngSubmit)="onSubmit()" class="myStyle">
-        <mat-form-field>
-            <input 
-                matInput 
-                placeholder="Tracking Number:" 
-                type="text" 
-                name="tracking" 
-                id="tracking" 
-                class="left"
-                formControlName="tracking"
-            >
-        </mat-form-field>
-
-        <!-- <mat-form-field>
-            <mat-select placeholder="Addressed To:" name="addressedTo" [ngModel]="box?.addressedTo">
-                <mat-option 
-                    *ngFor="let employee of employees" 
-                    [value]="employee.name"
-                    name="addressedTo"
-                    formControlName="addressedTo"
-                >
-                    {{employee.name}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field> -->
-        <mat-form-field>
-            <input
-                matInput
-                placeholder="Addressed To:"
-                type="text"
-                name="addressedTo"
-                id="addressedTo"
-                formControlName="addressedTo"    
-            >
-        </mat-form-field>
-
-        <div formArrayName="anotherBox">
-            <h3>Boxes</h3> <button (click)="addFormBox()" mat-button>Add Box</button>
+        <div formGroupName="boxData">
+            <mat-form-field>
+                    <input 
+                        matInput 
+                        placeholder="Tracking Number:" 
+                        type="text" 
+                        name="tracking" 
+                        id="tracking" 
+                        class="left"
+                        formControlName="tracking"
+                    >
+                </mat-form-field>
+                <span 
+                    *ngIf="!boxForm.get('boxData.tracking').valid && boxForm.get('boxData.tracking').touched"
+                    class="help-block">Please enter a valid input</span>
         
-            <div *ngFor="let box of anotherBox.controls; let i=index">
-              <!-- The repeated alias template -->
-              <label>
-                Tracking: <input type="text" [formControlName]="i">
-                Addressed To: <input type="text" [formControlName]="i">
-                
-              </label>
+                <mat-form-field>
+                    <mat-select placeholder="Addressed To:" name="addressedTo" formControlName="addressedTo">
+                        <mat-option 
+                            *ngFor="let employee of employees" 
+                            [value]="employee.name"
+                            name="addressedTo"
+                        >
+                            {{employee.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <span 
+                    *ngIf="!boxForm.get('boxData.addressedTo').valid && boxForm.get('boxData.addressedTo').touched"
+                    class="help-block">Please enter a valid input</span>
+        </div>
+        <div formArrayName="boxes">
+            <h4>Boxes</h4>
+            <button 
+                mat-button 
+                color="primary" 
+                type="button" 
+                (click)="onAddBoxes()">Add boxes</button>
+            <div *ngFor="let inputBox of boxForm.get('boxes').controls; let i = index">
+                <input type="text" [formControlName]="i.tracking">
+                <input type="text" [formControlName]="i.addressedTo">
             </div>
         </div>
-        <button type="submit" mat-button color="primary">Submit Shipment</button>
+        
+        <button type="submit" mat-button color="primary" [disabled]="!boxForm.valid">Submit Shipment</button>
     </form>
     
 
