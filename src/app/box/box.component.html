@@ -42,9 +42,10 @@
                 color="primary" 
                 type="button" 
                 (click)="onAddBoxes()">Add boxes</button>
+                <!-- This is the elements of the form Array-->
             <div *ngFor="let inputBox of boxForm.get('boxes').controls; let i = index">
-                <input type="text" [formControlName]="i.tracking">
-                <input type="text" [formControlName]="i.addressedTo">
+                <input type="text" placeholder="tracking" [formControlName]="i">
+                <input type="text" placeholder="addressedTo" [formControlName]="i">
             </div>
         </div>
         

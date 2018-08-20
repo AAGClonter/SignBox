@@ -39,6 +39,7 @@ export class BoxComponent implements OnInit {
 
     box: Box;
     boxForm: FormGroup; // Form property
+    group: FormGroup; // Form group that will be added
     boxes: Box[]; // Array of boxes already saved 
     employees: Employee[]; // Array of active employees
 
@@ -101,9 +102,11 @@ export class BoxComponent implements OnInit {
         this.boxService.signinBox(box).subscribe(data => {
             this.boxes.push(data);
             console.log(data);
+            console.log(this.boxForm.get('boxes'));
         }, error => {
             console.log(error);
-        })
+        });
+        this.boxForm.reset();
         console.log(this.boxForm.value.addressedTo);
     }
 
@@ -116,11 +119,8 @@ export class BoxComponent implements OnInit {
     }
 
     onAddBoxes() {
-        const group = new FormGroup({
-            'tracking': new FormControl(null, Validators.required),
-            'addressedTo': new FormControl(null, Validators.required)
-        });
-        (<FormArray>this.boxForm.get('boxData')).push(group);
+        let control = new FormControl(null, Validators.required);
+        (<FormArray>this.boxForm.get('boxes')).push(control);
     }
 
     editBox(boxToEdit: Box) {
