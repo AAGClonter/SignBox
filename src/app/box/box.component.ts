@@ -55,7 +55,7 @@ export class BoxComponent implements OnInit {
 
     ngOnInit() {
         this.activatedRoute.data.subscribe((data: Data) => {
-            this.boxes = data['boxes'];
+            this.boxes = data['boxes']['obj'];
         });
 
         this.getEmployees(); // Getting existing Employees
@@ -80,24 +80,6 @@ export class BoxComponent implements OnInit {
     }
 
     onSubmit() {
-
-        // if (this.box) {
-        //     this.box.tracking = form.value.tracking;
-        //     this.box.addressedTo = form.value.addressedTo;
-        //     this.boxService.patchBox(this.box).subscribe(
-        //         data => console.log(data),
-        //         error => console.error(error)
-        //     );
-        // } else {
-        //     const box = new Box(form.value.tracking, form.value.addressedTo);
-        //     this.boxService.signinBox(box).subscribe(
-        //         data => {
-        //             this.boxes.push(data);
-        //         },
-        //         error => console.error(error)
-        //     );
-        //     form.resetForm();
-        // }
         const box = new Box(this.boxForm.get('boxData').value.tracking, this.boxForm.get('boxData').value.addressedTo);
         this.boxService.signinBox(box).subscribe(data => {
             this.boxes.push(data['obj']);

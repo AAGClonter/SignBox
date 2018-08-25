@@ -31,7 +31,7 @@ export class BoxNotifyComponent implements OnInit {
         this.route.paramMap
                 .switchMap((params: ParamMap) =>
                     this.boxService.getBoxNotify(params.get('id')))
-                                .subscribe( box => this.box = box);
+                                .subscribe( box => this.box = box['obj']);
     }
 
     sendEmail(box: Box){

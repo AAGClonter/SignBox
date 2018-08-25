@@ -13,6 +13,7 @@ import { Employee } from './employee.model';
 export class BoxService {
 
     boxIsEdit = new Subject<Box>();
+    token = localStorage.getItem('token') ? '?token=' + localStorage.getItem('token') : '';
 
     httpOptions = {
         headers: new HttpHeaders({
@@ -27,26 +28,19 @@ export class BoxService {
 
     // POST request with httpClient
     signinBox(box: Box) {
-        const token = localStorage.getItem('token') ? '?token=' + localStorage.getItem('token') : '';
-        return this.httpClient.post('http://localhost:3000/boxes' + token, box, this.httpOptions);
+        return this.httpClient.post('http://localhost:3000/boxes' + this.token, box, this.httpOptions);
     }
 
-    getBoxes() {
-        return this.http.get('http://localhost:3000/boxes')
-                .map((response: Response) => response.json().obj)
-                .catch((error: Response) => Observable.throw(error.json()));
+    getBoxes(): Observable<Box[]> {
+        return this.httpClient.get<Box[]>('http://localhost:3000/boxes' + this.token);
     }
     // Getting a box
     getBoxSignOut(id: string) {
-        return this.http.get('http://localhost:3000/boxtosignout/' + id + '/boxsignout')
-                        .map((response: Response) => response.json().obj)
-                        .catch((error: Response) => Observable.throw(error.json()));
+        return this.httpClient.get('http://localhost:3000/boxtosignout/' + id + '/boxsignout' + this.token);
     }
 
     getBoxNotify(id: string) {
-        return this.http.get('http://localhost:3000/boxtonotify/' + id + '/boxnotify')
-                        .map((response: Response) => response.json().obj)
-                        .catch((error: Response) => Observable.throw(error.json()));
+        return this.httpClient.get('http://localhost:3000/boxtonotify/' + id + '/boxnotify' + this.token);
     }
 
     patchBox(box: Box) {

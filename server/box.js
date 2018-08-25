@@ -13,16 +13,28 @@ var User = require('../models/users');
 
 //GET all the boxes
 router.get('/boxes', function(req, res, next){
-    Box.find({}, function(err, boxes){
-        if (err) {
-           return res.status(500).json({
-                message: 'An error occurred',
-                error: err
+    let decoded = jwt.decode(req.query.token);
+    User.findById(decoded.user._id, (err, user) => {
+        if (err) return next(err);
+
+        if (!user) {
+            return res.status(401).json({
+                message: 'User not found',
+                error: { message: 'Unathourized'}
             });
         }
-        res.status(200).json({
-            message: 'Boxes found',
-            obj: boxes
+
+        Box.find({}, function(err, boxes){
+            if (err) {
+               return res.status(500).json({
+                    message: 'An error occurred',
+                    error: err
+                });
+            }
+            res.status(200).json({
+                message: 'Boxes found',
+                obj: boxes
+            });
         });
     });
 });
@@ -66,16 +78,28 @@ router.post('/boxes', function(req, res, next){
 
 //GET one box
 router.get('/boxtonotify/:id/boxnotify', function(req, res, next){
-    Box.findById(req.params.id, function(err, box){
-        if (err) {
-            return res.status(500).json({
-                message: 'An error occurred',
-                error: err
+    let decoded = jwt.decode(req.query.token);
+    User.findById(decoded.user._id, (err, user) => {
+        if (err) return next(err);
+        
+        if (!user) {
+            return res.status(404).json({
+                message: 'User not found',
+                error: { message: 'An error occurred, user not found'}
             });
         }
-        res.status(200).json({
-            message: 'Box found',
-            obj: box
+
+        Box.findById(req.params.id, function(err, box){
+            if (err) {
+                return res.status(500).json({
+                    message: 'An error occurred',
+                    error: err
+                });
+            }
+            res.status(200).json({
+                message: 'Box found',
+                obj: box
+            });
         });
     });
 });
