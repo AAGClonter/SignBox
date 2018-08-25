@@ -25,6 +25,7 @@ export class DetailOrderComponent implements OnInit {
     items: Item[];
     selectedItems: Item[] = [];
     orderItems: Item[];
+    itemsSearched: Item[];
 
     constructor(
         private route: ActivatedRoute,
@@ -78,6 +79,16 @@ export class DetailOrderComponent implements OnInit {
         });
         this.order.items.push(orderItem);
         console.log(this.selectedItems);
+    }
+
+    // Searching through items
+    search(term: string) {
+        this.itemsSearched = this.items.filter(item => {
+            if(item.description.includes(term)) {
+                return item;
+            }
+        });
+        console.log(this.itemsSearched);
     }
 
     // Add item property change method

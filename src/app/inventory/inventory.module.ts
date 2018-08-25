@@ -19,13 +19,15 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { OrderComponent } from '../order/order/order.component';
 import { DetailOrderComponent } from './detailOrderComponent/detail-order.component';
 import { MatListModule } from '@angular/material/list';
+import { SearchComponent } from '../order/search/search.component';
 
 @NgModule({
     declarations: [
         InventoryComponent,
         DetailAssortment,
         OrderComponent,
-        DetailOrderComponent
+        DetailOrderComponent,
+        SearchComponent
     ],
     imports: [
         CommonModule,

@@ -25,6 +25,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 
 import { AuthGuard } from './auth-guard.service';
 import { AssortmentsResolver } from './inventory/resolvers/assortments-resolver.service';
+import { SearchComponent } from './order/search/search.component';
 
 @NgModule({
   declarations: [

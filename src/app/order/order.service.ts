@@ -6,6 +6,8 @@ import { Observable } from 'rxjs';
 import { Order } from './models/order.model';
 import { InventoryService } from '../inventory/inventoryService/inventory.service';
 import { Item } from '../inventory/models/item.model';
+import { of } from '../../../node_modules/rxjs/observable/of';
+import { catchError } from '../../../node_modules/rxjs/operators';
 
 @Injectable()
 export class OrderService {
@@ -45,4 +47,26 @@ export class OrderService {
     deleteOrder(id: string): Observable<Order> {
         return this.httpClient.delete<Order>(this.url + '/' + id + '/order', this.httpOptions);
     }
+
+    // Searching items 
+    searchItems(term: string): Observable<Item[]> {
+        if (!term.trim()) {
+            return of([]);
+        }
+
+        return this.httpClient.get<Item[]>(`${this.itemsUrl}/?description=${term}`).pipe(
+            catchError(this.handleError<Item[]>('searchItems', []))
+        );
+    }
+
+    private handleError<T> (operation = 'operation', result?: T) {
+        return (error: any): Observable<T> => {
+    
+          // TODO: send the error to remote logging infrastructure
+          console.error(error); // log to console instead
+    
+          // Let the app keep running by returning an empty result.
+          return of(result as T);
+        };
+      }
 }
