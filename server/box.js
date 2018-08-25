@@ -157,14 +157,25 @@ router.get('/boxtosignout/:id/boxsignout', function(req, res, next){
 });
 //DELETE request for sign out
 router.delete('/boxtosignout/:id/boxsignout', function(req, res, next){
-    //var decoded = jwt.decode(req.query.token);
-	Box.findByIdAndRemove(req.params.id, function(err, box){
-		if (err) return next(err);
-		res.status(200).json({
-            message: 'Box deleted',
-            obj: box
+    let decoded = jwt.decode(req.query.token);
+    User.findById(decoded.user._id, (err, user) => {
+        if (err) return next(err);
+
+        if (!user) {
+            return res.status(401).json({
+                message: 'User not found',
+                error: { message: 'User not found'}
+            });
+        }
+
+        Box.findByIdAndRemove(req.params.id, function(err, box){
+            if (err) return next(err);
+            res.status(200).json({
+                message: 'Box deleted',
+                obj: box
+            });
         });
-	});
+    });
 });
 
 //Erase box and keep it in the databases

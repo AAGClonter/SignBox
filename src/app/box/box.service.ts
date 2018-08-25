@@ -54,29 +54,13 @@ export class BoxService {
 // CREATE HEADERS OBJECT, CREATE NEW ERASED BOX WITH THE BOX INFORMATION
     deleteBox(box: Box) {
         this.boxes.splice(this.boxes.indexOf(box), 1);
-        // const token = localStorage.getItem('token')
-        // ? '?token=' + localStorage.getItem('token')
-        // : '';
-        return this.http.delete('http://localhost:3000/boxtosignout/' + box._id + '/boxsignout'/*+ token*/)
-            .map((response: Response) => response.json().obj)
-            .catch((error: Response) => Observable.throw(error.json()));
+        return this.httpClient.delete('http://localhost:3000/boxtosignout/' + box._id + '/boxsignout' + this.token);
     }
 
     eraseBox(box: Box, erasedBox: ErasedBox) {
-        const body = JSON.stringify(erasedBox);
-        const headers = new Headers({'Content-type': 'application/json'});
-        return this.http.post('http://localhost:3000/boxtosignout/' + box._id + '/boxsignout', body, {headers: headers})
-                        .map((response: Response) => {
-                            const result = response.json();
-                            const newErasedBox = new ErasedBox(
-                                box,
-                                result.obj.signedBy,
-                                result.obj._id
-                            );
-                            return newErasedBox;
-                        })
-                        .catch((error: Response) => Observable.throw(error.json()));
+        return this.httpClient.post('http://localhost:3000/boxtosignout/' + box._id + '/boxsignout' + this.token, erasedBox, this.httpOptions);
     }
+
     emailBox(box: Box) {
         const body = JSON.stringify(box);
         const headers = new Headers({'Content-type': 'application/json'});
@@ -93,29 +77,14 @@ export class BoxService {
     }
   // EMPLOYEES SECTION
    getEmployees() {
-        return this.http.get('http://localhost:3000/employee')
-                .map((response: Response) => response.json().obj)
-                .catch((error: Response) => Observable.throw(error.json()));
+        return this.httpClient.get('http://localhost:3000/employee');
     }
 
     createEmployee(employee: Employee) {
-        const body = JSON.stringify(employee);
-        const headers = new Headers({'Content-type': 'application/json'});
-        return this.http.post('http://localhost:3000/employees', body, {headers: headers})
-                    .map((response: Response) => {
-                        const result = response.json();
-                        const newEmployee = new Employee(
-                            result.obj.name,
-                            result.obj.email
-                        );
-                        return newEmployee;
-                    })
-                    .catch((error: Response) => Observable.throw(error.json()));
+        return this.httpClient.post('http://localhost:3000/employees', employee, this.httpOptions)
     }
 
     deleteEmployee(box: Box) {
-        return this.http.get('http://localhost:3000/boxtosignout/' + box._id + '/boxsignout')
-                        .map((response: Response) => response.json().obj)
-                        .catch((error: Response) => Observable.throw(error.json()));
+        return this.httpClient.get('http://localhost:3000/boxtosignout/' + box._id + '/boxsignout');
     }
 }

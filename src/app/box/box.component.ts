@@ -74,7 +74,7 @@ export class BoxComponent implements OnInit {
     getEmployees() {
         this.boxService.getEmployees().subscribe(
             (employees: Employee[]) => {
-                this.employees = employees;
+                this.employees = employees['obj'];
             }
         );
     }
@@ -95,7 +95,7 @@ export class BoxComponent implements OnInit {
     onSubmitEmployee(form: NgForm) {
         const employee = new Employee(form.value.name, form.value.email)
         this.boxService.createEmployee(employee).subscribe(
-            data => { this.employees.push(data) },
+            data => { this.employees.push(data['obj']) },
             error => { console.error(error) }
         )
     }
