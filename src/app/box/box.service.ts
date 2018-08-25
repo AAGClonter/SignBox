@@ -35,20 +35,16 @@ export class BoxService {
         return this.httpClient.get<Box[]>('http://localhost:3000/boxes' + this.token);
     }
     // Getting a box
-    getBoxSignOut(id: string) {
+    getBoxSignOut(id: string): Observable<Box> {
         return this.httpClient.get<Box>('http://localhost:3000/boxtosignout/' + id + '/boxsignout' + this.token);
     }
 
-    getBoxNotify(id: string) {
+    getBoxNotify(id: string): Observable<Box> {
         return this.httpClient.get<Box>('http://localhost:3000/boxtonotify/' + id + '/boxnotify' + this.token);
     }
 
     patchBox(box: Box) {
-        const body = JSON.stringify(box);
-        const headers = new Headers({'Content-type': 'application/json'});
-        return this.http.patch('http://localhost:3000/boxes/' + box._id, body, {headers: headers})
-                    .map((response: Response) => response.json())
-                    .catch((error: Response) => Observable.throw(error.json()));
+        return this.httpClient.patch('http://localhost:3000/boxes/' + box._id + this.token, box, this.httpOptions)
     }
 
     editBox(box: Box) {

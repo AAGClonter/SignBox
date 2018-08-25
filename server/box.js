@@ -106,26 +106,38 @@ router.get('/boxtonotify/:id/boxnotify', function(req, res, next){
 
 // Patch method for updating a box
 router.patch('/boxes/:id', (req, res, next) => {
-    Box.findById(req.params.id, (err, box) => {
+    let decoded = jwt.decode(req.query.token);
+    User.findById(decoded.user._id, (err, user) => {
         if (err) return next(err);
-        if (!box) {
-            return res.status(500).json({
-                message: 'Box not found',
-                error: {message: 'Box not found'}
+
+        if (!user) {
+            return res.status(401).json({
+                message: 'An error occurred user not found',
+                error: { message: 'An error occurred user not found'}
             });
         }
 
-        box.tracking = req.body.tracking;
-        box.addressedTo = req.body.addressedTo;
-
-        box.save((err, result) => {
+        Box.findById(req.params.id, (err, box) => {
             if (err) return next(err);
-            res.status(200).json({
-                message: 'Box saved',
-                obj: result
-            })
-        })
-    })
+            if (!box) {
+                return res.status(500).json({
+                    message: 'Box not found',
+                    error: {message: 'Box not found'}
+                });
+            }
+    
+            box.tracking = req.body.tracking;
+            box.addressedTo = req.body.addressedTo;
+    
+            box.save((err, result) => {
+                if (err) return next(err);
+                res.status(200).json({
+                    message: 'Box saved',
+                    obj: result
+                });
+            });
+        });
+    });
 });
 
 //Getting the Employee through a box

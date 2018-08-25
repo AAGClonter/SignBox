@@ -35,7 +35,7 @@ export class BoxDetailComponent implements OnInit {
 
     ngOnInit() {
         this.route.data.subscribe((data: Data) => {
-            this.box = data['box']
+            this.box = data['box']['obj']
         });
     }
     
