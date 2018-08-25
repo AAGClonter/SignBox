@@ -1,7 +1,10 @@
 <div *ngIf="order" class="container">
+    <span class="spacer"></span>
     <button mat-button (click)="onBack()">Back</button>
-
-    <input #searchBox id="search-box" (keyup)="search(searchBox.value)" />
+    <div>
+        <label>Look By Name:</label>
+        <input #searchBox id="search-box" (keyup)="search(searchBox.value)" />
+    </div>
 
     <div>
         <ul>
@@ -41,38 +44,8 @@
     </div>
 
     <h2>Order Number:    {{order.orderNumber}}</h2>
-    <h2>Order Retailer: {{order.retailer}} Order Requested By: {{order.requestedBy}}</h2>
-
-    <!-- <mat-card class="order-card" *ngFor="let item of items">
-        <mat-card-header>
-          <mat-card-title>{{item.description}}</mat-card-title>
-          <mat-card-subtitle>{{item.itemNumber}}</mat-card-subtitle>
-          <p> Item Number: {{item.itemNumber}}</p>
-          <p> Assortment Number: {{item.assortment}}</p>
-        </mat-card-header>
-        <mat-card-content>
-            {{item.quantity}}
-        </mat-card-content>
-        <mat-card-actions>
-            <button mat-button (click)="settingAddItem()" type="button">Add to Order</button>
-            <form *ngIf="addItem" #f="ngForm" (ngSubmit)="addItemsToOrderForm(f, item)">
-                <input 
-                    #test
-                    id="item"
-                    type="checkbox" 
-                    name="item" 
-                    value={{item.itemNumber}}
-                    ngModel
-                >
-                <input 
-                    type="number" 
-                    name="qtyToAdd" 
-                    ngModel
-                >
-                <button mat-button type="submit">Add Item</button>
-            </form>
-        </mat-card-actions>
-    </mat-card> -->
+    <h2>Order Retailer: {{order.retailer}}</h2>
+    <h2>Order Requested By: {{order.requestedBy}}</h2>
 
     <div>
         <h4>Items:</h4>

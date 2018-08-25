@@ -36,11 +36,11 @@ export class BoxService {
     }
     // Getting a box
     getBoxSignOut(id: string) {
-        return this.httpClient.get('http://localhost:3000/boxtosignout/' + id + '/boxsignout' + this.token);
+        return this.httpClient.get<Box>('http://localhost:3000/boxtosignout/' + id + '/boxsignout' + this.token);
     }
 
     getBoxNotify(id: string) {
-        return this.httpClient.get('http://localhost:3000/boxtonotify/' + id + '/boxnotify' + this.token);
+        return this.httpClient.get<Box>('http://localhost:3000/boxtonotify/' + id + '/boxnotify' + this.token);
     }
 
     patchBox(box: Box) {

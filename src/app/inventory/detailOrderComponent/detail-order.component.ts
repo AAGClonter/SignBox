@@ -15,6 +15,10 @@ import { InventoryService } from '../inventoryService/inventory.service';
             width: 65%;
             margin-top: 20px;
         }
+
+        .spacer {
+            flex: 1 1 auto;
+        }
     `]
 })
 export class DetailOrderComponent implements OnInit {
