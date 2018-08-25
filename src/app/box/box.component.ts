@@ -100,7 +100,7 @@ export class BoxComponent implements OnInit {
         // }
         const box = new Box(this.boxForm.get('boxData').value.tracking, this.boxForm.get('boxData').value.addressedTo);
         this.boxService.signinBox(box).subscribe(data => {
-            this.boxes.push(data);
+            this.boxes.push(data['obj']);
             console.log(data);
             console.log(this.boxForm.get('boxes'));
         }, error => {

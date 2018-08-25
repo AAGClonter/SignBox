@@ -14,30 +14,23 @@ export class BoxService {
 
     boxIsEdit = new Subject<Box>();
 
+    httpOptions = {
+        headers: new HttpHeaders({
+            'Content-type': 'application/json'
+        })
+    }
+
      private boxes: Box[] = [];
      private employees: Employee[] = [];
 
     constructor(private httpClient: HttpClient, private http: Http) {}
 
+    // POST request with httpClient
     signinBox(box: Box) {
-        const body = JSON.stringify(box);
-        const headers = new Headers({'Content-type': 'application/json'});
-        const token = localStorage.getItem('token')
-        ? '?token=' + localStorage.getItem('token')
-        : '';
-        return this.http.post('http://localhost:3000/boxes' + token, body, {headers: headers})
-                    .map((response: Response) => {
-                        const result = response.json();
-                        const newBox = new Box(
-                            result.obj.tracking,
-                            result.obj.addressedTo,
-                            result.obj._id
-                        );
-                        this.boxes.push(newBox);
-                        return newBox;
-                    })
-                    .catch((error: Response) => Observable.throw(error.json()));
+        const token = localStorage.getItem('token') ? '?token=' + localStorage.getItem('token') : '';
+        return this.httpClient.post('http://localhost:3000/boxes' + token, box, this.httpOptions);
     }
+
     getBoxes() {
         return this.http.get('http://localhost:3000/boxes')
                 .map((response: Response) => response.json().obj)
