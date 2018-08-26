@@ -1,8 +1,10 @@
-<div *ngIf="assortment">
-    <h2>{{assortment.description}}</h2>
-    <h2>{{assortment._id}}</h2>
-    <h3>{{assortment.assortmentNumber}}</h3>
-    <button mat-button type="button" (click)="goBack()">Back</button>
+<div class="container" *ngIf="assortment">
+    <div>
+        <span class="separator"></span>
+        <button class="backButton" mat-button type="button" (click)="goBack()">Back</button>
+        <h2>{{assortment.description}}</h2>
+        <h3>{{assortment.assortmentNumber}}</h3>
+    </div>
     <div>
         <form #f="ngForm" (ngSubmit)="onAddNewItem(f)">
             <mat-form-field appearance="legacy">
@@ -10,7 +12,7 @@
                     matInput 
                     placeholder="Assortment Number" 
                     name="assortment" 
-                    [ngModel]="item?.assortment">
+                    [ngModel]="assortment.assortmentNumber">
             </mat-form-field>
         
             <mat-form-field appearance="legacy">
@@ -42,16 +44,13 @@
     </div>
         <mat-card class="item-card" *ngFor="let item of items">
             <mat-card-header>
-              <mat-card-title>{{item.description}}</mat-card-title>
-              <mat-card-subtitle>{{item.itemNumber}}</mat-card-subtitle>
+                <img src="../../../assets//background.jpg"/>
+                <mat-card-title>{{item.description}}</mat-card-title>
+                <mat-card-subtitle>{{item.itemNumber}}</mat-card-subtitle>
             </mat-card-header>
             <mat-card-content>
                 {{item.quantity}}
             </mat-card-content>
-            <mat-card-actions>
-              <button mat-button>LIKE</button>
-              <button mat-button>SHARE</button>
-            </mat-card-actions>
         </mat-card>
 </div>
 

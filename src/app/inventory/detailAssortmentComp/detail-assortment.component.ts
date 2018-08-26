@@ -13,9 +13,30 @@ import { ActivatedRoute, Params, Data } from '@angular/router';
     selector: 'app-detail-assortment',
     templateUrl: './detail-assortment.component.html',
     styles: [`
+        .container {
+            display: flex;
+            flex-direction: column;
+        }
+
         .item-card {
             width: 65%;
             margin-top: 20px;
+        }
+
+        img {
+            width: 150px;
+            height: 100px;
+            margin-left: 320px;
+        }
+
+        .backButton {
+            flex: none;
+            margin: auto;
+        }
+
+        .separator {
+            flex: 1 1 auto;
+            height: 10px;
         }
     `]
 })
