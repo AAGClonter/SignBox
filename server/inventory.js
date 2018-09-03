@@ -93,7 +93,8 @@ router.post('/newItem', (req, res, next) => {
         assortment: req.body.assortment,
         itemNumber: req.body.itemNumber,
         description: req.body.description,
-        quantity: req.body.quantity
+        quantity: req.body.quantity,
+        image: req.body.image
     });
     myItem.save((err, result) => {
         if (err) return next(err);

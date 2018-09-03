@@ -7,7 +7,8 @@ const itemSchema = new Schema({
     itemNumber: { type: Number, required: true },
     description: { type: String, required: true },
     quantity: { type: Number, required: true },
-    creationDate: { type: Date, default: Date.now }
+    creationDate: { type: Date, default: Date.now },
+    image: { type: Buffer }
 });
 
 module.exports = mongoose.model('Item', itemSchema);

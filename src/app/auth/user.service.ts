@@ -1,30 +1,28 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, Response } from '@angular/http';
 
 import 'rxjs/Rx';
 import { Observable } from "rxjs";
 
 import { User } from './user.model';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class UserService {
 
-    constructor(private http: Http) {}
+    httpOptions = {
+        headers: new HttpHeaders({
+            'Content-type': 'application/json'
+        })
+    }
+
+    constructor(private httpClient: HttpClient) {}
 
     signUpUser(user: User) {
-        const body = JSON.stringify(user);
-        const headers = new Headers({'Content-type': 'application/json'});
-        return this.http.post('http://localhost:3000/signup', body, {headers: headers})
-                        .map((response: Response) => response.json())
-                        .catch((error: Response) => Observable.throw(error.json()));
+        return this.httpClient.post('http://localhost:3000/signup', user, this.httpOptions);
     }
 
     signinUser(user: User) {
-        const body = JSON.stringify(user);
-        const headers = new Headers({'Content-type': 'application/json'});
-        return this.http.post('http://localhost:3000/signin', body, {headers: headers})
-                        .map((response: Response) => response.json())
-                        .catch((error: Response) => Observable.throw(error.json()));
+        return this.httpClient.post('http://localhost:3000/signin', user, this.httpOptions);
     }
 
     isLoggedIn(){

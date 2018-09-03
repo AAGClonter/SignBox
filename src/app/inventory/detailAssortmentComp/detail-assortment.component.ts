@@ -44,6 +44,7 @@ export class DetailAssortment implements OnInit {
 
     @Input() assortment: Assortment;
     items: Item[];
+    productImage: File = null;
 
     constructor(
         private inventoryService: InventoryService,
@@ -57,6 +58,11 @@ export class DetailAssortment implements OnInit {
             console.log(this.assortment);
         });
         this.getAssortmentItems();
+    }
+
+    // Grabbing the image and setting productImage property 
+    grabImage(event) {
+        this.productImage = <File>event.target.files[0];
     }
 
     // Getting Assortment
@@ -82,13 +88,17 @@ export class DetailAssortment implements OnInit {
             form.value.assortment,
             form.value.itemNumber,
             form.value.description,
-            form.value.quantity
+            form.value.quantity,
+            null,
+            null,
+            this.productImage
         );
 
         this.inventoryService.addItem(newItem).subscribe(data => {
             this.items.push(newItem);
             console.log(data);
-        })
+            console.log(newItem);
+        });
     }
 
     goBack() {

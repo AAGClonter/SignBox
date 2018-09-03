@@ -38,20 +38,12 @@ export class SignupComponent implements OnInit{
         this.userService.signUpUser(user)
                         .subscribe(
                             data => {
-                                localStorage.setItem('token', data.token);
-                                localStorage.setItem('userId', data.userId);
+                                localStorage.setItem('token', data['token']);
+                                localStorage.setItem('userId', data['userId']);
                                 this.router.navigateByUrl('/boxes');
                             },
                             error => console.error(error)
                         );
-
-        this.userService.signinUser(user).subscribe(
-            data => {
-                localStorage.setItem('token', data.token);
-                localStorage.setItem('userId', data.userId);
-                this.router.navigateByUrl('/boxes');
-            }
-        )
     }
 
     ngOnInit(){

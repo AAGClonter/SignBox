@@ -28,8 +28,8 @@ export class SigninComponent {
         this.userService.signinUser(user)
                         .subscribe(
                             data => {
-                                localStorage.setItem('token', data.token);
-                                localStorage.setItem('userId', data.userId);
+                                localStorage.setItem('token', data['token']);
+                                localStorage.setItem('userId', data['userId']);
                                 this.router.navigateByUrl('/boxes');
                             },
                             error => console.error(error)

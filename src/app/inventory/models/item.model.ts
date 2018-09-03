@@ -5,6 +5,7 @@ export class Item {
     description: string;
     quantity: number;
     creationDate?: Date;
+    image?: File;
 
     constructor(
         assortment: number, 
@@ -12,13 +13,15 @@ export class Item {
         description: string, 
         quantity: number,
         _id?: string,
-        creationDate?: Date
+        creationDate?: Date,
+        image?: File
     ) {
         this._id = _id;
         this.assortment = assortment;
         this.itemNumber = itemNumber;
         this.description = description;
         this.quantity = quantity;
-        this.creationDate = creationDate
+        this.creationDate = creationDate;
+        this.image = image;
     }
 }

@@ -38,6 +38,8 @@
                     name="quantity" 
                     [ngModel]="item?.quantity">
             </mat-form-field>
+
+            <input type="file" name="image" (change)="grabImage($event)"/>
         
             <button mat-button type="submit">Add Item</button>
         </form>

@@ -28,6 +28,6 @@ export class LogoutComponent {
 
     onLogOut(){
         this.userService.logout();
-        this.router.navigateByUrl('/boxes');
+        this.router.navigateByUrl('/signin');
     }
 }

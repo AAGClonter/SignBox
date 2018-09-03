@@ -60,7 +60,13 @@ import { UserService } from './auth/user.service';
 })
 export class HeaderComponent {
     
-    constructor(private userService: UserService) {}
+    constructor(private userService: UserService, private router: Router) {
+        if (!this.isLoggedIn()) {
+            this.router.navigateByUrl('/signin');
+        } else {
+            return;
+        }
+    }
 
     isLoggedIn() {
         return this.userService.isLoggedIn();
