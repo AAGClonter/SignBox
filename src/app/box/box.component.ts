@@ -66,7 +66,8 @@ export class BoxComponent implements OnInit {
                 'tracking': new FormControl(null, Validators.required),
                 'addressedTo': new FormControl(null, Validators.required)
             }),
-            'boxes': new FormArray([])
+            'addressedTo': new FormArray([]),
+            'trackings': new FormArray([])
         });
     }
 
@@ -102,7 +103,8 @@ export class BoxComponent implements OnInit {
 
     onAddBoxes() {
         let control = new FormControl(null, Validators.required);
-        (<FormArray>this.boxForm.get('boxes')).push(control);
+        (<FormArray>this.boxForm.get('addressedTo')).push(control);
+        (<FormArray>this.boxForm.get('trackings')).push(control);
     }
 
     editBox(boxToEdit: Box) {

@@ -3,8 +3,8 @@
         <h1 class="down boxHeader">Sign In your Box</h1>
     </div>
 
-    <form [formGroup]="boxForm" (ngSubmit)="onSubmit()" class="myStyle">
-        <div formGroupName="boxData">
+    <form [formGroup]="boxForm" (ngSubmit)="onSubmit()" style="width: 30%;">
+        <div formGroupName="boxData" class="myStyle">
             <mat-form-field>
                     <input 
                         matInput 
@@ -35,17 +35,20 @@
                     *ngIf="!boxForm.get('boxData.addressedTo').valid && boxForm.get('boxData.addressedTo').touched"
                     class="help-block">Please enter a valid input</span>
         </div>
-        <div formArrayName="boxes">
-            <h4>Boxes</h4>
-            <button 
-                mat-button 
-                color="primary" 
-                type="button" 
-                (click)="onAddBoxes()">Add boxes</button>
+        <button mat-button color="primary" type="button" (click)="onAddBoxes()">Add boxes</button>
+        <h4>Recipients</h4>
+        <div style="display: flex; flex-direction: row;">
+
+            <div formArrayName="addressedTo">
                 <!-- This is the elements of the form Array-->
-            <div *ngFor="let inputBox of boxForm.get('boxes').controls; let i = index">
-                <input type="text" placeholder="tracking" [formControlName]="i">
-                <input type="text" placeholder="addressedTo" [formControlName]="i">
+                <mat-form-field *ngFor="let inputBox of boxForm.get('addressedTo').controls; let i = index">
+                    <input matInput type="text" placeholder="Addressed To" [formControlName]="i">
+                </mat-form-field>
+            </div>
+            <div formArrayName="trackings" style="margin-left: 30px;">
+                <mat-form-field *ngFor="let inputBox of boxForm.get('trackings').controls; let i = index">
+                        <input matInput type="text" placeholder="tracking" [formControlName]="i">
+                </mat-form-field>
             </div>
         </div>
         

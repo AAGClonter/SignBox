@@ -15,6 +15,7 @@
 
 .myStyle {
     display: flex;
+    flex-direction: column;
 }
 
 .boxHeader {
