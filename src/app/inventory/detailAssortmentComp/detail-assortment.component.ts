@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { InventoryService } from '../inventoryService/inventory.service';
 import { NgForm } from '@angular/forms';
 
@@ -24,9 +24,7 @@ import { ActivatedRoute, Params, Data } from '@angular/router';
         }
 
         img {
-            width: 150px;
-            height: 100px;
-            margin-left: 320px;
+            width: 100%;
         }
 
         .backButton {
@@ -62,7 +60,8 @@ export class DetailAssortment implements OnInit {
 
     // Grabbing the image and setting productImage property 
     grabImage(event) {
-        this.productImage = <File>event.target.files[0];
+        this.productImage = (event.target as HTMLInputElement).files[0];
+        console.log(this.productImage);
     }
 
     // Getting Assortment
@@ -89,15 +88,14 @@ export class DetailAssortment implements OnInit {
             form.value.itemNumber,
             form.value.description,
             form.value.quantity,
-            null,
-            null,
-            this.productImage
+            this.productImage as File
         );
 
         this.inventoryService.addItem(newItem).subscribe(data => {
             this.items.push(newItem);
             console.log(data);
             console.log(newItem);
+            console.log(form);
         });
     }
 

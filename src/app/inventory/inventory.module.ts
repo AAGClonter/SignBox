@@ -20,6 +20,8 @@ import { OrderComponent } from '../order/order/order.component';
 import { DetailOrderComponent } from './detailOrderComponent/detail-order.component';
 import { MatListModule } from '@angular/material/list';
 import { SearchComponent } from '../order/search/search.component';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
     declarations: [
@@ -40,7 +42,9 @@ import { SearchComponent } from '../order/search/search.component';
         MatButtonModule,
         MatCardModule,
         MatGridListModule,
-        MatListModule
+        MatListModule,
+        MatRadioModule,
+        MatCheckboxModule
     ],
     providers: [
         InventoryService,

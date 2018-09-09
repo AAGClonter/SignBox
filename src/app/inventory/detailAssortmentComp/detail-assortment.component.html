@@ -39,19 +39,19 @@
                     [ngModel]="item?.quantity">
             </mat-form-field>
 
-            <input type="file" name="image" (change)="grabImage($event)"/>
+            <input type="file" name="image" (change)="grabImage($event)" ngModel/>
         
             <button mat-button type="submit">Add Item</button>
         </form>
     </div>
         <mat-card class="item-card" *ngFor="let item of items">
             <mat-card-header>
-                <img src="../../../assets//background.jpg"/>
                 <mat-card-title>{{item.description}}</mat-card-title>
                 <mat-card-subtitle>{{item.itemNumber}}</mat-card-subtitle>
             </mat-card-header>
+            <img src="../../../assets//background.jpg"/>
             <mat-card-content>
-                {{item.quantity}}
+                <p>{{item.quantity}}</p>
             </mat-card-content>
         </mat-card>
 </div>

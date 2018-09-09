@@ -12,9 +12,9 @@ export class Item {
         itemNumber: number, 
         description: string, 
         quantity: number,
+        image?: File,
         _id?: string,
-        creationDate?: Date,
-        image?: File
+        creationDate?: Date
     ) {
         this._id = _id;
         this.assortment = assortment;

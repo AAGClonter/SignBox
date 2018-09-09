@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const fs = require('fs');
 const jwt = require('jsonwebtoken');
 const async = require('async');
 
@@ -89,6 +90,7 @@ router.put('/assortments/:id/update', (req, res, next) => {
 
 // POST request new Item
 router.post('/newItem', (req, res, next) => {
+    
     let myItem = new Item({
         assortment: req.body.assortment,
         itemNumber: req.body.itemNumber,
@@ -100,6 +102,7 @@ router.post('/newItem', (req, res, next) => {
         if (err) return next(err);
         res.send(result);
     });
+    
 });
 
 // GET request all items
