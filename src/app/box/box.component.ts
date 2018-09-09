@@ -108,7 +108,7 @@ export class BoxComponent implements OnInit, OnDestroy {
     }
 
     onAddBoxes() {
-        let control = new FormControl(null, Validators.required);
+        let control = new FormControl(null);
         (<FormArray>this.boxForm.get('addressedTo')).push(control);
         (<FormArray>this.boxForm.get('trackings')).push(control);
     }

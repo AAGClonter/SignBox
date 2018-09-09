@@ -36,23 +36,29 @@
                     class="help-block">Please enter a valid input</span>
         </div>
         <button mat-button color="primary" type="button" (click)="onAddBoxes()">Add boxes</button>
+
         <h4>Recipients</h4>
         <div style="display: flex; flex-direction: row;">
-
             <div formArrayName="addressedTo">
                 <!-- This is the elements of the form Array-->
                 <mat-form-field *ngFor="let inputBox of boxForm.get('addressedTo').controls; let i = index">
-                    <input matInput type="text" placeholder="Addressed To" [formControlName]="i">
+                    <input matInput type="text" placeholder="Addressed To:" [formControlName]="i">
                 </mat-form-field>
+                <span 
+                    *ngIf="!boxForm.get('trackings').valid && boxForm.get('trackings').touched"
+                    class="help-block">Please enter a valid input</span>
             </div>
             <div formArrayName="trackings" style="margin-left: 30px;">
                 <mat-form-field *ngFor="let inputBox of boxForm.get('trackings').controls; let i = index">
-                        <input matInput type="text" placeholder="tracking" [formControlName]="i">
+                        <input matInput type="text" placeholder="Tracking:" [formControlName]="i">
                 </mat-form-field>
+                <span 
+                    *ngIf="!boxForm.get('boxData.addressedTo').valid && boxForm.get('boxData.addressedTo').touched"
+                    class="help-block">Please enter a valid input</span>
             </div>
         </div>
         
-        <button type="submit" mat-button color="primary" [disabled]="!boxForm.valid">Submit Shipment</button>
+        <button type="submit" mat-raised-button color="primary" [disabled]="!boxForm.valid">Submit Shipment</button>
     </form>
     
 
