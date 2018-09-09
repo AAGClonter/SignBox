@@ -12,7 +12,7 @@ import { Employee } from './employee.model';
 @Injectable()
 export class BoxService {
 
-    boxIsEdit = new Subject<Box>();
+    boxIsErased = new Subject<Box>();
     token = localStorage.getItem('token') ? '?token=' + localStorage.getItem('token') : '';
 
     httpOptions = {
@@ -47,13 +47,9 @@ export class BoxService {
         return this.httpClient.patch('http://localhost:3000/boxes/' + box._id + this.token, box, this.httpOptions)
     }
 
-    editBox(box: Box) {
-        this.boxIsEdit.next(box);
-    }
 // NOTE FOR LATER
 // CREATE HEADERS OBJECT, CREATE NEW ERASED BOX WITH THE BOX INFORMATION
     deleteBox(box: Box) {
-        this.boxes.splice(this.boxes.indexOf(box), 1);
         return this.httpClient.delete('http://localhost:3000/boxtosignout/' + box._id + '/boxsignout' + this.token);
     }
 

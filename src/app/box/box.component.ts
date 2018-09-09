@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router, ActivatedRoute, Data } from '@angular/router';
 import { NgForm, FormControl, Validators } from '@angular/forms';
@@ -35,7 +35,7 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
         ])
     ]
 })
-export class BoxComponent implements OnInit {
+export class BoxComponent implements OnInit, OnDestroy {
 
     box: Box;
     boxForm: FormGroup; // Form property
@@ -69,8 +69,15 @@ export class BoxComponent implements OnInit {
             'addressedTo': new FormArray([]),
             'trackings': new FormArray([])
         });
+
+        this.boxSubscription = this.boxService.boxIsErased.subscribe(erasedBox => {
+            this.boxes.splice(this.boxes.indexOf(erasedBox), 1);
+        });
     }
 
+    ngOnDestroy() {
+        this.boxSubscription.unsubscribe();
+    }
     // Getting all employees, a resolver will be used in the future
     getEmployees() {
         this.boxService.getEmployees().subscribe(
@@ -85,7 +92,6 @@ export class BoxComponent implements OnInit {
         this.boxService.signinBox(box).subscribe(data => {
             this.boxes.push(data['obj']);
             console.log(data);
-            console.log(this.boxForm.get('boxes'));
         }, error => {
             console.log(error);
         });

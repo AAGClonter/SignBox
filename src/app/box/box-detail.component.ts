@@ -51,7 +51,10 @@ export class BoxDetailComponent implements OnInit {
                         );
         this.boxService.deleteBox(this.box)
                         .subscribe(
-                            result => console.log(result)
+                            result => {
+                                this.boxService.boxIsErased.next(this.box);
+                                console.log(result)
+                            }
                         );
         this.router.navigateByUrl('/boxes');
    }
