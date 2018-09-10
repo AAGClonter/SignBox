@@ -62,12 +62,12 @@ export class BoxComponent implements OnInit, OnDestroy {
 
         // Creating the form 
         this.boxForm = this.formBuilder.group({
-            'boxData': new FormGroup({
-                'tracking': new FormControl(null, Validators.required),
-                'addressedTo': new FormControl(null, Validators.required)
-            }),
-            'addressedTo': new FormArray([]),
-            'trackings': new FormArray([])
+                tracking: this.formBuilder.array([
+                    this.formBuilder.control('')
+                ]),
+                addressedTo: this.formBuilder.array([
+                    this.formBuilder.control('')
+                ])
         });
 
         this.boxSubscription = this.boxService.boxIsErased.subscribe(erasedBox => {
@@ -88,15 +88,25 @@ export class BoxComponent implements OnInit, OnDestroy {
     }
 
     onSubmit() {
-        const box = new Box(this.boxForm.get('boxData').value.tracking, this.boxForm.get('boxData').value.addressedTo);
-        this.boxService.signinBox(box).subscribe(data => {
-            this.boxes.push(data['obj']);
-            console.log(data);
-        }, error => {
-            console.log(error);
+        let trackings = (<FormArray>this.boxForm.get('tracking')).getRawValue();
+        let people = (<FormArray>this.boxForm.get('addressedTo')).getRawValue();
+        let boxToSubmit = new Box('', '');
+        trackings.forEach(tracking => {
+            boxToSubmit.tracking = tracking;
         });
-        this.boxForm.reset();
-        console.log(this.boxForm.value.addressedTo);
+        people.forEach(employee => {
+            boxToSubmit.addressedTo = employee;
+        });
+        
+        // const box = new Box(this.boxForm.get('boxData').value.tracking, this.boxForm.get('boxData').value.addressedTo);
+        // this.boxService.signinBox(box).subscribe(data => {
+        //     this.boxes.push(data['obj']);
+        //     console.log(data);
+        // }, error => {
+        //     console.log(error);
+        // });
+        // this.boxForm.reset();
+        console.log(this.boxForm.value);
     }
 
     onSubmitEmployee(form: NgForm) {
@@ -108,9 +118,10 @@ export class BoxComponent implements OnInit, OnDestroy {
     }
 
     onAddBoxes() {
-        let control = new FormControl(null);
-        (<FormArray>this.boxForm.get('addressedTo')).push(control);
-        (<FormArray>this.boxForm.get('trackings')).push(control);
+        let trackingControl = new FormControl(null);
+        let addressedToControl = new FormControl(null);
+        (<FormArray>this.boxForm.get('tracking')).push(trackingControl);
+        (<FormArray>this.boxForm.get('addressedTo')).push(addressedToControl);
     }
 
     editBox(boxToEdit: Box) {

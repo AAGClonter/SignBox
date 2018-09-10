@@ -4,7 +4,7 @@
     </div>
 
     <form [formGroup]="boxForm" (ngSubmit)="onSubmit()" style="width: 30%;">
-        <div formGroupName="boxData" class="myStyle">
+        <!-- <div class="myStyle">
             <mat-form-field>
                     <input 
                         matInput 
@@ -13,15 +13,15 @@
                         name="tracking" 
                         id="tracking" 
                         class="left"
-                        formControlName="tracking"
+                        formArrayName="tracking"
                     >
                 </mat-form-field>
                 <span 
-                    *ngIf="!boxForm.get('boxData.tracking').valid && boxForm.get('boxData.tracking').touched"
+                    *ngIf="!boxForm.get('tracking').valid && boxForm.get('tracking').touched"
                     class="help-block">Please enter a valid input</span>
         
                 <mat-form-field>
-                    <mat-select placeholder="Addressed To:" name="addressedTo" formControlName="addressedTo">
+                    <mat-select placeholder="Addressed To:" name="addressedTo" formArrayName="addressedTo">
                         <mat-option 
                             *ngFor="let employee of employees" 
                             [value]="employee.name"
@@ -32,9 +32,9 @@
                     </mat-select>
                 </mat-form-field>
                 <span 
-                    *ngIf="!boxForm.get('boxData.addressedTo').valid && boxForm.get('boxData.addressedTo').touched"
+                    *ngIf="!boxForm.get('addressedTo').valid && boxForm.get('boxData.addressedTo').touched"
                     class="help-block">Please enter a valid input</span>
-        </div>
+        </div> -->
         <button mat-button color="primary" type="button" (click)="onAddBoxes()">Add boxes</button>
 
         <h4>Recipients</h4>
@@ -44,17 +44,17 @@
                 <mat-form-field *ngFor="let inputBox of boxForm.get('addressedTo').controls; let i = index">
                     <input matInput type="text" placeholder="Addressed To:" [formControlName]="i">
                 </mat-form-field>
-                <span 
-                    *ngIf="!boxForm.get('trackings').valid && boxForm.get('trackings').touched"
-                    class="help-block">Please enter a valid input</span>
+                <!-- <span 
+                    *ngIf="!boxForm.get('tracking').valid && boxForm.get('tracking').touched"
+                    class="help-block">Please enter a valid input</span> -->
             </div>
-            <div formArrayName="trackings" style="margin-left: 30px;">
-                <mat-form-field *ngFor="let inputBox of boxForm.get('trackings').controls; let i = index">
+            <div formArrayName="tracking" style="margin-left: 30px;">
+                <mat-form-field *ngFor="let inputBox of boxForm.get('tracking').controls; let i = index">
                         <input matInput type="text" placeholder="Tracking:" [formControlName]="i">
                 </mat-form-field>
-                <span 
-                    *ngIf="!boxForm.get('boxData.addressedTo').valid && boxForm.get('boxData.addressedTo').touched"
-                    class="help-block">Please enter a valid input</span>
+                <!-- <span 
+                    *ngIf="!boxForm.get('addressedTo').valid && boxForm.get('addressedTo').touched"
+                    class="help-block">Please enter a valid input</span> -->
             </div>
         </div>
         
