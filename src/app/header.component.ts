@@ -8,7 +8,7 @@ import { UserService } from './auth/user.service';
 @Component({
     selector: 'app-header',
     template: `
-    <mat-toolbar color="primary">
+    <mat-toolbar color="primary" style="position: fixed; top: 0; left: 0; z-index: 10;">
         <mat-toolbar-row class="myTitle">
             SignBox
             <a class="right" mat-button routerLinkActive="inUse" routerLink="/boxes">Boxes to Sign Out</a>

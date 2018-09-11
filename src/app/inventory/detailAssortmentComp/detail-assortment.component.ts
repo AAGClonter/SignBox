@@ -62,6 +62,7 @@ export class DetailAssortment implements OnInit {
     grabImage(event) {
         this.productImage = (event.target as HTMLInputElement).files[0];
         console.log(this.productImage);
+        console.log(event);
     }
 
     // Getting Assortment
