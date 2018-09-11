@@ -90,14 +90,14 @@ export class BoxComponent implements OnInit, OnDestroy {
     onSubmit() {
         let trackings = (<FormArray>this.boxForm.get('tracking')).getRawValue();
         let people = (<FormArray>this.boxForm.get('addressedTo')).getRawValue();
-        let boxToSubmit = new Box('', '');
-        trackings.forEach(tracking => {
-            boxToSubmit.tracking = tracking;
-        });
-        people.forEach(employee => {
-            boxToSubmit.addressedTo = employee;
-        });
         
+        for (let i = 0, j = 0; i < trackings.length, j < people.length; i++, j++) {
+            let box = new Box(trackings[i], people[j]);
+            this.boxService.signinBox(box).subscribe(data => {
+                this.boxes.push(data['obj']);
+                console.log(data);
+            })
+        }
         // const box = new Box(this.boxForm.get('boxData').value.tracking, this.boxForm.get('boxData').value.addressedTo);
         // this.boxService.signinBox(box).subscribe(data => {
         //     this.boxes.push(data['obj']);
