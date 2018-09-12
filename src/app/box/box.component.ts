@@ -88,25 +88,18 @@ export class BoxComponent implements OnInit, OnDestroy {
     }
 
     onSubmit() {
-        let trackings = (<FormArray>this.boxForm.get('tracking')).getRawValue();
-        let people = (<FormArray>this.boxForm.get('addressedTo')).getRawValue();
+        let trackings = this.boxForm.get('tracking').value;
+        let people = this.boxForm.get('addressedTo').value;
+        console.log(trackings, 'trackings');
+        console.log(people, 'people');
         
         for (let i = 0, j = 0; i < trackings.length, j < people.length; i++, j++) {
             let box = new Box(trackings[i], people[j]);
             this.boxService.signinBox(box).subscribe(data => {
                 this.boxes.push(data['obj']);
-                console.log(data);
+                console.log(data, 'This is the data');
             })
         }
-        // const box = new Box(this.boxForm.get('boxData').value.tracking, this.boxForm.get('boxData').value.addressedTo);
-        // this.boxService.signinBox(box).subscribe(data => {
-        //     this.boxes.push(data['obj']);
-        //     console.log(data);
-        // }, error => {
-        //     console.log(error);
-        // });
-        // this.boxForm.reset();
-        console.log(this.boxForm.value);
     }
 
     onSubmitEmployee(form: NgForm) {
