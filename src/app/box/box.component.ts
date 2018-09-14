@@ -57,7 +57,7 @@ export class BoxComponent implements OnInit, OnDestroy {
         this.activatedRoute.data.subscribe((data: Data) => {
             this.boxes = data['boxes']['obj'];
         });
-
+        console.log(this.boxes);
         this.getEmployees(); // Getting existing Employees
 
         // Creating the form 
@@ -71,7 +71,10 @@ export class BoxComponent implements OnInit, OnDestroy {
         });
 
         this.boxSubscription = this.boxService.boxIsErased.subscribe(erasedBox => {
-            this.boxes.splice(this.boxes.indexOf(erasedBox), 1);
+            let boxToErase = this.boxes.filter(box => {
+                return box._id === erasedBox._id;
+            });
+            this.boxes.splice(this.boxes.indexOf(boxToErase[0]), 1);
         });
     }
 
