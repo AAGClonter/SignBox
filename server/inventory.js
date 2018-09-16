@@ -3,10 +3,35 @@ const router = express.Router();
 const fs = require('fs');
 const jwt = require('jsonwebtoken');
 const async = require('async');
+const multer = require('multer');
 
 const Assortment = require('../models/assortment');
 const Item = require('../models/item');
 const Order = require('../models/order');
+
+const MIME_TYPE_MAP = {
+    'image/png': 'png',
+    'image/jpeg': 'jpg',
+    'image/jpg': 'jpg'
+}
+
+const upload = multer({ dest: 'server/images/'});
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        const isValid = MIME_TYPE_MAP[file.mimetype];
+        let error = new Error('Invalid mimetype');
+        if (isValid) {
+            error = null;
+        }
+        cb(error, "/server/images");
+    },
+    filename: (req, file, cb) => {
+        const name = file.originalname.toLowerCase().split(' ').join('-');
+        const ext = MIME_TYPE_MAP[file.mimetype];
+        cb(null, name + '-' + Date.now() + '.' + ext);
+    }
+});
 
 // POST request new Assortment
 router.post('/newAssortment', (req, res, next) => {
@@ -89,14 +114,14 @@ router.put('/assortments/:id/update', (req, res, next) => {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // POST request new Item
-router.post('/newItem', (req, res, next) => {
+router.post('/newItem', upload.single('image'), (req, res, next) => {
     
     let myItem = new Item({
         assortment: req.body.assortment,
         itemNumber: req.body.itemNumber,
         description: req.body.description,
         quantity: req.body.quantity,
-        image: req.body.image
+        image: req.file
     });
     myItem.save((err, result) => {
         if (err) return next(err);

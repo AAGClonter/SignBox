@@ -56,8 +56,8 @@ export class InventoryService {
     /////////////////////////////////////////////////////////////////////////////////////////////////
 
     // POST request for Item
-    addItem(item: Item) {
-        return this.httpClient.post(this.url + 'newItem', item, this.httpOptions);
+    addItem(item: Item): Observable<Item> {
+        return this.httpClient.post<Item>(this.url + 'newItem', item, this.httpOptions);
     }
 
     // GET items per assortment

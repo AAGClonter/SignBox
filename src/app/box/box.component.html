@@ -4,37 +4,7 @@
     </div>
 
     <form [formGroup]="boxForm" (ngSubmit)="onSubmit()" style="width: 30%;">
-        <!-- <div class="myStyle">
-            <mat-form-field>
-                    <input 
-                        matInput 
-                        placeholder="Tracking Number:" 
-                        type="text" 
-                        name="tracking" 
-                        id="tracking" 
-                        class="left"
-                        formArrayName="tracking"
-                    >
-                </mat-form-field>
-                <span 
-                    *ngIf="!boxForm.get('tracking').valid && boxForm.get('tracking').touched"
-                    class="help-block">Please enter a valid input</span>
         
-                <mat-form-field>
-                    <mat-select placeholder="Addressed To:" name="addressedTo" formArrayName="addressedTo">
-                        <mat-option 
-                            *ngFor="let employee of employees" 
-                            [value]="employee.name"
-                            name="addressedTo"
-                        >
-                            {{employee.name}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-                <span 
-                    *ngIf="!boxForm.get('addressedTo').valid && boxForm.get('boxData.addressedTo').touched"
-                    class="help-block">Please enter a valid input</span>
-        </div> -->
         <button mat-button color="primary" type="button" (click)="onAddBoxes()">Add boxes</button>
 
         <h4>Recipients</h4>

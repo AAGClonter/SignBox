@@ -36,13 +36,17 @@ import { ActivatedRoute, Params, Data } from '@angular/router';
             flex: 1 1 auto;
             height: 10px;
         }
+
+        input[type="file"] {
+            visibility: hidden;
+        }
     `]
 })
 export class DetailAssortment implements OnInit {
 
     @Input() assortment: Assortment;
     items: Item[];
-    productImage: File = null;
+    imagePreview: string;
 
     constructor(
         private inventoryService: InventoryService,
@@ -59,9 +63,14 @@ export class DetailAssortment implements OnInit {
     }
 
     // Grabbing the image and setting productImage property 
-    grabImage(event) {
-        this.productImage = (event.target as HTMLInputElement).files[0];
-        console.log(this.productImage);
+    grabImage(event: Event) {
+        let productImage = (event.target as HTMLInputElement).files[0];
+        const reader = new FileReader();
+        reader.onload = () => {
+            this.imagePreview = reader.result;
+        }
+        reader.readAsDataURL(productImage);
+        console.log(productImage);
         console.log(event);
     }
 
@@ -89,14 +98,13 @@ export class DetailAssortment implements OnInit {
             form.value.itemNumber,
             form.value.description,
             form.value.quantity,
-            this.productImage as File
+            form.value.image
         );
 
         this.inventoryService.addItem(newItem).subscribe(data => {
             this.items.push(newItem);
             console.log(data);
             console.log(newItem);
-            console.log(form);
         });
     }
 

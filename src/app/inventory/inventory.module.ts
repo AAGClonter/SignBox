@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { InventoryRoutingModule } from './inventory-routing.module';
 import { InventoryComponent } from './inventoryComponents/inventory.component';
@@ -34,6 +34,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     imports: [
         CommonModule,
         FormsModule,
+        ReactiveFormsModule,
         InventoryRoutingModule,
         MatTableModule,
         MatExpansionModule,

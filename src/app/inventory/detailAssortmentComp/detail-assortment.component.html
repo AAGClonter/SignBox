@@ -38,8 +38,13 @@
                     name="quantity" 
                     [ngModel]="item?.quantity">
             </mat-form-field>
-
-            <input type="file" name="image" (change)="grabImage($event)" ngModel/>
+            <div>
+                <input #imagePicker type="file" name="image" (change)="grabImage($event)" ngModel/>
+                <button mat-raised-button type="button" (click)="imagePicker.click()">Add Item Image</button>
+            </div>
+            <div style="width: 100px; height: 100px;" *ngIf="imagePreview !== '' && imagePreview">
+                <img [src]="imagePreview" style="width: 100px; height: 100px;">
+            </div>
         
             <button mat-button type="submit">Add Item</button>
         </form>
