@@ -15,8 +15,6 @@ const MIME_TYPE_MAP = {
     'image/jpg': 'jpg'
 }
 
-const upload = multer({ dest: 'server/images/'});
-
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         const isValid = MIME_TYPE_MAP[file.mimetype];
@@ -114,14 +112,14 @@ router.put('/assortments/:id/update', (req, res, next) => {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // POST request new Item
-router.post('/newItem', upload.single('image'), (req, res, next) => {
+router.post('/newItem', multer(storage).single('image'), (req, res, next) => {
     
     let myItem = new Item({
         assortment: req.body.assortment,
         itemNumber: req.body.itemNumber,
         description: req.body.description,
         quantity: req.body.quantity,
-        image: req.file
+        image: req.body.image
     });
     myItem.save((err, result) => {
         if (err) return next(err);

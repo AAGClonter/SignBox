@@ -6,13 +6,13 @@
         <h3>{{assortment.assortmentNumber}}</h3>
     </div>
     <div>
-        <form #f="ngForm" (ngSubmit)="onAddNewItem(f)">
+        <form [formGroup]="itemForm" (ngSubmit)="onAddNewItem()">
             <mat-form-field appearance="legacy">
                 <input 
                     matInput 
                     placeholder="Assortment Number" 
                     name="assortment" 
-                    [ngModel]="assortment.assortmentNumber">
+                    formControlName="assortment">
             </mat-form-field>
         
             <mat-form-field appearance="legacy">
@@ -20,7 +20,7 @@
                     matInput 
                     placeholder="Item Number" 
                     name="itemNumber" 
-                    [ngModel]="item?.assortmentNumber">
+                    formControlName="itemNumber">
             </mat-form-field>
         
             <mat-form-field appearance="legacy">
@@ -28,7 +28,7 @@
                     matInput 
                     placeholder="description" 
                     name="description" 
-                    [ngModel]="item?.description">
+                    formControlName="description">
             </mat-form-field>
         
             <mat-form-field appearance="legacy">
@@ -36,10 +36,10 @@
                     matInput 
                     placeholder="quantity" 
                     name="quantity" 
-                    [ngModel]="item?.quantity">
+                    formControlName="quantity">
             </mat-form-field>
             <div>
-                <input #imagePicker type="file" name="image" (change)="grabImage($event)" ngModel/>
+                <input #imagePicker type="file" name="image" (change)="grabImage($event)" formControlName="image"/>
                 <button mat-raised-button type="button" (click)="imagePicker.click()">Add Item Image</button>
             </div>
             <div style="width: 100px; height: 100px;" *ngIf="imagePreview !== '' && imagePreview">
@@ -54,7 +54,7 @@
                 <mat-card-title>{{item.description}}</mat-card-title>
                 <mat-card-subtitle>{{item.itemNumber}}</mat-card-subtitle>
             </mat-card-header>
-            <img src="../../../assets//background.jpg"/>
+            <img src="{{item.image}}"/>
             <mat-card-content>
                 <p>{{item.quantity}}</p>
             </mat-card-content>

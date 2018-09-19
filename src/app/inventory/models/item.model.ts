@@ -5,14 +5,14 @@ export class Item {
     description: string;
     quantity: number;
     creationDate?: Date;
-    image?: File;
+    image?: string;
 
     constructor(
         assortment: number, 
         itemNumber: number, 
         description: string, 
         quantity: number,
-        image?: File,
+        image?: string,
         _id?: string,
         creationDate?: Date
     ) {

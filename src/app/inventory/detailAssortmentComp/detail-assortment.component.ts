@@ -1,10 +1,9 @@
-import { Component, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { InventoryService } from '../inventoryService/inventory.service';
-import { NgForm } from '@angular/forms';
+import { NgForm, FormGroup, FormControl } from '@angular/forms';
 
 import { Assortment } from '../models/assortment.model';
 import { Item } from '../models/item.model';
-import { AssortmentInt } from '../models/assortment.interface';
 
 import { Location } from '@angular/common';
 import { ActivatedRoute, Params, Data } from '@angular/router';
@@ -24,7 +23,8 @@ import { ActivatedRoute, Params, Data } from '@angular/router';
         }
 
         img {
-            width: 100%;
+            width: 200px;
+            height: 150px;
         }
 
         .backButton {
@@ -48,6 +48,8 @@ export class DetailAssortment implements OnInit {
     items: Item[];
     imagePreview: string;
 
+    itemForm: FormGroup;
+
     constructor(
         private inventoryService: InventoryService,
         private location: Location,
@@ -60,6 +62,14 @@ export class DetailAssortment implements OnInit {
             console.log(this.assortment);
         });
         this.getAssortmentItems();
+
+        this.itemForm = new FormGroup({
+            assortment: new FormControl(this.assortment.assortmentNumber),
+            itemNumber: new FormControl(''),
+            description: new FormControl(''),
+            quantity: new FormControl(''),
+            image: new FormControl('')
+        });
     }
 
     // Grabbing the image and setting productImage property 
@@ -92,13 +102,13 @@ export class DetailAssortment implements OnInit {
         });
     }
 
-    onAddNewItem(form: NgForm) {
+    onAddNewItem() {
         let newItem = new Item(
-            form.value.assortment,
-            form.value.itemNumber,
-            form.value.description,
-            form.value.quantity,
-            form.value.image
+            this.itemForm.get('assortment').value,
+            this.itemForm.get('itemNumber').value,
+            this.itemForm.get('description').value,
+            this.itemForm.get('quantity').value,
+            this.imagePreview
         );
 
         this.inventoryService.addItem(newItem).subscribe(data => {
