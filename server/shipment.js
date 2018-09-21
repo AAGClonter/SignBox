@@ -20,7 +20,7 @@ router.post('/', (req, res, next) => {
             addressedTo: req.body.addressedTo,
             numberOfBoxes: req.body.numberOfBoxes,
             date: Date.now(),
-            tracking: req.body.tracking
+            masterTracking: req.body.masterTracking
         });
         
         user.shipmentSignedIn.push(newShipment);

@@ -112,7 +112,7 @@ router.put('/assortments/:id/update', (req, res, next) => {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // POST request new Item
-router.post('/newItem', multer(storage).single('image'), (req, res, next) => {
+router.post('/newItem', multer({storage: storage}).single('image'), (req, res, next) => {
     
     let myItem = new Item({
         assortment: req.body.assortment,
