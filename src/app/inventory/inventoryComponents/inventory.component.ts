@@ -57,6 +57,7 @@ export class InventoryComponent implements OnInit {
                 form.value.description
             );
             this.inventoryService.addAssortment(newAssortment).subscribe((data: Assortment) => {
+                this.assortments.push(data['obj']);
                 console.log(data);
             });
         }
@@ -73,6 +74,7 @@ export class InventoryComponent implements OnInit {
         }
 
         this.orderService.addOrder(order).subscribe((order: Order) => {
+            this.orders.push(order);
             console.log(order);
         })
     }
@@ -80,12 +82,14 @@ export class InventoryComponent implements OnInit {
     // Delete an assortment
     onDelete(assortment: Assortment) {
         this.inventoryService.deleteAssortment(assortment).subscribe(data => {
+            this.assortments.splice(this.assortments.indexOf(assortment), 1);
             console.log(data);
         })
     }
 
-    onDeleteOrder(order: Order) {
-        this.orderService.deleteOrder(order._id).subscribe((order: Order) => {
+    onDeleteOrder(ordertem: Order) {
+        this.orderService.deleteOrder(ordertem._id).subscribe((order: Order) => {
+            this.orders.splice(this.orders.indexOf(ordertem), 1);
             console.log(order);
         })
     }

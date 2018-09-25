@@ -22,63 +22,34 @@
                 <button mat-button type="submit">Add Assortment</button>
             </form>
         </div>
-        <mat-grid-list cols="4">
-                <h3>Assortments</h3>
-                <mat-grid-tile [colspan]="2" [rowspan]="2">
-                        <mat-accordion style="width: 70%;">
-                                <mat-expansion-panel *ngFor="let assortment of assortments" class="panel">
-                                    <mat-expansion-panel-header>
-                                        <mat-panel-title>
-                                            {{assortment.assortmentNumber}}
-                                        </mat-panel-title>
-                        
-                                        <mat-panel-description>
-                                            {{assortment.description}}
-                                        </mat-panel-description>
-                                    </mat-expansion-panel-header>
-                                  
-                                    <mat-form-field>
-                                        <input matInput placeholder="First name">
-                                    </mat-form-field>
-                        
-                                    <mat-action-row>
-                                        <button mat-button color="primary" (click)="onDelete(assortment)">Delete</button>
-                                        <button mat-button color="primary" (click)="onUpdate(assortment)">Update</button>
-                                        <button 
-                                            mat-button 
-                                            color="primary" 
-                                            (click)="onGoToDetail(assortment)">Detail</button>
-                                    </mat-action-row>
-                                </mat-expansion-panel>
-                            </mat-accordion>
-                </mat-grid-tile>
-                <h3>Orders</h3>
-                <mat-grid-tile [colspan]="2" [rowspan]="2">
-                        <mat-accordion style="width: 70%;">
-                                <mat-expansion-panel *ngFor="let order of orders" class="panel">
-                                    <mat-expansion-panel-header>
-                                        <mat-panel-title>
-                                            {{order.orderNumber}}
-                                        </mat-panel-title>
-                        
-                                        <mat-panel-description>
-                                            {{order.retailer}}
-                                        </mat-panel-description>
-                                    </mat-expansion-panel-header>
-                                    <p>{{order.orderNumber}} {{order.retailer}} {{order.requestedBy}}</p>
-                                    <mat-action-row>
-                                        <button mat-button color="primary" (click)="onDeleteOrder(order)">Delete</button>
-                                        <button mat-button color="primary" (click)="onUpdate(assortment)">Update</button>
-                                        <button 
-                                            mat-button 
-                                            color="primary" 
-                                            (click)="goToOrder(order)">Detail</button>
-                                    </mat-action-row>
-                                </mat-expansion-panel>
-                            </mat-accordion>
-                            
-                </mat-grid-tile>
-        </mat-grid-list>
+
+        <!--Assortments list -->
+        <mat-list role="list">
+            <h3 matSubheader>Assortments</h3>
+            <mat-list-item role="listitem" *ngFor="let assortment of assortments">
+                {{assortment.assortmentNumber}}: {{assortment.description}}
+                <button mat-button color="primary" (click)="onDelete(assortment)">Delete</button>
+                <button mat-button color="primary" (click)="onUpdate(assortment)">Update</button>
+                <button 
+                    mat-button 
+                    color="primary" 
+                    (click)="onGoToDetail(assortment)">Detail</button>
+            </mat-list-item>
+        </mat-list>
+
+        <!--Orders list-->
+        <mat-list role="list">
+            <h3 matSubheader>Orders</h3>
+            <mat-list-item role="listitem" *ngFor="let order of orders">
+                {{order.orderNumber}}: {{order.retailer}} / {{order.requestedBy}}
+                <button mat-button color="primary" (click)="onDeleteOrder(order)">Delete</button>
+                <button mat-button color="primary" (click)="onUpdate(assortment)">Update</button>
+                <button 
+                    mat-button 
+                    color="primary" 
+                    (click)="goToOrder(order)">Detail</button>
+            </mat-list-item>
+        </mat-list>
         
         <button mat-button color="primary" (click)="addItem()">Add Order</button>
                             <form *ngIf="isActive" #f="ngForm" (ngSubmit)="orderSubmit(f)">
