@@ -47,6 +47,7 @@ export class DetailAssortment implements OnInit {
     @Input() assortment: Assortment;
     items: Item[];
     imagePreview: string;
+    file;
 
     itemForm: FormGroup;
 
@@ -75,7 +76,9 @@ export class DetailAssortment implements OnInit {
     // Grabbing the image and setting productImage property 
     grabImage(event: Event) {
         let productImage = (event.target as HTMLInputElement).files[0];
+        this.file = productImage;
         const reader = new FileReader();
+        
         reader.onload = () => {
             this.imagePreview = reader.result;
         }
@@ -107,14 +110,24 @@ export class DetailAssortment implements OnInit {
             this.itemForm.get('assortment').value,
             this.itemForm.get('itemNumber').value,
             this.itemForm.get('description').value,
-            this.itemForm.get('quantity').value,
-            this.imagePreview
+            this.itemForm.get('quantity').value
         );
 
-        this.inventoryService.addItem(newItem).subscribe(data => {
-            this.items.push(newItem);
+        let formData = new FormData();
+        formData.append('assortment', this.itemForm.get('assortment').value);
+        formData.append('itemNumber', this.itemForm.get('itemNumber').value);
+        formData.append('description', this.itemForm.get('description').value);
+        formData.append('quantity', this.itemForm.get('quantity').value);
+        formData.append('image', this.file, this.file.name);
+
+        // this.inventoryService.addItem(newItem).subscribe(data => {
+        //     this.items.push(newItem);
+        //     console.log(data);
+        //     console.log(newItem);
+        // });
+
+        this.inventoryService.uploadImage(formData).subscribe(data => {
             console.log(data);
-            console.log(newItem);
         });
     }
 

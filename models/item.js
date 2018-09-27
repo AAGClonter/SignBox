@@ -8,7 +8,7 @@ const itemSchema = new Schema({
     description: { type: String, required: true },
     quantity: { type: Number, required: true },
     creationDate: { type: Date, default: Date.now },
-    image: { type: String }
+    imagePath: { type: String, required: true }
 });
 
 module.exports = mongoose.model('Item', itemSchema);

@@ -9,27 +9,22 @@ const Assortment = require('../models/assortment');
 const Item = require('../models/item');
 const Order = require('../models/order');
 
-const MIME_TYPE_MAP = {
-    'image/png': 'png',
-    'image/jpeg': 'jpg',
-    'image/jpg': 'jpg'
-}
+// const MIME_TYPE_MAP = {
+//     'image/png': 'png',
+//     'image/jpeg': 'jpg',
+//     'image/jpg': 'jpg'
+// }
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        const isValid = MIME_TYPE_MAP[file.mimetype];
-        let error = new Error('Invalid mimetype');
-        if (isValid) {
-            error = null;
-        }
-        cb(error, '/server/images');
+        cb(null, 'images/');
     },
     filename: (req, file, cb) => {
-        const name = file.originalname.toLowerCase().split(' ').join('-');
-        const ext = MIME_TYPE_MAP[file.mimetype];
-        cb(null, name + '-' + Date.now() + '.' + ext);
+        cb(null, file.originalname);
     }
 });
+
+var upload = multer({ storage: storage});
 
 // POST request new Assortment
 router.post('/newAssortment', (req, res, next) => {
@@ -112,18 +107,21 @@ router.put('/assortments/:id/update', (req, res, next) => {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // POST request new Item
-router.post('/newItem', multer({storage: storage}).single('image'), (req, res, next) => {
-    
+router.post('/newItem', upload.single('image'), (req, res, next) => {
+
+    const url = req.protocol + '://' + req.get('host');
+
     let myItem = new Item({
         assortment: req.body.assortment,
         itemNumber: req.body.itemNumber,
         description: req.body.description,
         quantity: req.body.quantity,
-        image: req.body.image
+        imagePath: url + '/images/' + req.file.filename
     });
-    myItem.save((err, result) => {
+
+    myItem.save((err, item) => {
         if (err) return next(err);
-        res.send(result);
+        res.send(item);
     });
     
 });
@@ -138,7 +136,6 @@ router.get('/items', (req, res, next) => {
         });
     });
 });
-
 
 // PUT request update item
 router.put('/items/:id/update', (req, res, next) => {

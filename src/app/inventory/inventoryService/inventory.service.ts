@@ -19,6 +19,12 @@ export class InventoryService {
         })
     };
 
+    httpOptionsUpload = {
+        headers: new HttpHeaders({
+            'Content-type': 'multipart/form-data'
+        })
+    };
+
     constructor(private httpClient: HttpClient) {}
 
     // POST request for Assortment
@@ -67,5 +73,9 @@ export class InventoryService {
 
     updateItem(item: Item): Observable<Item> {
         return this.httpClient.put<Item>(this.url + 'items/' + item._id + '/update', item, this.httpOptions);
+    }
+
+    uploadImage(image: FormData): Observable<FormData> {
+        return this.httpClient.post<FormData>(this.url + 'newItem', image);
     }
  }
