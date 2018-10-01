@@ -26,8 +26,8 @@
         <!--Assortments list -->
         <mat-list role="list">
             <h3 matSubheader>Assortments</h3>
-            <mat-list-item role="listitem" *ngFor="let assortment of assortments">
-                {{assortment.assortmentNumber}}: {{assortment.description}}
+            <mat-list-item role="listitem" *ngFor="let assortment of assortments" (click)="onGoToDetail(assortment)">
+                <p class="col-6">{{assortment.assortmentNumber}}: {{assortment.description}}</p>
                 <button mat-button color="primary" (click)="onDelete(assortment)">Delete</button>
                 <button mat-button color="primary" (click)="onUpdate(assortment)">Update</button>
                 <button 
@@ -36,12 +36,12 @@
                     (click)="onGoToDetail(assortment)">Detail</button>
             </mat-list-item>
         </mat-list>
-
+        <mat-divider></mat-divider>
         <!--Orders list-->
         <mat-list role="list">
             <h3 matSubheader>Orders</h3>
             <mat-list-item role="listitem" *ngFor="let order of orders">
-                {{order.orderNumber}}: {{order.retailer}} / {{order.requestedBy}}
+                <p class="col-6">{{order.orderNumber}}: {{order.retailer}} / {{order.requestedBy}}</p>
                 <button mat-button color="primary" (click)="onDeleteOrder(order)">Delete</button>
                 <button mat-button color="primary" (click)="onUpdate(assortment)">Update</button>
                 <button 

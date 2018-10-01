@@ -3,11 +3,50 @@
         <h1 class="down boxHeader">Sign In your Box</h1>
     </div>
 
-    <form [formGroup]="boxForm" (ngSubmit)="onSubmit()" style="width: 30%;">
-        
+    <form [formGroup]="boxForm" (ngSubmit)="onSubmit()" style="width: 30%;" class="form-group">
+
+        <label>From</label>
+        <input 
+            type="text" 
+            placeholder="From" 
+            name="from" 
+            formControlName="from"
+            class="form-control"
+        />
+
+        <label>Addressed To</label>
+        <input 
+            type="text" 
+            placeholder="Addressed To" 
+            name="addressedTo" 
+            formControlName="addressedTo"
+            class="form-control"
+        />
+
+        <label>Number of Boxes</label>
+        <input 
+            type="number" 
+            placeholder="Number Of Boxes" 
+            name="numberOfBoxes" 
+            formControlName="numberOfBoxes"
+            class="form-control"
+        />
+
+        <label>Master Tracking</label>
+        <input 
+            type="text" 
+            placeholder="Master Tracking" 
+            name="masterTracking" 
+            formControlName="masterTracking"
+            class="form-control"
+        />
+
+        <div class="alert alert-primary" role="alert" style="margin-top: 40px;">
+            Add all the shipments boxes below!!
+        </div>
+
         <button mat-button color="primary" type="button" (click)="onAddBoxes()">Add boxes</button>
 
-        <h4>Recipients</h4>
         <div style="display: flex; flex-direction: row;">
             <div formArrayName="addressedTo">
                 <!-- This is the elements of the form Array-->

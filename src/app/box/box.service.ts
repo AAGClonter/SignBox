@@ -8,6 +8,7 @@ import { Box } from './box.model';
 import { ErasedBox } from './erasedBox.model';
 import { Email } from './email.model';
 import { Employee } from './employee.model';
+import { Shipment } from './shipment.model';
 
 @Injectable()
 export class BoxService {
@@ -82,5 +83,12 @@ export class BoxService {
 
     deleteEmployee(box: Box) {
         return this.httpClient.get('http://localhost:3000/boxtosignout/' + box._id + '/boxsignout');
+    }
+
+    //// SHIPMENT NEW SECTION ////
+
+    // POST request new shipment creation
+    addShipment(shipment: Shipment) {
+        return this.httpClient.post('http://localhost:3000/boxes', shipment, this.httpOptions);
     }
 }
