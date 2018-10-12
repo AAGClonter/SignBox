@@ -52,7 +52,7 @@ app.use('/', signinBox);
 app.use('/', userRouter);
 app.use('/inventory', invRouter);
 app.use('/order', orderRouter);
-app.use('/', shipmentRouter);
+app.use('/shipment', shipmentRouter);
 
 // Catch all other routes and return the index file
 app.get('*', (req, res) => {

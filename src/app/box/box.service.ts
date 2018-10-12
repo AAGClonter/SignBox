@@ -28,8 +28,8 @@ export class BoxService {
     constructor(private httpClient: HttpClient, private http: Http) {}
 
     // POST request with httpClient
-    signinBox(box: Box) {
-        return this.httpClient.post('http://localhost:3000/boxes' + this.token, box, this.httpOptions);
+    signinBox(box: Box): Observable<Box> {
+        return this.httpClient.post<Box>('http://localhost:3000/boxes' + this.token, box, this.httpOptions);
     }
 
     getBoxes(): Observable<Box[]> {
@@ -66,7 +66,7 @@ export class BoxService {
                             const result = response.json();
                             const email = new Email(
                                 box.tracking,
-                                box.addressedTo
+                                box.addressed
                             )
                             return email;
                         })
@@ -89,6 +89,14 @@ export class BoxService {
 
     // POST request new shipment creation
     addShipment(shipment: Shipment) {
-        return this.httpClient.post('http://localhost:3000/boxes', shipment, this.httpOptions);
+        return this.httpClient.post('http://localhost:3000/shipment' + this.token, shipment, this.httpOptions);
+    }
+
+    getShipments(): Observable<Shipment[]>{
+        return this.httpClient.get<Shipment[]>('http://localhost:3000/shipment' + this.token);
+    }
+
+    getBoxesFromShipment(shipment: Shipment) {
+        return this.httpClient.get('http://localhost:3000/' + shipment.masterTracking + this.token);
     }
 }

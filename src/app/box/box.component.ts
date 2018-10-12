@@ -7,13 +7,13 @@ import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { BoxService } from './box.service';
 import { Box } from './box.model';
 import { Employee } from './employee.model';
-import { BoxForm } from './box.model';
 
 import 'rxjs/Rx';
 import { Observable, Subscription } from 'rxjs';
 import 'rxjs/add/operator/switchMap';
 
 import { trigger, state, style, animate, transition } from '@angular/animations';
+import { Shipment } from './shipment.model';
 
 @Component({
     selector: 'app-box',
@@ -42,6 +42,7 @@ export class BoxComponent implements OnInit, OnDestroy {
     group: FormGroup; // Form group that will be added
     boxes: Box[]; // Array of boxes already saved 
     employees: Employee[]; // Array of active employees
+    shipments: Shipment[];
 
     boxSubscription: Subscription;
     displayedColumns: string[] = ['number', 'tracking', 'employee', 'actions'];
@@ -62,12 +63,16 @@ export class BoxComponent implements OnInit, OnDestroy {
 
         // Creating the form 
         this.boxForm = this.formBuilder.group({
-                tracking: this.formBuilder.array([
-                    this.formBuilder.control('')
-                ]),
-                addressedTo: this.formBuilder.array([
-                    this.formBuilder.control('')
-                ])
+            from: this.formBuilder.control(''),
+            addressedTo: this.formBuilder.control(''),
+            numberOfBoxes: this.formBuilder.control(''),
+            masterTracking: this.formBuilder.control(''),
+            tracking: this.formBuilder.array([
+                this.formBuilder.control('')
+            ]),
+            addressed: this.formBuilder.array([
+                this.formBuilder.control('')
+            ])
         });
 
         this.boxSubscription = this.boxService.boxIsErased.subscribe(erasedBox => {
@@ -75,6 +80,11 @@ export class BoxComponent implements OnInit, OnDestroy {
                 return box._id === erasedBox._id;
             });
             this.boxes.splice(this.boxes.indexOf(boxToErase[0]), 1);
+        });
+
+        this.boxService.getShipments().subscribe(data => {
+            this.shipments = data;
+            console.log(this.shipments);
         });
     }
 
@@ -91,18 +101,32 @@ export class BoxComponent implements OnInit, OnDestroy {
     }
 
     onSubmit() {
+        let from = this.boxForm.get('from').value;
+        let addressedTo = this.boxForm.get('addressedTo').value;
+        let numberOfBoxes = this.boxForm.get('numberOfBoxes').value;
+        let masterTracking = this.boxForm.get('masterTracking').value;
+
         let trackings = this.boxForm.get('tracking').value;
-        let people = this.boxForm.get('addressedTo').value;
-        console.log(trackings, 'trackings');
-        console.log(people, 'people');
+        let people = this.boxForm.get('addressed').value;
         
         for (let i = 0, j = 0; i < trackings.length, j < people.length; i++, j++) {
-            let box = new Box(trackings[i], people[j]);
-            this.boxService.signinBox(box).subscribe(data => {
-                this.boxes.push(data['obj']);
-                console.log(data, 'This is the data');
-            })
+            let box = new Box(trackings[i], people[j], this.boxForm.get('masterTracking').value);
+            this.boxService.signinBox(box).subscribe((data: Box) => {
+                console.log(data);
+            });
         }
+
+        let newShipment: Shipment = {
+            from: from,
+            addressedTo: addressedTo,
+            numberOfBoxes: numberOfBoxes,
+            masterTracking: masterTracking
+        }
+
+        this.boxService.addShipment(newShipment).subscribe(data => {
+            console.log(data);
+            console.log(masterTracking);
+        });
     }
 
     onSubmitEmployee(form: NgForm) {
@@ -117,11 +141,17 @@ export class BoxComponent implements OnInit, OnDestroy {
         let trackingControl = new FormControl(null);
         let addressedToControl = new FormControl(null);
         (<FormArray>this.boxForm.get('tracking')).push(trackingControl);
-        (<FormArray>this.boxForm.get('addressedTo')).push(addressedToControl);
+        (<FormArray>this.boxForm.get('addressed')).push(addressedToControl);
     }
 
     editBox(boxToEdit: Box) {
         this.box = boxToEdit;
+    }
+
+    getBoxesFromShipment(shipment: Shipment) {
+        this.boxService.getBoxesFromShipment(shipment).subscribe(data => {
+            console.log(data);
+        });
     }
 }
 

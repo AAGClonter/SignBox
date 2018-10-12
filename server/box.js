@@ -56,7 +56,8 @@ router.post('/boxes', function(req, res, next){
         }
         var box = new Box({
             tracking: req.body.tracking,
-            addressedTo: req.body.addressedTo
+            addressed: req.body.addressed,
+            masterTracking: req.body.masterTracking
         });
 
         box.save(function(err, box){
@@ -66,8 +67,6 @@ router.post('/boxes', function(req, res, next){
                     error: err
                 });
             }
-            user.boxesSignedIn.push(box);
-            user.save();
             res.status(200).json({
                 message: 'Box created',
                 obj: box

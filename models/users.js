@@ -8,7 +8,7 @@ var userSchema = new Schema({
     pin: { type: String, required: true },
     boxesSignedIn: [{ type: Schema.Types.ObjectId, ref: "Box"}],
     invItemSignedIn: [{ type: Schema.Types.ObjectId, ref: "Item"}],
-    shipmentsSignedIn: [{ type: String }]
+    shipmentsSignedIn: [{ type: Schema.Types.ObjectId, ref: 'Shipment' }]
 });
 
 module.exports = mongoose.model('User', userSchema);

@@ -48,22 +48,15 @@
         <button mat-button color="primary" type="button" (click)="onAddBoxes()">Add boxes</button>
 
         <div style="display: flex; flex-direction: row;">
-            <div formArrayName="addressedTo">
-                <!-- This is the elements of the form Array-->
-                <mat-form-field *ngFor="let inputBox of boxForm.get('addressedTo').controls; let i = index">
-                    <input matInput type="text" placeholder="Addressed To:" [formControlName]="i">
-                </mat-form-field>
-                <!-- <span 
-                    *ngIf="!boxForm.get('tracking').valid && boxForm.get('tracking').touched"
-                    class="help-block">Please enter a valid input</span> -->
-            </div>
             <div formArrayName="tracking" style="margin-left: 30px;">
                 <mat-form-field *ngFor="let inputBox of boxForm.get('tracking').controls; let i = index">
                         <input matInput type="text" placeholder="Tracking:" [formControlName]="i">
                 </mat-form-field>
-                <!-- <span 
-                    *ngIf="!boxForm.get('addressedTo').valid && boxForm.get('addressedTo').touched"
-                    class="help-block">Please enter a valid input</span> -->
+            </div>
+            <div formArrayName="addressed">
+                <mat-form-field *ngFor="let inputBox of boxForm.get('addressed').controls; let i = index">
+                    <input matInput type="text" placeholder="Addressed To:" [formControlName]="i">
+                </mat-form-field>
             </div>
         </div>
         
@@ -89,41 +82,17 @@
         </form>
     </div>
   <div class="col down">
-      <h1 class="boxHeader">Boxes to Sign Out</h1>
+      <h1 class="boxHeader">Shipments</h1>
   </div>
   <div class="row down">
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">Tracking Number</th>
-          <th scope="col">Addressed To</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let box of boxes"
-            [@boxEnter]
-        >
-          <th scope="row">{{box.tracking}}</th>
-          <td>{{box.addressedTo}}</td>
-          <button 
-            mat-button
-            type="button" 
-            [routerLink]="['/boxtonotify', box._id, 'boxnotify']" 
-            color="primary"
-            >Notify</button>
-          <button 
-            mat-button
-            type="button"
-            (click)="editBox(box)">Edit</button>
-          <button 
-            mat-button
-            type="button" 
-            [routerLink]="['/boxtosignout', box._id, 'boxsignout']" 
-            color="warn"
-            >Sign Out</button>
-        </tr>
-      </tbody>
-  </table>
+        <div class="card text-white bg-dark mb-3" style="max-width: 18rem; margin-left: 40px;" *ngFor="let shipment of shipments" (click)="getBoxesFromShipment(shipment)">
+            <div class="card-header">Shipment {{shipment.masterTracking}}</div>
+            <div class="card-body">
+                <h5 class="card-title">From: {{shipment.from}} / To: {{shipment.addressedTo}}</h5>
+                <p class="card-text">{{shipment.addressedTo}} has {{shipment.numberOfBoxes}} boxes ready to be picked up</p>
+                <p>Arrived {{shipment.date | date}}</p>
+            </div>
+        </div>
   </div>
 </div>
 
