@@ -58,6 +58,11 @@
                     <input matInput type="text" placeholder="Addressed To:" [formControlName]="i">
                 </mat-form-field>
             </div>
+            <div formArrayName="masterTrackingA">
+                <div *ngFor="let inputBox of boxForm.get('masterTrackingA').controls; let i = index">
+                    <input type="hidden" [formControlName]="i" />
+                </div>
+            </div>
         </div>
         
         <button type="submit" mat-raised-button color="primary" [disabled]="!boxForm.valid">Submit Shipment</button>

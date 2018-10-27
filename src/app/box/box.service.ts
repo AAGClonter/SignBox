@@ -96,7 +96,7 @@ export class BoxService {
         return this.httpClient.get<Shipment[]>('http://localhost:3000/shipment' + this.token);
     }
 
-    getBoxesFromShipment(shipment: Shipment) {
-        return this.httpClient.get('http://localhost:3000/' + shipment.masterTracking + this.token);
+    getBoxesFromShipment(shipment: Shipment): Observable<Box[]> {
+        return this.httpClient.get<Box[]>('http://localhost:3000/shipment/' + shipment.masterTracking + this.token);
     }
 }

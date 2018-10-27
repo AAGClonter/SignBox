@@ -55,10 +55,10 @@ export class BoxComponent implements OnInit, OnDestroy {
             }
 
     ngOnInit() {
-        this.activatedRoute.data.subscribe((data: Data) => {
-            this.boxes = data['boxes']['obj'];
-        });
-        console.log(this.boxes);
+        // this.activatedRoute.data.subscribe((data: Data) => {
+        //     this.boxes = data['boxes']['obj'];
+        // });
+        // console.log(this.boxes);
         this.getEmployees(); // Getting existing Employees
 
         // Creating the form 
@@ -72,9 +72,13 @@ export class BoxComponent implements OnInit, OnDestroy {
             ]),
             addressed: this.formBuilder.array([
                 this.formBuilder.control('')
+            ]),
+            masterTrackingA: this.formBuilder.array([
+                this.formBuilder.control('')
             ])
         });
 
+        // Box subscription for deleting
         this.boxSubscription = this.boxService.boxIsErased.subscribe(erasedBox => {
             let boxToErase = this.boxes.filter(box => {
                 return box._id === erasedBox._id;
@@ -82,6 +86,7 @@ export class BoxComponent implements OnInit, OnDestroy {
             this.boxes.splice(this.boxes.indexOf(boxToErase[0]), 1);
         });
 
+        // Getting shipments 
         this.boxService.getShipments().subscribe(data => {
             this.shipments = data;
             console.log(this.shipments);
@@ -108,9 +113,10 @@ export class BoxComponent implements OnInit, OnDestroy {
 
         let trackings = this.boxForm.get('tracking').value;
         let people = this.boxForm.get('addressed').value;
+        let masterTrackings = this.boxForm.get('masterTrackingA').value;
         
-        for (let i = 0, j = 0; i < trackings.length, j < people.length; i++, j++) {
-            let box = new Box(trackings[i], people[j], this.boxForm.get('masterTracking').value);
+        for (let i = 0, j = 0, z = 0; i < trackings.length, j < people.length, z < masterTrackings.length; i++, j++, z++) {
+            let box = new Box(trackings[i], people[j], masterTracking);
             this.boxService.signinBox(box).subscribe((data: Box) => {
                 console.log(data);
             });
@@ -140,8 +146,10 @@ export class BoxComponent implements OnInit, OnDestroy {
     onAddBoxes() {
         let trackingControl = new FormControl(null);
         let addressedToControl = new FormControl(null);
+        let masterTrackingControl = new FormControl(null);
         (<FormArray>this.boxForm.get('tracking')).push(trackingControl);
         (<FormArray>this.boxForm.get('addressed')).push(addressedToControl);
+        (<FormArray>this.boxForm.get('masterTrackingA')).push(masterTrackingControl);
     }
 
     editBox(boxToEdit: Box) {

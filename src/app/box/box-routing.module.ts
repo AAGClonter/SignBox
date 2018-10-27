@@ -11,6 +11,7 @@ import { BoxNotifyResolver } from './resolvers/box-notify-resolver.service';
 const boxRoutes: Routes = [
     { path: 'boxtosignout/:id/boxsignout', component: BoxDetailComponent, resolve: {box: BoxDetailResolver} },
     { path: 'boxtonotify/:id/boxnotify', component: BoxNotifyComponent, resolve: {box: BoxNotifyResolver} },
+    { path: 'boxes/:masterTracking', component: BoxComponent },
     { path: 'boxes', component: BoxComponent, resolve: {boxes: BoxResolver} },
 ];
 
