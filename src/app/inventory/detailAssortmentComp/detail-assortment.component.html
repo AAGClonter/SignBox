@@ -57,6 +57,7 @@
             <img src="{{item.imagePath}}"/>
             <mat-card-content>
                 <p>{{item.quantity}}</p>
+                <button mat-raised-button (click)="deleteItem(item)">Delete Item</button>
             </mat-card-content>
         </mat-card>
 </div>

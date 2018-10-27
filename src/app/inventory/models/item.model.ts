@@ -4,8 +4,8 @@ export class Item {
     itemNumber: number;
     description: string;
     quantity: number;
-    creationDate?: Date;
     image?: string;
+    creationDate?: Date;
 
     constructor(
         assortment: number, 

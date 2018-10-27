@@ -131,6 +131,12 @@ export class DetailAssortment implements OnInit {
         });
     }
 
+    deleteItem(item: Item) {
+        this.inventoryService.deleteItem(item).subscribe(data => {
+            console.log(data);
+        });
+    }
+
     goBack() {
         this.location.back();
     }

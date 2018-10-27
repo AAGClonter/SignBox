@@ -75,6 +75,10 @@ export class InventoryService {
         return this.httpClient.put<Item>(this.url + 'items/' + item._id + '/update', item, this.httpOptions);
     }
 
+    deleteItem(item: Item) {
+        return this.httpClient.delete(this.url + 'items/' + item._id + '/delete', this.httpOptions);
+    }
+
     uploadImage(image: FormData): Observable<FormData> {
         return this.httpClient.post<FormData>(this.url + 'newItem', image);
     }

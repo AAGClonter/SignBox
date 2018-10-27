@@ -145,6 +145,7 @@ router.put('/items/:id/update', (req, res, next) => {
         item.itemNumber = req.body.itemNumber;
         item.description = req.body.description;
         item.quantity = req.body.quantity;
+        item.imagePath = item.imagePath;
         item.save((err, item) => {
             if (err) return next(err);
             res.status(200).json({
