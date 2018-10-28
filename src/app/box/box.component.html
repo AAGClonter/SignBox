@@ -96,6 +96,7 @@
                 <h5 class="card-title">From: {{shipment.from}} / To: {{shipment.addressedTo}}</h5>
                 <p class="card-text">{{shipment.addressedTo}} has {{shipment.numberOfBoxes}} boxes ready to be picked up</p>
                 <p>Arrived {{shipment.date | date}}</p>
+                <button mat-button color="primary" type="button" (click)="deleteShipment(shipment)">Delete</button>
             </div>
         </div>
   </div>

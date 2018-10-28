@@ -99,4 +99,8 @@ export class BoxService {
     getBoxesFromShipment(shipment: Shipment): Observable<Box[]> {
         return this.httpClient.get<Box[]>('http://localhost:3000/shipment/' + shipment.masterTracking + this.token);
     }
+
+    deleteShipment(shipment: Shipment) {
+        return this.httpClient.delete('http://localhost:3000/shipment/' + shipment._id + this.token);
+    }
 }

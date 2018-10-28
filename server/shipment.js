@@ -70,4 +70,32 @@ router.get('/:masterTracking', (req, res, next) => {
     });
 });
 
+router.delete('/:id', (req, res, next) => {
+    let decoded = jwt.decode(req.query.token);
+    User.findById(decoded.user._id, (err, user) => {
+        if (err) return next(err);
+        if (!user) {
+            return res.status(500).json({
+                message: 'An error occurred',
+                error: { message: 'An user could not be found'}
+            });
+        }
+
+        Shipment.findById(req.params.id, (err, shipment) => {
+            if (err) return next(err);
+            if (!shipment) {
+                return res.status(500).json({
+                    message: 'An error occurred',
+                    error: { message: 'Shipment was not found'}
+                });
+            }
+
+            shipment.remove((err, shipment) => {
+                if (err) return next(err);
+                res.status(200).json(shipment);
+            });
+        });
+    });
+});
+
 module.exports = router;

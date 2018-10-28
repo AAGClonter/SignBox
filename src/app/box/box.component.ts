@@ -161,6 +161,12 @@ export class BoxComponent implements OnInit, OnDestroy {
             console.log(data);
         });
     }
+
+    deleteShipment(shipment: Shipment) {
+        this.boxService.deleteShipment(shipment).subscribe(data => {
+            console.log(data);
+        })
+    }
 }
 
 
