@@ -131,9 +131,15 @@ export class DetailAssortment implements OnInit {
             console.log(data, 'This is data object from subscribe method');
             this.items.push(item);
             this.getAssortmentItems();
+            this.imagePreview = null;
         });
 
-        this.itemForm.reset();
+        this.itemForm.reset({
+            assortment: this.assortment.assortmentNumber,
+            itemNumber: '',
+            description: '',
+            quantity: ''
+        });
     }
 
     deleteItem(item: Item) {
