@@ -65,7 +65,7 @@ export class InventoryComponent implements OnInit {
     }
 
     orderSubmit(form: NgForm) {
-        let order: Order = {
+        let newOrder: Order = {
             orderNumber: form.value.orderNumber,
             requestedBy: form.value.requestedBy,
             retailer: form.value.retailer,
@@ -74,10 +74,12 @@ export class InventoryComponent implements OnInit {
             boxHeight: form.value.boxHeight
         }
 
-        this.orderService.addOrder(order).subscribe((order: Order) => {
-            this.orders.push(order);
+        this.orderService.addOrder(newOrder).subscribe((order: Order) => {
+            this.orders.push(order['obj']);
             console.log(order);
-        })
+        });
+
+        form.reset()
     }
 
     // Delete an assortment
