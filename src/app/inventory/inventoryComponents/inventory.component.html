@@ -103,7 +103,7 @@
                                     </mat-form-field>
                                         
                                     <button mat-button type="submit">Submit</button>
-                                    <button mat-raised-button color="primary" type="button" (click)="cancelOrderEdit()">Cancel</button>
+                                    <button *ngIf="order" mat-raised-button color="primary" type="button" (click)="cancelOrderEdit()">Cancel</button>
                                 </form>
 </div>
   
