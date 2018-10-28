@@ -14,6 +14,7 @@ import { OrderService } from '../../order/order.service';
 export class InventoryComponent implements OnInit {
 
     assortment: Assortment;
+    order: Order;
     assortments: Assortment[];
     panelOpenState: boolean = false;
     orders: Order[];
@@ -108,12 +109,22 @@ export class InventoryComponent implements OnInit {
         this.router.navigate(['order', order._id, 'order']);
     }
 
+    onUpdateOrder(order: Order) {
+        this.isActive = true;
+        this.order = order;
+    }
+
     addItem() {
         this.isActive = !this.isActive;
     }
 
     cancelEdit() {
         this.assortment = null;
+    }
+
+    cancelOrderEdit() {
+        this.order = null;
+        this.isActive = false;
     }
 
 }
