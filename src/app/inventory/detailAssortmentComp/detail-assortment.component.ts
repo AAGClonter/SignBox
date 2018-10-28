@@ -120,11 +120,19 @@ export class DetailAssortment implements OnInit {
         formData.append('quantity', this.itemForm.get('quantity').value);
         formData.append('image', this.file, this.file.name);
 
-        this.inventoryService.uploadImage(formData).subscribe(data => {
-            console.log(data);
+        this.inventoryService.uploadImage(formData).subscribe((data) => {
+            let item = new Item(
+                data['assortment'], 
+                data['itemNumber'], 
+                data['description'], 
+                data['quantity'],
+                data['imagePath']
+            );
+            console.log(data, 'This is data object from subscribe method');
+            this.items.push(item);
+            this.getAssortmentItems();
         });
 
-        this.getAssortmentItems(); 
         this.itemForm.reset();
     }
 

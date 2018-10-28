@@ -1,10 +1,10 @@
 export class Item {
-    _id?: string;
     assortment: number;
     itemNumber: number;
     description: string;
     quantity: number;
     image?: string;
+    _id?: string;
     creationDate?: Date;
 
     constructor(
