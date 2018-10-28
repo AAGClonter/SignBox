@@ -22,6 +22,7 @@ import { MatListModule } from '@angular/material/list';
 import { SearchComponent } from '../order/search/search.component';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
     declarations: [
@@ -45,7 +46,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
         MatGridListModule,
         MatListModule,
         MatRadioModule,
-        MatCheckboxModule
+        MatCheckboxModule,
+        MatDialogModule
     ],
     providers: [
         InventoryService,

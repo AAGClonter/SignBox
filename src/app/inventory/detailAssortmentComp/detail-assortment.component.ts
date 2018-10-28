@@ -120,15 +120,12 @@ export class DetailAssortment implements OnInit {
         formData.append('quantity', this.itemForm.get('quantity').value);
         formData.append('image', this.file, this.file.name);
 
-        // this.inventoryService.addItem(newItem).subscribe(data => {
-        //     this.items.push(newItem);
-        //     console.log(data);
-        //     console.log(newItem);
-        // });
-
         this.inventoryService.uploadImage(formData).subscribe(data => {
             console.log(data);
         });
+
+        this.getAssortmentItems(); 
+        this.itemForm.reset();
     }
 
     deleteItem(item: Item) {

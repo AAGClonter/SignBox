@@ -112,4 +112,8 @@ export class InventoryComponent implements OnInit {
         this.isActive = !this.isActive;
     }
 
+    cancelEdit() {
+        this.assortment = null;
+    }
+
 }

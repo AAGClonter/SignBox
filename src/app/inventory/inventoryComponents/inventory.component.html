@@ -20,6 +20,7 @@
                 </mat-form-field>
                     
                 <button mat-button type="submit">Add Assortment</button>
+                <button *ngIf="assortment" mat-raised-button type="button" color="primary" (click)="cancelEdit()">Cancel</button>
             </form>
         </div>
 
