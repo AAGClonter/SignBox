@@ -129,9 +129,8 @@ export class BoxComponent implements OnInit, OnDestroy {
             masterTracking: masterTracking
         }
 
-        this.boxService.addShipment(newShipment).subscribe(data => {
-            console.log(data);
-            console.log(masterTracking);
+        this.boxService.addShipment(newShipment).subscribe((data: Shipment) => {
+            this.shipments.push(data);
         });
     }
 
@@ -159,6 +158,7 @@ export class BoxComponent implements OnInit, OnDestroy {
     getBoxesFromShipment(shipment: Shipment) {
         this.boxService.getBoxesFromShipment(shipment).subscribe(data => {
             console.log(data);
+            this.boxes = data;
         });
     }
 

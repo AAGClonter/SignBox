@@ -42,6 +42,7 @@ import { UserService } from './auth/user.service';
 
         a {
             color: white;
+            text-decoration: none;
         }
 
         mat-toolbar {
