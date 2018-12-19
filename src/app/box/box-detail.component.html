@@ -1,13 +1,16 @@
 <div class="container" style="margin-top: 60px;">
-    <div *ngIf="box">
+    <div *ngIf="shipment">
         <div class="row">
-            <h3 class="down">Tracking Number:</h3>
+            <h3 class="down">Master Tracking</h3>
         </div>
         <div class="row">
-            <p>{{box.tracking}}</p>
+            <p>{{shipment.masterTracking}}</p>
         </div>
         <div class="row">
-            <h3>Addressed To:</h3>
+            <h3>Boxes</h3>
+            <div *ngFor="let box of boxes">
+                
+            </div>
         </div>
         <div class="row">
             <p>{{box.addressedTo}}</p>

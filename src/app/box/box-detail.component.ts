@@ -10,6 +10,7 @@ import { Observable } from "rxjs";
 import 'rxjs/add/operator/switchMap';
 
 import { Employee } from './employee.model';
+import { Box } from './box.model';
 
 import { ErasedBox } from './erasedBox.model';
 import { BoxService } from './box.service';
@@ -32,10 +33,16 @@ export class BoxDetailComponent implements OnInit {
                 private router: Router) {}
 
     @Input() shipment: Shipment;
+    boxes: Box[];
 
     ngOnInit() {
         this.route.data.subscribe((data: Data) => {
             this.shipment = data['box']['obj']
+        });
+
+        this.boxService.getBoxesFromShipment(this.shipment).subscribe((boxes: Box[]) => {
+            this.boxes = boxes;
+            console.log(boxes);
         });
     }
     
