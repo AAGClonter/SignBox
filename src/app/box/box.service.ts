@@ -103,4 +103,8 @@ export class BoxService {
     deleteShipment(shipment: Shipment) {
         return this.httpClient.delete('http://localhost:3000/shipment/' + shipment._id + this.token);
     }
+
+    getShipment(id: String): Observable<Shipment> {
+        return this.httpClient.get<Shipment>('http://localhost:3000/boxtosignout/' + id + '/boxsignout' + this.token);
+    }
 }

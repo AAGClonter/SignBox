@@ -9,11 +9,11 @@ import 'rxjs/Rx';
 import { Observable } from "rxjs";
 import 'rxjs/add/operator/switchMap';
 
-import { Box } from './box.model';
 import { Employee } from './employee.model';
 
 import { ErasedBox } from './erasedBox.model';
 import { BoxService } from './box.service';
+import { Shipment } from './shipment.model';
 
 @Component({
     selector: 'app-box-detail',
@@ -31,11 +31,11 @@ export class BoxDetailComponent implements OnInit {
                 private location: Location,
                 private router: Router) {}
 
-    @Input() box: Box;
+    @Input() shipment: Shipment;
 
     ngOnInit() {
         this.route.data.subscribe((data: Data) => {
-            this.box = data['box']['obj']
+            this.shipment = data['box']['obj']
         });
     }
     
@@ -43,20 +43,20 @@ export class BoxDetailComponent implements OnInit {
         this.location.back();
     }
 
-   onSubmit(form: NgForm){
-       const erasedBox = new ErasedBox(this.box, form.value.signedBy);
-        this.boxService.eraseBox(this.box, erasedBox)
-                        .subscribe(
-                            result => console.log(result)
-                        );
-        this.boxService.deleteBox(this.box)
-                        .subscribe(
-                            result => {
-                                this.boxService.boxIsErased.next(this.box);
-                                console.log(result)
-                            }
-                        );
-        this.router.navigateByUrl('/boxes');
-   }
+//    onSubmit(form: NgForm){
+//        const erasedBox = new ErasedBox(this.box, form.value.signedBy);
+//         this.boxService.eraseBox(this.box, erasedBox)
+//                         .subscribe(
+//                             result => console.log(result)
+//                         );
+//         this.boxService.deleteBox(this.box)
+//                         .subscribe(
+//                             result => {
+//                                 this.boxService.boxIsErased.next(this.box);
+//                                 console.log(result)
+//                             }
+//                         );
+//         this.router.navigateByUrl('/boxes');
+//    }
 }
    

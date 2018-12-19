@@ -4,16 +4,17 @@ import { Injectable } from "@angular/core";
 
 import { Observable } from 'rxjs';
 import { BoxService } from "../box.service";
+import { Shipment } from "../shipment.model";
 
 @Injectable()
-export class BoxDetailResolver implements Resolve<Box> {
+export class BoxDetailResolver implements Resolve<Shipment> {
 
     constructor(private boxService: BoxService) {}
 
     resolve(
         router: ActivatedRouteSnapshot,
         state: RouterStateSnapshot
-    ): Observable<Box> | Promise<Box> | Box {
-        return this.boxService.getBoxSignOut(router.params['id'])
+    ): Observable<Shipment> | Promise<Shipment> | Shipment {
+        return this.boxService.getShipment(router.params['id']);
     }
 }

@@ -159,6 +159,7 @@ export class BoxComponent implements OnInit, OnDestroy {
         this.boxService.getBoxesFromShipment(shipment).subscribe(data => {
             console.log(data);
             this.boxes = data;
+            this.route.navigate(['boxtosignout', shipment._id, 'boxsignout']);
         });
     }
 
