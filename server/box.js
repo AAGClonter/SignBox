@@ -140,20 +140,20 @@ router.patch('/boxes/:id', (req, res, next) => {
 });
 
 //Getting the Employee through a box
-router.get('/boxtosignout/:id/boxsignout', function(req, res, next){
-    Box.findById(req.params.id, function(err, box){
-        if (err) {
-            return res.status(500).json({
-                message: 'An error occurred',
-                error: err
-            });
-        }
-        res.status(200).json({
-            message: 'Employee found',
-            obj: box
-        });
-    });
-});
+// router.get('/boxtosignout/:id/boxsignout', function(req, res, next){
+//     Box.findById(req.params.id, function(err, box){
+//         if (err) {
+//             return res.status(500).json({
+//                 message: 'An error occurred',
+//                 error: err
+//             });
+//         }
+//         res.status(200).json({
+//             message: 'Employee found',
+//             obj: box
+//         });
+//     });
+// });
 //DELETE request for sign out
 router.delete('/boxtosignout/:id/boxsignout', function(req, res, next){
     let decoded = jwt.decode(req.query.token);

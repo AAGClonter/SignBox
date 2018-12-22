@@ -37,7 +37,7 @@ export class BoxDetailComponent implements OnInit {
 
     ngOnInit() {
         this.route.data.subscribe((data: Data) => {
-            this.shipment = data['box']['obj']
+            this.shipment = data['shipment'];
         });
 
         this.boxService.getBoxesFromShipment(this.shipment).subscribe((boxes: Box[]) => {

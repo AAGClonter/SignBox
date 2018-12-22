@@ -7,14 +7,15 @@
             <p>{{shipment.masterTracking}}</p>
         </div>
         <div class="row">
-            <h3>Boxes</h3>
-            <div *ngFor="let box of boxes">
-                
+            <div class="row">
+                <h3>Boxes</h3>
+                <div *ngFor="let box of boxes" style="margin-top: 40px;">
+                    <p>{{box.addressed}}</p>
+                    <p>{{box.tracking}}</p>
+                </div>
             </div>
         </div>
-        <div class="row">
-            <p>{{box.addressedTo}}</p>
-        </div>
+        
         <form (ngSubmit)="onSubmit(f)" class="form-group" #f="ngForm">
             <div>
                 <label for="signedBy">Signed by:</label>

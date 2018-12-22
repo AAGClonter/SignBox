@@ -9,7 +9,7 @@ import { BoxDetailResolver } from './resolvers/box-detail-resolver.service';
 import { BoxNotifyResolver } from './resolvers/box-notify-resolver.service';
 
 const boxRoutes: Routes = [
-    { path: 'boxtosignout/:id/boxsignout', component: BoxDetailComponent, resolve: {box: BoxDetailResolver} },
+    { path: 'boxtosignout/:id/boxsignout', component: BoxDetailComponent, resolve: {shipment: BoxDetailResolver} },
     { path: 'boxtonotify/:id/boxnotify', component: BoxNotifyComponent, resolve: {box: BoxNotifyResolver} },
     { path: 'boxes/:masterTracking', component: BoxComponent },
     { path: 'boxes', component: BoxComponent, resolve: {boxes: BoxResolver} },

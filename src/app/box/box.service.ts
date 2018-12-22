@@ -105,6 +105,6 @@ export class BoxService {
     }
 
     getShipment(id: String): Observable<Shipment> {
-        return this.httpClient.get<Shipment>('http://localhost:3000/boxtosignout/' + id + '/boxsignout' + this.token);
+        return this.httpClient.get<Shipment>('http://localhost:3000/shipment/boxtosignout/' + id + '/boxsignout' + this.token);
     }
 }
